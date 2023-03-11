@@ -37,7 +37,9 @@ func initDB() *mongo.Database {
 func startServer(handler *Handler) {
 	router := mux.NewRouter().StrictSlash(true)
 
-	router.HandleFunc("/hello", handler.UserHandler.HelloWorld).Methods("GET")
+	router.HandleFunc("/hello", handler.UserHandler.Hello).Methods("GET")
+	router.HandleFunc("/world", handler.FlightHandler.World).Methods("GET")
+	router.HandleFunc("/hi", handler.TicketHandler.Hi).Methods("GET")
 	println("Server starting")
 	log.Fatal(http.ListenAndServe(":8080", router))
 }

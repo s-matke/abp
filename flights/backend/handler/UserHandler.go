@@ -10,6 +10,6 @@ type Userhandler struct {
 	UserService *service.UserService
 }
 
-func (handler *Userhandler) HelloWorld(writer http.ResponseWriter, req *http.Request) {
-	fmt.Println("Hello World!")
+func (handler *Userhandler) Hello(writer http.ResponseWriter, req *http.Request) {
+	fmt.Println("Hello!")
 }
