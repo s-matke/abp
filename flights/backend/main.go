@@ -38,7 +38,6 @@ func startServer(handler *handler.FlightHandler) {
 	//router.HandleFunc()
 	// println("Server starting")
 	// log.Fatal(http.ListenAndServe(":8080", router))
-
 }
 
 func main() {
