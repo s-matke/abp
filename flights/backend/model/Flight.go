@@ -4,13 +4,19 @@ import (
 	"time"
 
 	"github.com/google/uuid"
+	"go.mongodb.org/mongo-driver/mongo"
 )
 
 type Flight struct {
-	Id             uuid.UUID `json:"id"`
+	ID             uuid.UUID `json:"id"`
 	Departure      time.Time
 	Origin         Location
 	Destination    Location
 	Price          float64
-	availableSeats int
+	AvailableSeats int
+}
+
+func (flight *Flight) BeforeCreate(*mongo.Database) error {
+	flight.ID = uuid.New()
+	return nil
 }
