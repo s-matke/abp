@@ -1,4 +1,4 @@
-# ABP - Acoomodation Booking Platform
+# ABP - Accomodation Booking Platform
 
 ## XML i Veb Servisi 2022/2023 AIN
 
