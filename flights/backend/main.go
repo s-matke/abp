@@ -7,7 +7,9 @@ import (
 	"flight/service"
 	"fmt"
 	"log"
+	"net/http"
 
+	"github.com/gorilla/mux"
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
 )
@@ -32,12 +34,18 @@ func initDB() *mongo.Database {
 	return client.Database("letovi-database")
 }
 
-func startServer(handler *handler.FlightHandler) {
-	//router := mux.NewRouter().StrictSlash(true)
+func startServer(handler *Handler) {
+	router := mux.NewRouter().StrictSlash(true)
 
-	//router.HandleFunc()
-	// println("Server starting")
-	// log.Fatal(http.ListenAndServe(":8080", router))
+	router.HandleFunc("/hello", handler.UserHandler.HelloWorld).Methods("GET")
+	println("Server starting")
+	log.Fatal(http.ListenAndServe(":8080", router))
+}
+
+type Handler struct {
+	FlightHandler handler.FlightHandler
+	UserHandler   handler.Userhandler
+	TicketHandler handler.TicketHandler
 }
 
 func main() {
@@ -45,9 +53,25 @@ func main() {
 	// Inicijalna podesavanja
 	database := initDB()
 
-	flightRepository := &repository.FlightRepository{Database: database}
-	service := &service.FlightService{FlightRepository: flightRepository}
-	handler := &handler.FlightHandler{FlightService: service}
+	// Repos
+	flightRepo := &repository.FlightRepository{Database: database}
+	userRepo := &repository.UserRepository{Database: database}
+	ticketRepo := &repository.TicketRepository{Database: database}
+
+	// Services
+	flightService := &service.FlightService{FlightRepository: flightRepo}
+	userService := &service.UserService{UserRepository: userRepo}
+	ticketService := &service.TicketService{TicketRepository: ticketRepo}
+
+	// Handlers
+	flightHandler := &handler.FlightHandler{FlightService: flightService}
+	userHandler := &handler.Userhandler{UserService: userService}
+	ticketHandler := &handler.TicketHandler{TicketService: ticketService}
+
+	handler := new(Handler)
+	handler.FlightHandler = *flightHandler
+	handler.UserHandler = *userHandler
+	handler.TicketHandler = *ticketHandler
 
 	// Pokretanje servera
 	startServer(handler)
