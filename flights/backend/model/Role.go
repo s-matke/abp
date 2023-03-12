@@ -3,6 +3,6 @@ package model
 type Role int
 
 const (
-	Regular = iota
-	Administrator
+	REGULAR Role = iota
+	ADMINISTRATOR
 )

@@ -31,7 +31,7 @@ func initDB() *mongo.Database {
 
 	fmt.Println("Uspesno uspostavljena veza sa MongoDB!")
 
-	return client.Database("letovi-database")
+	return client.Database("ain-xml")
 }
 
 func startServer(handler *Handler) {
@@ -40,13 +40,16 @@ func startServer(handler *Handler) {
 	router.HandleFunc("/hello", handler.UserHandler.Hello).Methods("GET")
 	router.HandleFunc("/world", handler.FlightHandler.World).Methods("GET")
 	router.HandleFunc("/hi", handler.TicketHandler.Hi).Methods("GET")
+
+	router.HandleFunc("/signup", handler.UserHandler.Create).Methods("POST")
+
 	println("Server starting")
 	log.Fatal(http.ListenAndServe(":8080", router))
 }
 
 type Handler struct {
 	FlightHandler handler.FlightHandler
-	UserHandler   handler.Userhandler
+	UserHandler   handler.UserHandler
 	TicketHandler handler.TicketHandler
 }
 
@@ -67,7 +70,7 @@ func main() {
 
 	// Handlers
 	flightHandler := &handler.FlightHandler{FlightService: flightService}
-	userHandler := &handler.Userhandler{UserService: userService}
+	userHandler := &handler.UserHandler{UserService: userService}
 	ticketHandler := &handler.TicketHandler{TicketService: ticketService}
 
 	handler := new(Handler)
