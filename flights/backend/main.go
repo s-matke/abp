@@ -44,7 +44,7 @@ func startServer(handler *Handler) {
 	router.HandleFunc("/signup", handler.UserHandler.Create).Methods("POST")
 
 	println("Server starting")
-	log.Fatal(http.ListenAndServe(":8080", router))
+	log.Fatal(http.ListenAndServe(":8084", router))
 }
 
 type Handler struct {
