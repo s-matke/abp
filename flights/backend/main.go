@@ -42,6 +42,7 @@ func startServer(handler *Handler) {
 	router.HandleFunc("/hi", handler.TicketHandler.Hi).Methods("GET")
 
 	router.HandleFunc("/signup", handler.UserHandler.Create).Methods("POST")
+	router.HandleFunc("/signin", handler.UserHandler.SignIn).Methods("POST")
 
 	println("Server starting")
 	log.Fatal(http.ListenAndServe(":8084", router))
