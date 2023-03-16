@@ -39,13 +39,14 @@ func startServer(handler *Handler) {
 
 	router.HandleFunc("/hello", handler.UserHandler.Hello).Methods("GET")
 	router.HandleFunc("/world", handler.FlightHandler.World).Methods("GET")
-	router.HandleFunc("/hi", handler.TicketHandler.Hi).Methods("GET")
 
 	router.HandleFunc("/signup", handler.UserHandler.Create).Methods("POST")
 	router.HandleFunc("/signin", handler.UserHandler.SignIn).Methods("POST")
-
+	router.HandleFunc("/createFlight", handler.FlightHandler.Create).Methods("POST")
+	router.HandleFunc("/showFlights", handler.FlightHandler.GetAllFlights).Methods("GET")
+	router.HandleFunc("/buyTicket", handler.TicketHandler.BuyTicket).Methods("POST")
 	println("Server starting")
-	log.Fatal(http.ListenAndServe(":8080", router))
+	log.Fatal(http.ListenAndServe(":8084", router))
 }
 
 type Handler struct {
