@@ -39,6 +39,7 @@ func startServer(handler *Handler) {
 
 	router.HandleFunc("/hello", handler.UserHandler.Hello).Methods("GET")
 	router.HandleFunc("/world", handler.FlightHandler.World).Methods("GET")
+	router.HandleFunc("/flights", handler.FlightHandler.GetAllFlights).Methods("GET")
 	router.HandleFunc("/hi", handler.TicketHandler.Hi).Methods("GET")
 
 	router.HandleFunc("/signup", handler.UserHandler.Create).Methods("POST")
