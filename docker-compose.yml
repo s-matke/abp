@@ -1,0 +1,36 @@
+version: '3.8'
+services:
+  flight-server:
+    build:
+      context: ./flights/backend/
+      dockerfile: Dockerfile
+    image: flights-server
+    container_name: flights-server
+    restart: always
+    networks:
+      - flights-net
+    ports:
+      - 8084:8084
+    depends_on:
+      - flights-database
+  
+  flights-database:
+    image: mongo
+    container_name: flights-database
+    restart: always
+    networks:
+      - flights-net
+    ports:
+      - 27017:27017
+    volumes:
+      - flights-database-data:/data/db
+
+volumes:
+  flights-database-data:
+    name: flights-database-data
+
+networks:
+  flights-net:
+    name: flights-net
+    driver: bridge
+    
