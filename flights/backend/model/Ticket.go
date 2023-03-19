@@ -8,9 +8,10 @@ import (
 )
 
 type Ticket struct {
-	ID       uuid.UUID
-	Flight   Flight
-	IssuedAt time.Time
+	ID              uuid.UUID
+	Flight          Flight
+	IssuedAt        time.Time
+	NumberOfTickets int
 }
 
 func (ticket *Ticket) BeforeCreate(*mongo.Database) error {
