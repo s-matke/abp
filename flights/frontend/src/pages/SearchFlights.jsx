@@ -4,53 +4,139 @@ import axios from "axios";
 
 
 const Container = styled.div`
-    background-color: red;
 `;
+const Title = styled.h1`
+padding:0px 30px;
+margin: 20px 0px 0px 0px;
+letter-spacing: 1.4px;
+color: #1a6666;
+
+`;
+
 
 const Form = styled.form`
   display: flex;
-  //gap: 16px;
-  flex-direction: column;
-  justify-content: center;
-  width: 300px;
+  gap: 30px;
+  flex-wrap: wrap;
+  justify-content: left;
+  align-items: bottom;
+  width: 100%;
   margin-top: 32px;
-  padding:20px;
+  padding:0px 30px;
 `;
 
 const Label = styled.label`
   font-size: 18px;
   font-weight: bold;
+  color: teal;
+
 `;
 
 const Input = styled.input`
-  font-size: 16px;
+  font-size: 15px;
   padding: 8px;
   border-radius: 4px;
   border: 1px solid #ccc;
+  background-color: #f1f1f1;
+  width: 200px;
+  font-weight: 500;
+  &:active{
+      border:1px solid teal;
+  }
 `;
-
+const LabelInputDiv = styled.div`
+    display:flex;
+    flex-direction: column;
+`;
 const Button = styled.button`
-  font-size: 16px;
-  padding: 8px 16px;
+    min-width: 200px;
+    height: 40px;
+  font-size: 14px;
+  margin:0px;
+  margin-top:14px;
+  padding: 0px 16px;
   background-color: #007bff;
   color: #fff;
   border: none;
-  border-radius: 4px;
+  border-radius: 30px;
   cursor: pointer;
+  text-transform: uppercase;
+  font-weight: 500;
 
   &:hover {
     background-color: #0062cc;
   }
 `;
+
+const FlightContainer = styled.div`
+    display:flex;
+    align-items: center;
+    justify-content: space-between;
+    margin:20px;
+    height: 200px;
+    padding:0px;
+    
+`;
+const FlightWrapper = styled.div`
+    border:1px solid #ccc;
+    display:flex;
+    width: ${(props) => props.width}   ;;
+    height:100%;
+    padding: 0px 20px 20px 20px;
+    flex-direction:  ${(props) => props.flex_direction};
+    justify-content:  ${(props) => props.justify_content};
+    align-items: center;
+
+`
+const FlightLeftWrapper = styled.div`
+    display:flex;
+    flex-direction: column;
+`;
+const FlightTitle = styled.h1`
+    font-size: 30px;
+    letter-spacing: 1.5px;
+    color:teal;
+    padding:0px;
+    margin:0px;
+`;
+
+const FlightDeparture = styled.h3`
+    font-size: 16px;
+    font-weight: 700;
+    padding:5px;
+    margin:0px;
+`;
+
+const FlightRightWrapper = styled.div`
+    display:flex;
+    gap:20px;
+    align-items: center;
+`;
+const TicketPrice = styled.h1`
+    font-size: 25px;
+    color:#ccc;
+    font-weight: 300;
+`;
+const TotalPrice = styled.h1`
+    font-size: 25px;
+    color:black;
+    font-weight: 600;
+`;
+
 const SearchFlights = () => {
-    const [departure, setDeparture] = useState("");
-  const [origin, setOrigin] = useState("New York");
-  const [destination, setDestination] = useState( "Los Angeles");
-  const [availableSeats, setAvailableSeats] = useState(1);
+    const [departure, setDeparture] = useState(new Date().toISOString().substr(0, 10));
+  const [origin, setOrigin] = useState("");
+  const [destination, setDestination] = useState("");
+  const [availableSeats, setAvailableSeats] = useState();
+  const [flights, setFlights] = useState([])
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(departure,
+    let departureDate = new Date(departure);
+    departureDate.setHours(0, 0, 0, 0);
+    let formattedDeparture = departureDate.toISOString();
+
+    console.log(formattedDeparture,
         origin,
         destination,
         availableSeats
@@ -63,16 +149,17 @@ const SearchFlights = () => {
         'Content-Type': 'application/json'
       },
       data: {
-        departure,
-        origin,
-        destination,
-        availableSeats
+        "departure":formattedDeparture,
+        "origin":origin,
+        "destination":destination,
+        "availableSeats":parseInt(availableSeats)
       }
     };
 
     axios.request(options)
       .then(function (response) {
         console.log(response.data);
+        setFlights(response.data);
       })
       .catch(function (error) {
         console.error(error);
@@ -81,45 +168,77 @@ const SearchFlights = () => {
 
   return (
     <Container>
+        <Title>Pretrazi letove po sledecim parametrima:</Title>
         <Form onSubmit={handleSubmit}>
-        <Label htmlFor="departure">Departure:</Label>
+            <LabelInputDiv>
+        <Label htmlFor="departure">Datum:</Label>
         <Input
-          type="datetime-local"
+          type="date"
           id="departure"
           value={departure}
           onChange={(e) => setDeparture(e.target.value)}
           required
         />
-
-        <Label htmlFor="origin">Origin:</Label>
+</LabelInputDiv>
+<LabelInputDiv>
+        <Label htmlFor="origin">Polazno Mesto:</Label>
         <Input
           type="text"
           id="origin"
           value={origin}
           onChange={(e) => setOrigin(e.target.value)}
-          required
+          //required
         />
-
-        <Label htmlFor="destination">Destination:</Label>
+</LabelInputDiv>
+<LabelInputDiv>
+        <Label htmlFor="destination">Destinacija:</Label>
         <Input
           type="text"
           id="destination"
           value={destination}
           onChange={(e) => setDestination(e.target.value)}
-          required
+          //required
         />
-
-        <Label htmlFor="availableSeats">Available Seats:</Label>
+</LabelInputDiv>
+<LabelInputDiv>
+        <Label htmlFor="availableSeats">Slobodnih Mesta:</Label>
         <Input
           type="number"
           id="availableSeats"
           value={availableSeats}
           onChange={(e) => setAvailableSeats(e.target.value)}
-          required
+          //required
         />
-
-        <Button type="submit">Search</Button>
+</LabelInputDiv>
+        <Button type="submit">Pretrazi</Button>
       </Form>
+      {flights?.map((item,index)=>{
+          const departureDate = item.departure.substring(0, 10);
+          const departureTime = item.departure.substring(11, 19);
+          return <FlightContainer key={index}>
+          <FlightWrapper flex_direction="normal" justify_content="space-around" width="70%">
+              <FlightLeftWrapper>
+              <FlightTitle>{item.origin.city}</FlightTitle>
+              <FlightDeparture>{departureDate}</FlightDeparture>
+              <FlightDeparture>{departureTime}</FlightDeparture>
+              </FlightLeftWrapper>
+              <FlightLeftWrapper>
+                  <FlightTitle>{item.destination.city}</FlightTitle>
+              </FlightLeftWrapper>
+          </FlightWrapper>
+          <FlightWrapper  flex_direction="column" justify_content="center" width="30%">
+              <FlightRightWrapper>
+                  <FlightTitle>Cena:</FlightTitle>
+              <TicketPrice>{item.price}.O EUR</TicketPrice>
+              </FlightRightWrapper>
+              <FlightRightWrapper>
+                  <FlightTitle> Ukupna cena: </FlightTitle>
+                {item.totalPrice===0 ? <TotalPrice>-</TotalPrice> : <TotalPrice>{item.totalPrice}.O EUR</TotalPrice>}
+              </FlightRightWrapper>
+          </FlightWrapper>
+          </FlightContainer>
+          ;
+      })}
     </Container>
   )
 }
