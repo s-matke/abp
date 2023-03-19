@@ -46,7 +46,7 @@ func (repository *FlightRepository) GetAllFlights() ([]primitive.M, error) {
 }
 
 func (repository *FlightRepository) SearchFlights(availableSeats int, departure time.Time, origin, destination string) ([]primitive.M, error) {
-
+	/*
 	filter := bson.M{
 		"availableseats": bson.M{"$gte": availableSeats},
 		"departure": bson.M{
@@ -55,7 +55,24 @@ func (repository *FlightRepository) SearchFlights(availableSeats int, departure 
 		},
 		"origin.city":      origin,
 		"destination.city": destination,
+	}*/
+	filter := bson.M{
+		"availableseats": bson.M{"$gte": availableSeats},
 	}
+	
+	if !departure.IsZero() {
+		filter["departure"] = bson.M{
+			"$gte": departure,
+			"$lt":  departure.Add(time.Hour * 23),
+		}
+	}
+	if origin != "" {
+		filter["origin.city"] = origin
+	}
+	if destination != "" {
+		filter["destination.city"] = destination
+	}
+
 
 	cursor, err := repository.Database.Collection("flights").Find(context.Background(), filter)
 	if err != nil {
@@ -71,10 +88,10 @@ func (repository *FlightRepository) SearchFlights(availableSeats int, departure 
 			return nil, err
 		}
 
-		// price := flight["Price"].(int32)
-		// totalPrice := price * int32(availableSeats)
+		price := flight["price"].(float64)
+		totalPrice := price * float64(availableSeats)
 
-		// flight["TotalPrice"] = totalPrice
+		flight["totalPrice"] = totalPrice
 
 		flights = append(flights, flight)
 	}
