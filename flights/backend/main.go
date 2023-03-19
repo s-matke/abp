@@ -10,6 +10,7 @@ import (
 	"net/http"
 
 	"github.com/gorilla/mux"
+	"github.com/rs/cors"
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
 )
@@ -47,7 +48,24 @@ func startServer(handler *Handler) {
 	router.HandleFunc("/searchFlights", handler.FlightHandler.GetFlightsBySearchCriteria).Methods("POST")
 	router.HandleFunc("/buyTicket", handler.TicketHandler.BuyTicket).Methods("POST")
 	println("Server starting")
-	log.Fatal(http.ListenAndServe(":8084", router))
+
+	corsSetup := SetupCors()
+
+	http.Handle("/", corsSetup.Handler(router))
+	err := http.ListenAndServe(":8084", corsSetup.Handler(router))
+	if err != nil {
+		log.Println(err)
+	}
+	// log.Fatal(http.ListenAndServe(":8084", router))
+}
+
+func SetupCors() *cors.Cors {
+	return cors.New(cors.Options{
+		AllowedOrigins:   []string{"*"},
+		AllowedMethods:   []string{"GET", "POST", "PUT", "DELETE"},
+		AllowedHeaders:   []string{"*"},
+		AllowCredentials: true,
+	})
 }
 
 type Handler struct {
