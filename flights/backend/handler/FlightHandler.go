@@ -47,23 +47,7 @@ func (handler *FlightHandler) GetAllFlights(writer http.ResponseWriter, req *htt
 	writer.WriteHeader(http.StatusOK)
 	json.NewEncoder(writer).Encode(&flights)
 }
-/*
-func (handler *FlightHandler) GetFlightsByAvailableSeats(writer http.ResponseWriter, req *http.Request) {
-	var requestBody struct {
-		AvailableSeats int `json:"availableSeats"`
-	}
-	if err := json.NewDecoder(req.Body).Decode(&requestBody); err != nil {
-		writer.WriteHeader(http.StatusBadRequest)
-		return
-	}
-	flights, err := handler.FlightService.GetFlightsByAvailableSeats(requestBody.AvailableSeats)
-	if err != nil {
-		writer.WriteHeader(http.StatusBadRequest)
-		return
-	}
-	writer.WriteHeader(http.StatusOK)
-	json.NewEncoder(writer).Encode(&flights)
-}*/
+
 
 func (handler *FlightHandler) GetFlightsBySearchCriteria(writer http.ResponseWriter, req *http.Request) {
 	var requestBody struct {

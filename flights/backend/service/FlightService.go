@@ -33,16 +33,6 @@ func (service *FlightService) GetAllFlights() ([]primitive.M, error) {
 	return flights, nil
 }
 
-/*
-func (service *FlightService) GetFlightsByAvailableSeats(availableSeats int) ([]primitive.M, error) {
-	var flights []primitive.M
-	flights, err := service.FlightRepository.GetFlightsByAvailableSeats(availableSeats)
-	if err != nil {
-		return nil, err
-	}
-	return flights, nil
-}*/
-
 func (service *FlightService) GetFlightsBySearchCriteria(departure time.Time, origin, destination string, availableSeats int) ([]primitive.M, error) {
 	flights, err := service.FlightRepository.SearchFlights(availableSeats, departure, origin, destination)
 	if err != nil {

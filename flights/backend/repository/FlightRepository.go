@@ -44,25 +44,7 @@ func (repository *FlightRepository) GetAllFlights() ([]primitive.M, error) {
 	defer cursor.Close(context.Background())
 	return flights, nil
 }
-/*
-func (repository *FlightRepository) GetFlightsByAvailableSeats(availableSeats int) ([]primitive.M, error) {
-	cursor, err := repository.Database.Collection("flights").Find(context.Background(), bson.M{"AvailableSeats": bson.M{"$gte": availableSeats}})
-	if err != nil {
-		return nil, err
-	}
-	var flights []primitive.M
-	for cursor.Next(context.Background()) {
-		var flight bson.M
-		err := cursor.Decode(&flight)
-		if err != nil {
-			return nil, err
-		}
-		flights = append(flights, flight)
-	}
-	defer cursor.Close(context.Background())
-	return flights, nil
-}
-*/
+
 func (repository *FlightRepository) SearchFlights(availableSeats int, departure time.Time, origin, destination string) ([]primitive.M, error) {         
 
 	fmt.Println("Vreme- ", departure, "\nDodato 23h: ",departure.Add(time.Hour * 23))
