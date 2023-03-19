@@ -45,17 +45,29 @@ func (repository *FlightRepository) GetAllFlights() ([]primitive.M, error) {
 	return flights, nil
 }
 
-func (repository *FlightRepository) SearchFlights(availableSeats int, departure time.Time, origin, destination string) ([]primitive.M, error) {         
 
-	fmt.Println("Vreme- ", departure, "\nDodato 23h: ",departure.Add(time.Hour * 23))
+
+
+func (repository *FlightRepository) SearchFlights(availableSeats int, departure time.Time, origin, destination string) ([]primitive.M, error) {         
+	departureUTC := departure.UTC()
+	
+	layout := "2006-01-02T15:04:05Z"
+	departureStr := departureUTC.Format(layout)
+	departureTime, err := time.Parse(layout, departureStr)
+	if err != nil {
+		return nil, err
+	}
+
+
+	fmt.Println("Vreme- ", departureTime, "\nDodato 23h: ",departureTime.Add(time.Hour * 23))
 	filter := bson.M{
 		"AvailableSeats": bson.M{"$gte": availableSeats},
-		"Departure": bson.M{
-			"$gte": departure,
-			"$lte": departure.Add(time.Hour * 23),
-		},
-		//"Origin.city":    origin,
-		//"Destination.city": destination,
+		/*"Departure": bson.M{
+			"$gte": departureTime,
+			"$lte": departureTime.Add(time.Hour * 23),
+		},*/
+		"Origin.city":    origin,
+		"Destination.city": destination,
 	}
 	
 	cursor, err := repository.Database.Collection("flights").Find(context.Background(), filter)
