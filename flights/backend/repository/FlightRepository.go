@@ -5,6 +5,8 @@ import (
 	"context"
 	"flight/model"
 
+	"time"
+
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/bson/primitive"
 	"go.mongodb.org/mongo-driver/mongo"
@@ -40,5 +42,42 @@ func (repository *FlightRepository) GetAllFlights() ([]primitive.M, error) {
 		flights = append(flights, flight)
 	}
 	defer cursor.Close(context.Background())
+	return flights, nil
+}
+
+func (repository *FlightRepository) SearchFlights(availableSeats int, departure time.Time, origin, destination string) ([]primitive.M, error) {
+
+	filter := bson.M{
+		"availableseats": bson.M{"$gte": availableSeats},
+		"departure": bson.M{
+			"$gte": departure,
+			"$lt":  departure.Add(time.Hour * 23),
+		},
+		"origin.city":      origin,
+		"destination.city": destination,
+	}
+
+	cursor, err := repository.Database.Collection("flights").Find(context.Background(), filter)
+	if err != nil {
+		return nil, err
+	}
+	defer cursor.Close(context.Background())
+
+	var flights []primitive.M
+	for cursor.Next(context.Background()) {
+		var flight bson.M
+		err := cursor.Decode(&flight)
+		if err != nil {
+			return nil, err
+		}
+
+		// price := flight["Price"].(int32)
+		// totalPrice := price * int32(availableSeats)
+
+		// flight["TotalPrice"] = totalPrice
+
+		flights = append(flights, flight)
+	}
+
 	return flights, nil
 }

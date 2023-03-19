@@ -7,6 +7,7 @@ import (
 	"flight/service"
 	"fmt"
 	"net/http"
+	"time"
 )
 
 type FlightHandler struct {
@@ -46,3 +47,27 @@ func (handler *FlightHandler) GetAllFlights(writer http.ResponseWriter, req *htt
 	writer.WriteHeader(http.StatusOK)
 	json.NewEncoder(writer).Encode(&flights)
 }
+
+
+func (handler *FlightHandler) GetFlightsBySearchCriteria(writer http.ResponseWriter, req *http.Request) {
+	var requestBody struct {
+		Departure     time.Time `json:"departure"`
+		Origin        string    `json:"origin"`
+		Destination   string    `json:"destination"`
+		AvailableSeats int       `json:"availableSeats"`
+	}
+	if err := json.NewDecoder(req.Body).Decode(&requestBody); err != nil {
+		writer.WriteHeader(http.StatusBadRequest)
+		return
+	}
+
+	flights, err := handler.FlightService.GetFlightsBySearchCriteria(requestBody.Departure, requestBody.Origin, requestBody.Destination, requestBody.AvailableSeats)
+	if err != nil {
+		writer.WriteHeader(http.StatusBadRequest)
+		return
+	}
+
+	writer.WriteHeader(http.StatusOK)
+	json.NewEncoder(writer).Encode(&flights)
+}
+

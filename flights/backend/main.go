@@ -44,6 +44,7 @@ func startServer(handler *Handler) {
 	router.HandleFunc("/signin", handler.UserHandler.SignIn).Methods("POST")
 	router.HandleFunc("/createFlight", handler.FlightHandler.Create).Methods("POST")
 	router.HandleFunc("/showFlights", handler.FlightHandler.GetAllFlights).Methods("GET")
+	router.HandleFunc("/searchFlights", handler.FlightHandler.GetFlightsBySearchCriteria).Methods("POST")
 	router.HandleFunc("/buyTicket", handler.TicketHandler.BuyTicket).Methods("POST")
 	println("Server starting")
 	log.Fatal(http.ListenAndServe(":8084", router))

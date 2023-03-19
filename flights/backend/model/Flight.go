@@ -10,7 +10,7 @@ import (
 type Flight struct {
 	ID             uuid.UUID `json:"id"`
 	Departure      time.Time
-	Origin         Location
+	Origin         Location `bson:"origin"`
 	Destination    Location
 	Price          float64
 	AvailableSeats int
