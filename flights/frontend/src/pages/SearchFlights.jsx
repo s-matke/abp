@@ -55,7 +55,7 @@ const Button = styled.button`
   margin:0px;
   margin-top:14px;
   padding: 0px 16px;
-  background-color: #007bff;
+  background-color: ${(props)=> props.background_color};
   color: #fff;
   border: none;
   border-radius: 30px;
@@ -136,11 +136,6 @@ const SearchFlights = () => {
     departureDate.setHours(0, 0, 0, 0);
     let formattedDeparture = departureDate.toISOString();
 
-    console.log(formattedDeparture,
-        origin,
-        destination,
-        availableSeats
-      )
     const options = {
       method: 'POST',
       url: 'http://localhost:8084/searchFlights',
@@ -163,9 +158,33 @@ const SearchFlights = () => {
       })
       .catch(function (error) {
         console.error(error);
-      });
+      });      
   }
+    useEffect(()=>{
+      async function fetchFlights() {
+        try {
+          const options = {
+            method: 'GET',
+            headers: { Authorization: 'Token 9b85c3784a75fa85e8ae3fc58ca69ff9136af186' }
+          };
+      
+          const response = await fetch('http://localhost:8084/showFlights', options);
+          const data = await response.json();
+          
+          console.log(data);
+          setFlights(data);
+        } catch (error) {
+          console.error(error);
+        }
+      }
+      
+      fetchFlights();
+    },[])
 
+    const handleClick = (id) => {
+      console.log(`Button ${id} je kliknut Kali`);
+    }
+    
   return (
     <Container>
         <Title>Pretrazi letove po sledecim parametrima:</Title>
@@ -210,7 +229,7 @@ const SearchFlights = () => {
           //required
         />
 </LabelInputDiv>
-        <Button type="submit">Pretrazi</Button>
+        <Button type="submit" background_color="#0000FF">Pretrazi</Button>
       </Form>
       {flights?.map((item,index)=>{
           const departureDate = item.departure.substring(0, 10);
@@ -235,6 +254,7 @@ const SearchFlights = () => {
                   <FlightTitle> Ukupna cena: </FlightTitle>
                 {item.totalPrice===0 ? <TotalPrice>-</TotalPrice> : <TotalPrice>{item.totalPrice}.O EUR</TotalPrice>}
               </FlightRightWrapper>
+                <Button onClick={() => handleClick(index)} background_color="#953553">Kali123</Button>
           </FlightWrapper>
           </FlightContainer>
           ;
