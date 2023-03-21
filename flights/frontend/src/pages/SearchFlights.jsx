@@ -1,7 +1,7 @@
 import {useEffect, useState} from 'react'
 import styled from "styled-components"
 import axios from "axios";
-
+import 'bootstrap/dist/css/bootstrap.css';
 
 const Container = styled.div`
 `;
@@ -129,7 +129,7 @@ const SearchFlights = () => {
   const [destination, setDestination] = useState("");
   const [availableSeats, setAvailableSeats] = useState();
   const [flights, setFlights] = useState([])
-
+  const [NumberOfTicket,setNumberOfTicket] = useState(0);
   const handleSubmit = (e) => {
     e.preventDefault();
     let departureDate = new Date(departure);
@@ -166,6 +166,25 @@ const SearchFlights = () => {
       });
   }
 
+const handleClick = index =>
+{
+  axios.post('http://localhost:8084/buyTicket',
+  {
+    
+      "IdFlight":flights[index]._id,
+      "flight":{"Origin":{"Country":flights[index].origin.country,"City":flights[index].origin.city,"Address":flights[index].origin.address},
+             "Destination":{"Country":flights[index].destination.country,"City":flights[index].destination.city,"Address":flights[index].destination.address},
+             "Price":flights[index].price,
+             "AvailableSeats":flights[index].availableseats},
+      "IdUser":"64131dbd094da557f1ed845e",
+      "NumberOfTickets":parseInt(NumberOfTicket)
+  })
+  alert('Successfully buy ticket!');
+  window.location.reload(true) 
+}
+
+
+  
   return (
     <Container>
         <Title>Pretrazi letove po sledecim parametrima:</Title>
@@ -213,8 +232,10 @@ const SearchFlights = () => {
         <Button type="submit">Pretrazi</Button>
       </Form>
       {flights?.map((item,index)=>{
+        
           const departureDate = item.departure.substring(0, 10);
           const departureTime = item.departure.substring(11, 19);
+          
           return <FlightContainer key={index}>
           <FlightWrapper flex_direction="normal" justify_content="space-around" width="70%">
               <FlightLeftWrapper>
@@ -235,6 +256,16 @@ const SearchFlights = () => {
                   <FlightTitle> Ukupna cena: </FlightTitle>
                 {item.totalPrice===0 ? <TotalPrice>-</TotalPrice> : <TotalPrice>{item.totalPrice}.O EUR</TotalPrice>}
               </FlightRightWrapper>
+             <FlightRightWrapper>
+              <LabelInputDiv>
+                <Label htmlFor="origin">Enter the number of ticket:</Label>
+                  <Input type='number' min='1' onChange={e => setNumberOfTicket(e.target.value)}/>
+              </LabelInputDiv>
+             
+                <button type="button" class="btn btn-danger" onClick={ () => handleClick(index)} value={NumberOfTicket} 
+                 >Buy ticket</button>
+              
+              </FlightRightWrapper> 
           </FlightWrapper>
           </FlightContainer>
           ;
