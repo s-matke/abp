@@ -15,7 +15,6 @@ type FlightService struct {
 }
 
 func (service *FlightService) Create(flight *model.Flight) error {
-	flight.Departure = time.Now()
 	err := service.FlightRepository.Create(flight)
 
 	if err != nil {

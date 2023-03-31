@@ -8,12 +8,12 @@ import (
 )
 
 type Flight struct {
-	ID             uuid.UUID `json:"id"`
-	Departure      time.Time
-	Origin         Location `bson:"origin"`
-	Destination    Location
-	Price          float64
-	AvailableSeats int
+	ID             uuid.UUID `bson:"id" json:"id"`
+	Departure      time.Time `bson:"departure" json:"departure"`
+	Origin         Location  `bson:"origin" json:"origin"`
+	Destination    Location  `bson:"destination" json:"destination"`
+	Price          float64   `bson:"price" json:"price"`
+	AvailableSeats int       `bson:"availableSeats" json:"availableSeats"`
 }
 
 func (flight *Flight) BeforeCreate(*mongo.Database) error {
