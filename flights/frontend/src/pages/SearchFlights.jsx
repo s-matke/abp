@@ -2,6 +2,8 @@ import {useEffect, useState} from 'react'
 import styled from "styled-components"
 import axios from "axios";
 import 'bootstrap/dist/css/bootstrap.css';
+import ShowUserTickets from './ShowUserTickets';
+import { BrowserRouter, Route, Routes, useNavigate } from 'react-router-dom';
 
 const Container = styled.div`
 `;
@@ -124,12 +126,14 @@ const TotalPrice = styled.h1`
 `;
 
 const SearchFlights = () => {
-    const [departure, setDeparture] = useState(new Date().toISOString().substr(0, 10));
+  const [departure, setDeparture] = useState(new Date().toISOString().substr(0, 10));
   const [origin, setOrigin] = useState("");
   const [destination, setDestination] = useState("");
   const [availableSeats, setAvailableSeats] = useState();
   const [flights, setFlights] = useState([])
   const [NumberOfTicket,setNumberOfTicket] = useState(0);
+  const navigate = useNavigate()
+ 
   const handleSubmit = (e) => {
     e.preventDefault();
     let departureDate = new Date(departure);
@@ -166,23 +170,36 @@ const SearchFlights = () => {
       });
   }
 
+
 const handleClick = index =>
 {
-  axios.post('http://localhost:8084/buyTicket',
-  {
-    
-      "IdFlight":flights[index]._id,
-      "flight":{"Origin":{"Country":flights[index].origin.country,"City":flights[index].origin.city,"Address":flights[index].origin.address},
-             "Destination":{"Country":flights[index].destination.country,"City":flights[index].destination.city,"Address":flights[index].destination.address},
-             "Price":flights[index].price,
-             "AvailableSeats":flights[index].availableseats},
-      "IdUser":"64131dbd094da557f1ed845e",
-      "NumberOfTickets":parseInt(NumberOfTicket)
-  })
-  alert('Successfully buy ticket!');
-  window.location.reload(true) 
-}
+  if (NumberOfTicket <= 0)
+    {
+      alert("Incorrect input!")
+      return
+    }
+  else
+    {
+      axios.post('http://localhost:8084/buyTicket',
+        {
+          "IdFlight":flights[index]._id,
+          "flight":
+          {
+          "Origin":{"Country":flights[index].origin.country,"City":flights[index].origin.city,"Address":flights[index].origin.address},
+          "Destination":{"Country":flights[index].destination.country,"City":flights[index].destination.city,"Address":flights[index].destination.address},
+          "Price":flights[index].price,
+          "AvailableSeats":flights[index].availableseats,
+          "Departure" : flights[index].departure
+          },
+          "IdUser":"64270b757820ffdc26d3506b",
+          "NumberOfTickets":parseInt(NumberOfTicket)
+        })
 
+  navigate('/ShowUserTickets', {state : {id:"64270b757820ffdc26d3506b"}})
+
+    }
+}
+  
 
   
   return (
@@ -258,13 +275,11 @@ const handleClick = index =>
               </FlightRightWrapper>
              <FlightRightWrapper>
               <LabelInputDiv>
-                <Label htmlFor="origin">Enter the number of ticket:</Label>
-                  <Input type='number' min='1' onChange={e => setNumberOfTicket(e.target.value)}/>
+                <Label htmlFor='origin'>Enter the number of ticket:</Label>
+                  <Input type = 'number' min = '1' onChange = {e => setNumberOfTicket(e.target.value)}/>
               </LabelInputDiv>
-             
-                <button type="button" class="btn btn-danger" onClick={ () => handleClick(index)} value={NumberOfTicket} 
+                <button type = 'button' class = 'btn btn-danger' onClick = {() => handleClick(index)} value = {NumberOfTicket} 
                  >Buy ticket</button>
-              
               </FlightRightWrapper> 
           </FlightWrapper>
           </FlightContainer>
