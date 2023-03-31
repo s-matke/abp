@@ -4,12 +4,15 @@ package repository
 import (
 	"context"
 	"flight/model"
+	"fmt"
 
 	"time"
 
+	"github.com/google/uuid"
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/bson/primitive"
 	"go.mongodb.org/mongo-driver/mongo"
+	//"go.mongodb.org/mongo-driver/mongo/options"
 )
 
 type FlightRepository struct {
@@ -24,6 +27,26 @@ func (repository *FlightRepository) Create(flight *model.Flight) error {
 	}
 
 	println("Successfully added flight: ", dbResult.InsertedID.(primitive.ObjectID).Hex())
+	return nil
+}
+
+func (repository *FlightRepository) DeleteFlight(ID uuid.UUID) error {
+	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
+	defer cancel()
+
+	flightsCollection := repository.Database.Collection("flights")
+
+	filter := bson.M{"_id": ID}
+
+	result, err := flightsCollection.DeleteOne(ctx, filter)
+	if err != nil {
+		return err
+	}
+
+	if result.DeletedCount == 0 {
+		return fmt.Errorf("flight not found")
+	}
+
 	return nil
 }
 
@@ -47,19 +70,19 @@ func (repository *FlightRepository) GetAllFlights() ([]primitive.M, error) {
 
 func (repository *FlightRepository) SearchFlights(availableSeats int, departure time.Time, origin, destination string) ([]primitive.M, error) {
 	/*
-	filter := bson.M{
-		"availableseats": bson.M{"$gte": availableSeats},
-		"departure": bson.M{
-			"$gte": departure,
-			"$lt":  departure.Add(time.Hour * 23),
-		},
-		"origin.city":      origin,
-		"destination.city": destination,
-	}*/
+		filter := bson.M{
+			"availableseats": bson.M{"$gte": availableSeats},
+			"departure": bson.M{
+				"$gte": departure,
+				"$lt":  departure.Add(time.Hour * 23),
+			},
+			"origin.city":      origin,
+			"destination.city": destination,
+		}*/
 	filter := bson.M{
 		"availableseats": bson.M{"$gte": availableSeats},
 	}
-	
+
 	if !departure.IsZero() {
 		filter["departure"] = bson.M{
 			"$gte": departure,
@@ -72,7 +95,6 @@ func (repository *FlightRepository) SearchFlights(availableSeats int, departure 
 	if destination != "" {
 		filter["destination.city"] = destination
 	}
-
 
 	cursor, err := repository.Database.Collection("flights").Find(context.Background(), filter)
 	if err != nil {
