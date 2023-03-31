@@ -6,7 +6,6 @@ import (
 	"flight/repository"
 	"time"
 
-	"github.com/google/uuid"
 	"go.mongodb.org/mongo-driver/bson/primitive"
 )
 
@@ -24,8 +23,8 @@ func (service *FlightService) Create(flight *model.Flight) error {
 	return nil
 }
 
-func (service *FlightService) DeleteFlight(ID uuid.UUID) error {
-	err := service.FlightRepository.DeleteFlight(ID)
+func (service *FlightService) DeleteFlight(id primitive.ObjectID) error {
+	err := service.FlightRepository.DeleteFlight(id)
 	if err != nil {
 		return err
 	}

@@ -9,7 +9,7 @@ import (
 	"net/http"
 	"time"
 
-	"github.com/google/uuid"
+	"go.mongodb.org/mongo-driver/bson/primitive"
 	//"go.mongodb.org/mongo-driver/mongo"
 )
 
@@ -74,8 +74,9 @@ func (handler *FlightHandler) GetFlightsBySearchCriteria(writer http.ResponseWri
 }
 
 func (handler *FlightHandler) DeleteFlight(writer http.ResponseWriter, req *http.Request) {
-	ID := req.URL.Query().Get("ID")
-	err := handler.FlightService.DeleteFlight(uuid.MustParse(ID))
+	id := req.URL.Query().Get("id")
+	objId, _ := primitive.ObjectIDFromHex(id)
+	err := handler.FlightService.DeleteFlight(objId)
 	if err != nil {
 		http.Error(writer, err.Error(), http.StatusInternalServerError)
 		return
