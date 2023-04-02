@@ -48,6 +48,7 @@ func startServer(handler *Handler) {
 	router.HandleFunc("/showFlights", handler.FlightHandler.GetAllFlights).Methods("GET")
 	router.HandleFunc("/searchFlights", handler.FlightHandler.GetFlightsBySearchCriteria).Methods("POST")
 	router.HandleFunc("/buyTicket", handler.TicketHandler.BuyTicket).Methods("POST")
+	router.HandleFunc("/showTickets/{idUser}", handler.TicketHandler.ShowUserTickets).Methods("GET")
 	println("Server starting")
 
 	corsSetup := SetupCors()

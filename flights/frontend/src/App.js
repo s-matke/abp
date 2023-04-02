@@ -2,6 +2,8 @@
 import {BrowserRouter, Routes, Route} from "react-router-dom";
 import Home from "./pages/Home";
 import SearchFlights from "./pages/SearchFlights";
+import ShowUserTickets from "./pages/ShowUserTickets";
+
 import Signup from "./pages/signup/Signup";
 import Sidebar from "./components/Sidebar/Sidebar";
 
@@ -14,6 +16,7 @@ function App() {
           <Route path="/" element={<Home />}></Route>
           <Route path="/flight/search" element={<SearchFlights />}></Route>
           <Route path="/signup" element={<Signup />}></Route>
+          <Route path="/showUserTickets" element={<ShowUserTickets/>}></Route>
         </Routes>
       </BrowserRouter>
     </>

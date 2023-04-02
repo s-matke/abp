@@ -4,6 +4,7 @@ package service
 import (
 	"flight/model"
 	"flight/repository"
+	"math/rand"
 	"time"
 
 	"github.com/google/uuid"
@@ -14,8 +15,18 @@ type FlightService struct {
 	FlightRepository *repository.FlightRepository
 }
 
+func randate() time.Time {
+	min := time.Date(2024, 1, 0, 0, 0, 0, 0, time.UTC).Unix()
+	max := time.Date(2070, 1, 0, 0, 0, 0, 0, time.UTC).Unix()
+	delta := max - min
+
+	sec := rand.Int63n(delta) + min
+	return time.Unix(sec, 0)
+}
+
 func (service *FlightService) Create(flight *model.Flight) error {
-	flight.Departure = time.Now()
+
+	flight.Departure = randate()
 	err := service.FlightRepository.Create(flight)
 
 	if err != nil {

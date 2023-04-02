@@ -2,7 +2,9 @@ package repository
 
 import (
 	"context"
+	"flight/dto"
 	"flight/model"
+
 	"time"
 
 	"go.mongodb.org/mongo-driver/bson"
@@ -52,8 +54,36 @@ func (repository *TicketRepository) BuyTicket(ticket *model.DTOTicket) error {
 	_, err3 := repository.Database.Collection("users").UpdateOne(context.TODO(), filterUser, updateUser)
 
 	if err3 != nil {
+
 		return nil
 	}
 
 	return nil
+}
+
+func (repository *TicketRepository) ShowUserTickets(idUser string) ([]dto.TicketPresenetDTO, error) {
+
+	objectId, err := primitive.ObjectIDFromHex(idUser)
+	if err != nil {
+		return nil, nil
+	}
+	var result model.User
+	err1 := repository.Database.Collection("users").FindOne(context.TODO(), bson.M{"_id": objectId}).Decode(&result)
+	if err1 != nil {
+		return nil, nil
+	}
+	var tickets []model.Ticket
+	tickets = result.OwnedTickets
+	var ticketPresent []dto.TicketPresenetDTO
+
+	for _, item := range tickets {
+		var tPresent dto.TicketPresenetDTO
+		tPresent.Destination = item.Flight.Destination
+		tPresent.Origin = item.Flight.Origin
+		tPresent.Price = item.Flight.Price
+		tPresent.NumberOfTickets = item.NumberOfTickets
+		tPresent.Departure = item.Flight.Departure.Format("2006-01-02 15:04:05")
+		ticketPresent = append(ticketPresent, tPresent)
+	}
+	return ticketPresent, nil
 }
