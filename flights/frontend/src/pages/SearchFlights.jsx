@@ -270,6 +270,13 @@ const handleClick = index =>
             navigate('/tickets/owned', {state : {id: userId}})
           }
         })
+        .catch(error => {
+          if (error.response.status === 409) {
+            toast.error('No available seats!', {
+              position: toast.POSITION.TOP_CENTER
+          })
+          }
+        })
 
     }
 }
@@ -291,7 +298,7 @@ const handleClick = index =>
         />
 </LabelInputDiv>
 <LabelInputDiv>
-        <Label htmlFor="origin">Origin country:</Label>
+        <Label htmlFor="origin">Origin city:</Label>
         <Input
           type="text"
           id="origin"
@@ -301,7 +308,7 @@ const handleClick = index =>
         />
 </LabelInputDiv>
 <LabelInputDiv>
-        <Label htmlFor="destination">Destination country:</Label>
+        <Label htmlFor="destination">Destination city:</Label>
         <Input
           type="text"
           id="destination"
