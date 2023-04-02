@@ -11,7 +11,7 @@ function ShowUserTickets({params}) {
     const[tickets, setTickets] = useState([])
     const {state} = useLocation()
     useEffect(() => {
-        axios.get('http://localhost:8084/showTickets/'+id.id)
+        axios.get('http://localhost:8084/showTickets/')
         .then(response => {
             console.log(response)
             setTickets(response.data)
