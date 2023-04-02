@@ -12,7 +12,11 @@ function ShowUserTickets({params}) {
     const {state} = useLocation()
     console.log(state)
     useEffect(() => {
+<<<<<<< HEAD
         axios.get('http://localhost:8084/showTickets/'+"56705ce0-4234-4b13-b3c8-ff25a52e58d9")
+=======
+        axios.get('http://localhost:8084/showTickets/')
+>>>>>>> ded85e3c6a0064db1a4523dc37fd3fc954072d16
         .then(response => {
             console.log(response)
             setTickets(response.data)

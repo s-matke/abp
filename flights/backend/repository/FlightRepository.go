@@ -8,7 +8,6 @@ import (
 
 	"time"
 
-	"github.com/google/uuid"
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/bson/primitive"
 	"go.mongodb.org/mongo-driver/mongo"
@@ -30,13 +29,13 @@ func (repository *FlightRepository) Create(flight *model.Flight) error {
 	return nil
 }
 
-func (repository *FlightRepository) DeleteFlight(ID uuid.UUID) error {
+func (repository *FlightRepository) DeleteFlight(id primitive.ObjectID) error {
 	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
 	defer cancel()
 
 	flightsCollection := repository.Database.Collection("flights")
 
-	filter := bson.M{"_id": ID}
+	filter := bson.M{"_id": id}
 
 	result, err := flightsCollection.DeleteOne(ctx, filter)
 	if err != nil {
