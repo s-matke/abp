@@ -182,6 +182,27 @@ const SearchFlights = () => {
       });
   }
 
+  useEffect(()=>{
+      async function fetchFlights() {
+        try {
+          const options = {
+            method: 'GET',
+            headers: { Authorization: 'Token 9b85c3784a75fa85e8ae3fc58ca69ff9136af186' }
+          };
+      
+          const response = await fetch('http://localhost:8084/showFlights', options);
+          const data = await response.json();
+          
+          console.log(data);
+          setFlights(data);
+        } catch (error) {
+          console.error(error);
+        }
+      }
+      
+      fetchFlights();
+    },[])
+
 
 const handleClick = index =>
 {

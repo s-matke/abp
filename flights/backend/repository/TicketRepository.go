@@ -7,6 +7,7 @@ import (
 
 	"time"
 
+	"github.com/google/uuid"
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/bson/primitive"
 	"go.mongodb.org/mongo-driver/mongo"
@@ -21,6 +22,7 @@ func (repository *TicketRepository) BuyTicket(ticket *model.DTOTicket) error {
 	var newTicket model.Ticket
 	newTicket.Flight = ticket.Flight
 	newTicket.IssuedAt = time.Now()
+	newTicket.ID = uuid.New()
 	newTicket.NumberOfTickets = ticket.NumberOfTickets
 	_, err := repository.Database.Collection("tickets").InsertOne(context.TODO(), &newTicket)
 
@@ -37,19 +39,19 @@ func (repository *TicketRepository) BuyTicket(ticket *model.DTOTicket) error {
 		return err
 	}
 
-	userId := ticket.IdUser
-	objectId, err := primitive.ObjectIDFromHex(userId)
+	userId, err := uuid.Parse(ticket.IdUser)
+	// objectId, err := primitive.ObjectIDFromHex(userId)
 	if err != nil {
 		return nil
 	}
 
-	err2 := repository.Database.Collection("users").FindOne(context.TODO(), bson.M{"_id": objectId})
+	err2 := repository.Database.Collection("users").FindOne(context.TODO(), bson.M{"id": userId})
 
 	var user model.User
 	err2.Decode(&user)
 	user.OwnedTickets = append(user.OwnedTickets, newTicket)
 
-	filterUser := bson.D{{Key: "_id", Value: objectId}}
+	filterUser := bson.D{{Key: "id", Value: userId}}
 	updateUser := bson.D{{Key: "$set", Value: bson.D{{Key: "ownedtickets", Value: user.OwnedTickets}}}}
 	_, err3 := repository.Database.Collection("users").UpdateOne(context.TODO(), filterUser, updateUser)
 
@@ -63,17 +65,18 @@ func (repository *TicketRepository) BuyTicket(ticket *model.DTOTicket) error {
 
 func (repository *TicketRepository) ShowUserTickets(idUser string) ([]dto.TicketPresenetDTO, error) {
 
-	objectId, err := primitive.ObjectIDFromHex(idUser)
+	// objectId, err := primitive.ObjectIDFromHex(idUser)
+	userId, err := uuid.Parse(idUser)
 	if err != nil {
 		return nil, nil
 	}
 	var result model.User
-	err1 := repository.Database.Collection("users").FindOne(context.TODO(), bson.M{"_id": objectId}).Decode(&result)
+	err1 := repository.Database.Collection("users").FindOne(context.TODO(), bson.M{"id": userId}).Decode(&result)
 	if err1 != nil {
 		return nil, nil
 	}
-	var tickets []model.Ticket
-	tickets = result.OwnedTickets
+	// var tickets []model.Ticket
+	tickets := result.OwnedTickets
 	var ticketPresent []dto.TicketPresenetDTO
 
 	for _, item := range tickets {
