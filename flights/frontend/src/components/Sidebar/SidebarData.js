@@ -28,6 +28,20 @@ export const SidebarData = [
     ],
   },
   {
+    title: "Tickets",
+    role: ['guest'],
+    iconClosed: <RiIcons.RiArrowDownSFill />,
+    iconOpened: <RiIcons.RiArrowUpSFill />,
+ 
+    subNav: [
+      {
+        title: "Owned",
+        path: "/tickets/owned",
+        role: ['guest']
+      }
+    ]
+  },
+  {
     title: "Sign In",
     path: "/signin",
     role: ['guest'],
