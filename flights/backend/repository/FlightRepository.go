@@ -4,12 +4,15 @@ package repository
 import (
 	"context"
 	"flight/model"
+	"fmt"
 
 	"time"
 
+	"github.com/google/uuid"
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/bson/primitive"
 	"go.mongodb.org/mongo-driver/mongo"
+	//"go.mongodb.org/mongo-driver/mongo/options"
 )
 
 type FlightRepository struct {
@@ -24,6 +27,26 @@ func (repository *FlightRepository) Create(flight *model.Flight) error {
 	}
 
 	println("Successfully added flight: ", dbResult.InsertedID.(primitive.ObjectID).Hex())
+	return nil
+}
+
+func (repository *FlightRepository) DeleteFlight(ID uuid.UUID) error {
+	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
+	defer cancel()
+
+	flightsCollection := repository.Database.Collection("flights")
+
+	filter := bson.M{"_id": ID}
+
+	result, err := flightsCollection.DeleteOne(ctx, filter)
+	if err != nil {
+		return err
+	}
+
+	if result.DeletedCount == 0 {
+		return fmt.Errorf("flight not found")
+	}
+
 	return nil
 }
 

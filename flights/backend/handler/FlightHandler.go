@@ -8,6 +8,9 @@ import (
 	"fmt"
 	"net/http"
 	"time"
+
+	"github.com/google/uuid"
+	//"go.mongodb.org/mongo-driver/mongo"
 )
 
 type FlightHandler struct {
@@ -68,4 +71,17 @@ func (handler *FlightHandler) GetFlightsBySearchCriteria(writer http.ResponseWri
 
 	writer.WriteHeader(http.StatusOK)
 	json.NewEncoder(writer).Encode(&flights)
+}
+
+func (handler *FlightHandler) DeleteFlight(writer http.ResponseWriter, req *http.Request) {
+	ID := req.URL.Query().Get("ID")
+	err := handler.FlightService.DeleteFlight(uuid.MustParse(ID))
+	if err != nil {
+		http.Error(writer, err.Error(), http.StatusInternalServerError)
+		return
+	}
+
+	writer.WriteHeader(http.StatusOK)
+	json.NewEncoder(writer).Encode("flight deleted successfully")
+
 }

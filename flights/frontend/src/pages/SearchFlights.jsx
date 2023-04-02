@@ -6,7 +6,10 @@ import ShowUserTickets from './ShowUserTickets';
 import { BrowserRouter, Route, Routes, useNavigate } from 'react-router-dom';
 
 const Container = styled.div`
+margin-left: 300px;
+margin-top: 40px;
 `;
+
 const Title = styled.h1`
 padding:0px 30px;
 margin: 20px 0px 0px 0px;
