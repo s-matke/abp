@@ -79,7 +79,7 @@ export default function CreateFlight() {
                 className="form-control"
                 placeholder="Enter address"
                 name="origin.address" 
-                required
+                // required
                 onChange={(e) => onInputChange(e)}    
               />
               <input
@@ -108,7 +108,7 @@ export default function CreateFlight() {
                 className="form-control"
                 placeholder="Enter address"
                 name="address"               
-                required
+                // required
                 onChange={(e) => onInputChange(e)}            
               />
               <input
