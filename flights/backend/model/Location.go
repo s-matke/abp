@@ -1,9 +1,9 @@
 package model
 
 type Location struct {
-	Country string `json:"country"`
-	City    string `json:"city"`
-	Address string `json:"address"`
+	Country string `bson:"country" json:"country"`
+	City    string `bson:"city" json:"city"`
+	Address string `bson:"address" json:"address"`
 	// StreetName   string `json:"streetName"`
 	// StreetNumber string `json:"streetNumber"`
 }

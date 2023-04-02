@@ -10,13 +10,14 @@ import (
 	"net/http"
 
 	"github.com/gorilla/mux"
+	"github.com/rs/cors"
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
 )
 
 func initDB() *mongo.Database {
 
-	opts := options.Client().ApplyURI("mongodb://localhost:27017")
+	opts := options.Client().ApplyURI("mongodb://flights-database:27017")
 	client, err := mongo.Connect(context.TODO(), opts)
 
 	if err != nil {
@@ -31,7 +32,7 @@ func initDB() *mongo.Database {
 
 	fmt.Println("Uspesno uspostavljena veza sa MongoDB!")
 
-	return client.Database("letovi-database")
+	return client.Database("ain-xml")
 }
 
 func startServer(handler *Handler) {
@@ -39,14 +40,39 @@ func startServer(handler *Handler) {
 
 	router.HandleFunc("/hello", handler.UserHandler.Hello).Methods("GET")
 	router.HandleFunc("/world", handler.FlightHandler.World).Methods("GET")
-	router.HandleFunc("/hi", handler.TicketHandler.Hi).Methods("GET")
+
+	router.HandleFunc("/signup", handler.UserHandler.Create).Methods("POST")
+	router.HandleFunc("/signin", handler.UserHandler.SignIn).Methods("POST")
+	router.HandleFunc("/createFlight", handler.FlightHandler.Create).Methods("POST")
+	router.HandleFunc("/deleteFlight", handler.FlightHandler.DeleteFlight).Methods("DELETE")
+	router.HandleFunc("/showFlights", handler.FlightHandler.GetAllFlights).Methods("GET")
+	router.HandleFunc("/searchFlights", handler.FlightHandler.GetFlightsBySearchCriteria).Methods("POST")
+	router.HandleFunc("/buyTicket", handler.TicketHandler.BuyTicket).Methods("POST")
+	router.HandleFunc("/showTickets/{idUser}", handler.TicketHandler.ShowUserTickets).Methods("GET")
 	println("Server starting")
-	log.Fatal(http.ListenAndServe(":8080", router))
+
+	corsSetup := SetupCors()
+
+	http.Handle("/", corsSetup.Handler(router))
+	err := http.ListenAndServe(":8084", corsSetup.Handler(router))
+	if err != nil {
+		log.Println(err)
+	}
+	// log.Fatal(http.ListenAndServe(":8084", router))
+}
+
+func SetupCors() *cors.Cors {
+	return cors.New(cors.Options{
+		AllowedOrigins:   []string{"*"},
+		AllowedMethods:   []string{"GET", "POST", "PUT", "DELETE"},
+		AllowedHeaders:   []string{"*"},
+		AllowCredentials: true,
+	})
 }
 
 type Handler struct {
 	FlightHandler handler.FlightHandler
-	UserHandler   handler.Userhandler
+	UserHandler   handler.UserHandler
 	TicketHandler handler.TicketHandler
 }
 
@@ -67,7 +93,7 @@ func main() {
 
 	// Handlers
 	flightHandler := &handler.FlightHandler{FlightService: flightService}
-	userHandler := &handler.Userhandler{UserService: userService}
+	userHandler := &handler.UserHandler{UserService: userService}
 	ticketHandler := &handler.TicketHandler{TicketService: ticketService}
 
 	handler := new(Handler)
