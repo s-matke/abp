@@ -68,18 +68,17 @@ func (repository *FlightRepository) GetAllFlights() ([]primitive.M, error) {
 }
 
 func (repository *FlightRepository) SearchFlights(availableSeats int, departure time.Time, origin, destination string) ([]primitive.M, error) {
-	/*
-		filter := bson.M{
-			"availableseats": bson.M{"$gte": availableSeats},
-			"departure": bson.M{
-				"$gte": departure,
-				"$lt":  departure.Add(time.Hour * 23),
-			},
-			"origin.city":      origin,
-			"destination.city": destination,
-		}*/
+	// filter := bson.M{
+	// 	"availableSeats": bson.M{"$gte": availableSeats},
+	// 	"departure": bson.M{
+	// 		"$gte": departure,
+	// 		"$lt":  departure.Add(time.Hour * 23),
+	// 	},
+	// 	// "origin.city":      origin,
+	// 	// "destination.city": destination,
+	// }
 	filter := bson.M{
-		"availableseats": bson.M{"$gte": availableSeats},
+		"availableSeats": bson.M{"$gte": availableSeats},
 	}
 
 	if !departure.IsZero() {

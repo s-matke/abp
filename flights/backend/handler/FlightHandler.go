@@ -53,10 +53,10 @@ func (handler *FlightHandler) GetAllFlights(writer http.ResponseWriter, req *htt
 
 func (handler *FlightHandler) GetFlightsBySearchCriteria(writer http.ResponseWriter, req *http.Request) {
 	var requestBody struct {
-		Departure      time.Time `json:"departure"`
-		Origin         string    `json:"origin"`
-		Destination    string    `json:"destination"`
-		AvailableSeats int       `json:"availableSeats"`
+		Departure      time.Time `bson:"departure" json:"departure"`
+		Origin         string    `bson:"origin" json:"origin"`
+		Destination    string    `bson:"destination" json:"destination"`
+		AvailableSeats int       `bson:"availableSeats" json:"availableSeats"`
 	}
 	if err := json.NewDecoder(req.Body).Decode(&requestBody); err != nil {
 		writer.WriteHeader(http.StatusBadRequest)

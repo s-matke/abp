@@ -141,6 +141,7 @@ const SearchFlights = () => {
   useEffect(() => {
     axios.get('http://localhost:8084/showFlights')
       .then(response => {
+        console.log(response.data)
         setFlights(response.data);
       })
       .catch(error => {
@@ -151,9 +152,10 @@ const SearchFlights = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     let departureDate = new Date(departure);
-    departureDate.setHours(0, 0, 0, 0);
+    departureDate.setHours(2, 0, 0, 0);
     let formattedDeparture = departureDate.toISOString();
 
+    console.log("hello")
     console.log(formattedDeparture,
         origin,
         destination,
@@ -318,12 +320,16 @@ const handleClick = index =>
           </FlightWrapper>
           <FlightWrapper  flex_direction="column" justify_content="center" width="30%">
               <FlightRightWrapper>
-                  <FlightTitle>Cena:</FlightTitle>
+                  <FlightTitle>Price:</FlightTitle>
               <TicketPrice>{item.price}.O EUR</TicketPrice>
               </FlightRightWrapper>
               <FlightRightWrapper>
-                  <FlightTitle> Ukupna cena: </FlightTitle>
+                  <FlightTitle> Total price: </FlightTitle>
                 {item.totalPrice===0 ? <TotalPrice>-</TotalPrice> : <TotalPrice>{item.totalPrice}.O EUR</TotalPrice>}
+              </FlightRightWrapper>
+              <FlightRightWrapper>
+                  <FlightTitle> Available seats: </FlightTitle>
+                  <TicketPrice>{item.availableSeats}</TicketPrice>
               </FlightRightWrapper>
              <FlightRightWrapper>
               <LabelInputDiv>

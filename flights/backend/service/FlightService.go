@@ -25,7 +25,8 @@ func randate() time.Time {
 
 func (service *FlightService) Create(flight *model.Flight) error {
 
-	flight.Departure = randate()
+	// flight.Departure = randate()
+	// flight.Departure = time.Now()
 	// flight.ID = uuid.New()
 	err := service.FlightRepository.Create(flight)
 

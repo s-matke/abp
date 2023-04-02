@@ -35,7 +35,10 @@ export default function CreateFlight() {
     const onSubmit = async (e) => {
         e.preventDefault();
        
-        flight.departure = new Date(flight.departure);
+        // flight.departure = new Date(flight.departure);
+        let departureDate = new Date(flight.departure);
+        departureDate.setHours(2, 0, 0, 0);
+        flight.departure = departureDate.toISOString();
         flight.availableSeats = parseInt(flight.availableSeats);
         flight.price = parseFloat(flight.price);
         

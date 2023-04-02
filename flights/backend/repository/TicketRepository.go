@@ -33,7 +33,7 @@ func (repository *TicketRepository) BuyTicket(ticket *model.DTOTicket) error {
 
 	flightId, _ := primitive.ObjectIDFromHex(ticket.IdFlight)
 	filterFlight := bson.D{{Key: "_id", Value: flightId}}
-	updateFlight := bson.D{{Key: "$set", Value: bson.D{{Key: "availableseats", Value: ticket.Flight.AvailableSeats}}}}
+	updateFlight := bson.D{{Key: "$set", Value: bson.D{{Key: "availableSeats", Value: ticket.Flight.AvailableSeats}}}}
 	_, err1 := repository.Database.Collection("flights").UpdateOne(context.TODO(), filterFlight, updateFlight)
 
 	if err1 != nil {
