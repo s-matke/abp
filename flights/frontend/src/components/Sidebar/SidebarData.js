@@ -28,9 +28,15 @@ export const SidebarData = [
     ],
   },
   {
-    title: "Sign in",
+    title: "Sign In",
     path: "/signin",
     role: ['guest'],
     icon: <FaIcons.FaSignInAlt />,//<IoIcons.IoIosLogIn />,
-  }
+  },
+  {
+    title: "Sign Up",
+    path: "/signup",
+    role: ['guest'],
+    // icon: < />,//<IoIcons.IoIosLogIn />,
+  },
 ];
