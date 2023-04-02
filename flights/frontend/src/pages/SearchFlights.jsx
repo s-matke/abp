@@ -136,6 +136,15 @@ const SearchFlights = () => {
   const [flights, setFlights] = useState([])
   const [NumberOfTicket,setNumberOfTicket] = useState(0);
   const navigate = useNavigate()
+  useEffect(() => {
+    axios.get('http://localhost:8084/showFlights')
+      .then(response => {
+        setFlights(response.data);
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  }, []);
  
   const handleSubmit = (e) => {
     e.preventDefault();

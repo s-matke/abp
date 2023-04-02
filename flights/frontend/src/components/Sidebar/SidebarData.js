@@ -15,9 +15,9 @@ export const SidebarData = [
     subNav: [
       {
         title: "Create",
-        path: "/flight/create",
+        path: "/createFlight",
         icon: <IoIcons.IoMdCreate />,
-        role: ['admin']
+        role: ['admin', 'guest']
       },
       {
         title: "Search",
