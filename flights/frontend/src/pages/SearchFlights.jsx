@@ -130,7 +130,7 @@ const TotalPrice = styled.h1`
 `;
 
 const SearchFlights = () => {
-  const userRole = localStorage.getItem('userRole') || 'guest';
+  const userRole = localStorage.getItem('userRole') || 'admin';
   const [departure, setDeparture] = useState(new Date().toISOString().substr(0, 10));
   const [origin, setOrigin] = useState("");
   const [destination, setDestination] = useState("");
@@ -233,18 +233,21 @@ const handleClick = index =>
         {
           "IdFlight":flights[index]._id,
           "flight":
-          {
-          "Origin":{"Country":flights[index].origin.country,"City":flights[index].origin.city,"Address":flights[index].origin.address},
-          "Destination":{"Country":flights[index].destination.country,"City":flights[index].destination.city,"Address":flights[index].destination.address},
-          "Price":flights[index].price,
-          "AvailableSeats":flights[index].availableseats,
-          "Departure" : flights[index].departure
-          },
-          "IdUser":"56705ce0-4234-4b13-b3c8-ff25a52e58d9",
+            {
+            "origin":{"country":flights[index].origin.country,"city":flights[index].origin.city,"address":flights[index].origin.address},
+            "destination":{"country":flights[index].destination.country,"city":flights[index].destination.city,"address":flights[index].destination.address},
+            "price":flights[index].price,
+            "availableSeats":flights[index].availableSeats,
+            "departure" : flights[index].departure
+            },
+          "IdUser":"c0d55101-4d82-461c-ac54-44a7c464b7dc",
           "NumberOfTickets":parseInt(NumberOfTicket)
         })
-
-  navigate('/ShowUserTickets', {state : {id:"56705ce0-4234-4b13-b3c8-ff25a52e58d9"}})
+        .then(res => {
+          if (res.status === 201) {
+            navigate('/tickets/owned', {state : {id:"c0d55101-4d82-461c-ac54-44a7c464b7dc"}})
+          }
+        })
 
     }
 }
@@ -327,10 +330,11 @@ const handleClick = index =>
                 <Label htmlFor='origin'>Enter the number of ticket:</Label>
                   <Input type = 'number' min = '1' onChange = {e => setNumberOfTicket(e.target.value)}/>
               </LabelInputDiv>
-                <button type = 'button' class = 'btn btn-danger' onClick = {() => handleClick(index)} value = {NumberOfTicket} 
+                <button type = 'button' class = 'btn btn-success' onClick = {() => handleClick(index)} value = {NumberOfTicket} 
                  >Buy ticket</button>
+                {userRole==='admin'&& <button type='button' class='btn btn-danger' onClick = {() =>  deleteClick(item)}>DELETE</button>} 
               </FlightRightWrapper>
-              {userRole==='admin'&& <button onClick = {() =>  deleteClick(item)}>DELETE</button>} 
+              
           </FlightWrapper>
           </FlightContainer>
           ;
