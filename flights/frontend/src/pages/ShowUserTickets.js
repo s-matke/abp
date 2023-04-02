@@ -10,8 +10,9 @@ function ShowUserTickets({params}) {
 
     const[tickets, setTickets] = useState([])
     const {state} = useLocation()
+    console.log(state)
     useEffect(() => {
-        axios.get('http://localhost:8084/showTickets/'+id.id)
+        axios.get('http://localhost:8084/showTickets/'+"56705ce0-4234-4b13-b3c8-ff25a52e58d9")
         .then(response => {
             console.log(response)
             setTickets(response.data)
@@ -22,7 +23,7 @@ function ShowUserTickets({params}) {
     },[])
 
     return (
-        <div class="row mx-auto" >
+        <div class="row mx" style={{marginLeft: '300px'}}>
            <div style={{textAlign : 'center'}}>
            <h1>Your tickets</h1> 
            </div>

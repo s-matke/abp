@@ -4,6 +4,7 @@ import (
 	"context"
 	"flight/dto"
 	"flight/model"
+	"fmt"
 
 	"time"
 
@@ -44,6 +45,8 @@ func (repository *TicketRepository) BuyTicket(ticket *model.DTOTicket) error {
 	if err != nil {
 		return nil
 	}
+
+	fmt.Print(userId)
 
 	err2 := repository.Database.Collection("users").FindOne(context.TODO(), bson.M{"id": userId})
 

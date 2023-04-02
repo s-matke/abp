@@ -1,6 +1,7 @@
 package service
 
 import (
+	"errors"
 	"flight/dto"
 	"flight/model"
 	"flight/repository"
@@ -14,13 +15,13 @@ func (service *TicketService) BuyTicket(ticket *model.DTOTicket) error {
 
 	flight := ticket.Flight
 	if (flight.AvailableSeats-ticket.NumberOfTickets) < 0 || ticket.NumberOfTickets <= 0 {
-		return nil
+		return errors.New("greska nema mesta")
 	}
 	ticket.Flight.AvailableSeats = ticket.Flight.AvailableSeats - ticket.NumberOfTickets
 	err := service.TicketRepository.BuyTicket(ticket)
 
 	if err != nil {
-		return err
+		return errors.New("greska prilikom kupovine")
 	}
 
 	return nil

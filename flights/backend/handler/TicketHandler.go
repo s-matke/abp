@@ -25,7 +25,7 @@ func (handler *TicketHandler) BuyTicket(writer http.ResponseWriter, req *http.Re
 
 	err = handler.TicketService.BuyTicket(&ticket)
 
-	if err == nil {
+	if err != nil {
 		writer.WriteHeader(http.StatusConflict)
 		fmt.Println("Greska")
 		return

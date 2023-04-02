@@ -215,11 +215,11 @@ const handleClick = index =>
           "AvailableSeats":flights[index].availableseats,
           "Departure" : flights[index].departure
           },
-          "IdUser":"64270b757820ffdc26d3506b",
+          "IdUser":"56705ce0-4234-4b13-b3c8-ff25a52e58d9",
           "NumberOfTickets":parseInt(NumberOfTicket)
         })
 
-  navigate('/ShowUserTickets', {state : {id:"64270b757820ffdc26d3506b"}})
+  navigate('/ShowUserTickets', {state : {id:"56705ce0-4234-4b13-b3c8-ff25a52e58d9"}})
 
     }
 }
