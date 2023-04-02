@@ -4,6 +4,7 @@ import axios from "axios";
 import 'bootstrap/dist/css/bootstrap.css';
 import ShowUserTickets from './ShowUserTickets';
 import { BrowserRouter, Route, Routes, useNavigate } from 'react-router-dom';
+import { ToastContainer, toast } from 'react-toastify';
 
 const Container = styled.div`
 margin-left: 300px;
@@ -129,6 +130,7 @@ const TotalPrice = styled.h1`
 `;
 
 const SearchFlights = () => {
+  const userRole = localStorage.getItem('userRole') || 'guest';
   const [departure, setDeparture] = useState(new Date().toISOString().substr(0, 10));
   const [origin, setOrigin] = useState("");
   const [destination, setDestination] = useState("");
@@ -203,7 +205,21 @@ const SearchFlights = () => {
       fetchFlights();
     },[])
 
-
+const  deleteClick = async flight =>
+{
+  
+  await axios.delete("http://localhost:8084/deleteFlight?id=" + flight._id);
+  toast.success('Successfully deleted flight !', {
+    position: toast.POSITION.TOP_RIGHT
+});
+  await axios.get('http://localhost:8084/showFlights')
+      .then(response => {
+        setFlights(response.data);
+      })
+      .catch(error => {
+        console.log(error);
+      });
+}
 const handleClick = index =>
 {
   if (NumberOfTicket <= 0)
@@ -313,7 +329,8 @@ const handleClick = index =>
               </LabelInputDiv>
                 <button type = 'button' class = 'btn btn-danger' onClick = {() => handleClick(index)} value = {NumberOfTicket} 
                  >Buy ticket</button>
-              </FlightRightWrapper> 
+              </FlightRightWrapper>
+              {userRole==='admin'&& <button onClick = {() =>  deleteClick(item)}>DELETE</button>} 
           </FlightWrapper>
           </FlightContainer>
           ;
