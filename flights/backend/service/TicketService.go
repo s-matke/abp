@@ -12,8 +12,7 @@ type TicketService struct {
 
 func (service *TicketService) BuyTicket(ticket *model.DTOTicket) error {
 
-	var flight model.Flight
-	flight = ticket.Flight
+	flight := ticket.Flight
 	if (flight.AvailableSeats-ticket.NumberOfTickets) < 0 || ticket.NumberOfTickets <= 0 {
 		return nil
 	}
