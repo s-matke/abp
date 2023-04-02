@@ -17,7 +17,7 @@ export const SidebarData = [
         title: "Create",
         path: "/flight/create",
         icon: <IoIcons.IoMdCreate />,
-        role: ['admin', 'guest']
+        role: ['admin']
       },
       {
         title: "Search",
