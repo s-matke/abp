@@ -56,8 +56,14 @@ function Signin() {
             })
             .catch(error => {
                 console.log(error.response.status)
-                if (error.response.status === 409) {
-                    alert("Wrong email!")
+                if (error.response.status === 404 || error.response.status === 401) {
+                    toast.error('Wrong email/password!', {
+                        position: toast.POSITION.TOP_CENTER
+                    })
+                } else {
+                    toast.error('Something went wrong. Please try again later!', {
+                        position: toast.POSITION.TOP_CENTER
+                    })
                 }
             })
     }
@@ -77,7 +83,7 @@ function Signin() {
                     <div className="row">
                         <div className="col-md-5 offset-md-4 border rounded p-4 mt-2 shadow position-relative">
                             <Form onSubmit={(e) => submitUser(e)}>
-                                <h2 className="text-center m-5">Sign Up</h2>
+                                <h2 className="text-center m-5">Sign In</h2>
                                 <div className="mb-4">
                                     <div className="input-group">
                                             <MDBCol md='6' lg='12'>

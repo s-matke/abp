@@ -278,10 +278,10 @@ const handleClick = index =>
   
   return (
     <Container>
-        <Title>Pretrazi letove po sledecim parametrima:</Title>
+        <Title>Flights</Title>
         <Form onSubmit={handleSubmit}>
             <LabelInputDiv>
-        <Label htmlFor="departure">Datum:</Label>
+        <Label htmlFor="departure">Date:</Label>
         <Input
           type="date"
           id="departure"
@@ -291,7 +291,7 @@ const handleClick = index =>
         />
 </LabelInputDiv>
 <LabelInputDiv>
-        <Label htmlFor="origin">Polazno Mesto:</Label>
+        <Label htmlFor="origin">Origin country:</Label>
         <Input
           type="text"
           id="origin"
@@ -301,7 +301,7 @@ const handleClick = index =>
         />
 </LabelInputDiv>
 <LabelInputDiv>
-        <Label htmlFor="destination">Destinacija:</Label>
+        <Label htmlFor="destination">Destination country:</Label>
         <Input
           type="text"
           id="destination"
@@ -311,7 +311,7 @@ const handleClick = index =>
         />
 </LabelInputDiv>
 <LabelInputDiv>
-        <Label htmlFor="availableSeats">Slobodnih Mesta:</Label>
+        <Label htmlFor="availableSeats">Seats:</Label>
         <Input
           type="number"
           id="availableSeats"
@@ -320,7 +320,7 @@ const handleClick = index =>
           //required
         />
 </LabelInputDiv>
-        <Button type="submit">Pretrazi</Button>
+        <Button type="submit">Search</Button>
       </Form>
       {flights?.map((item,index)=>{
         
@@ -330,22 +330,22 @@ const handleClick = index =>
           return <FlightContainer key={index}>
           <FlightWrapper flex_direction="normal" justify_content="space-around" width="70%">
               <FlightLeftWrapper>
-              <FlightTitle>{item.origin.city}</FlightTitle>
+              <FlightTitle>{item.origin.city}, {item.origin.country}</FlightTitle>
               <FlightDeparture>{departureDate}</FlightDeparture>
               <FlightDeparture>{departureTime} CET</FlightDeparture>
               </FlightLeftWrapper>
               <FlightLeftWrapper>
-                  <FlightTitle>{item.destination.city}</FlightTitle>
+                  <FlightTitle>{item.destination.city}, {item.destination.country}</FlightTitle>
               </FlightLeftWrapper>
           </FlightWrapper>
           <FlightWrapper  flex_direction="column" justify_content="center" width="30%">
               <FlightRightWrapper>
                   <FlightTitle>Price:</FlightTitle>
-              <TicketPrice>{item.price}.O EUR</TicketPrice>
+              <TicketPrice>{item.price} EUR</TicketPrice>
               </FlightRightWrapper>
               <FlightRightWrapper>
                   <FlightTitle> Total price: </FlightTitle>
-                {item.totalPrice===0 ? <TotalPrice>-</TotalPrice> : <TotalPrice>{item.totalPrice}.O EUR</TotalPrice>}
+                {item.totalPrice===0 ? <TotalPrice>-</TotalPrice> : <TotalPrice>{item.totalPrice} EUR</TotalPrice>}
               </FlightRightWrapper>
               <FlightRightWrapper>
                   <FlightTitle> Available seats: </FlightTitle>

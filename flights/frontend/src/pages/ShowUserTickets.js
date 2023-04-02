@@ -19,7 +19,9 @@ function ShowUserTickets({params}) {
         axios.get('http://localhost:8084/showTickets/' + id)
         .then(response => {
             console.log(response.data)
-            setTickets(response.data)
+            if (response.data !== null) {
+                setTickets(response.data)
+            }
         })
         .catch(error => {
             console.log(error)

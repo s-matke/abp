@@ -22,6 +22,7 @@ import { useState } from 'react';
 import axios from "axios";
 import { useNavigate } from 'react-router-dom';
 import { Form } from 'react-bootstrap';
+import { toast } from 'react-toastify';
 
 function Signup() {
 
@@ -41,7 +42,9 @@ function Signup() {
         axios.post(`http://localhost:8084/signup`, user)
             .then(res => {
                 if (res.status === 201) {
-                    alert("Successfully registered.")
+                    toast.success('Successfully signed up!', {
+                        position: toast.POSITION.TOP_CENTER
+                    });
                     navigate("/signin")
                 }
                 console.log(res);
@@ -50,7 +53,13 @@ function Signup() {
             .catch(error => {
                 console.log(error.response.status)
                 if (error.response.status === 409) {
-                    alert("User with given email already exists!")
+                    toast.error('Email already taken!', {
+                        position: toast.POSITION.TOP_CENTER
+                    })
+                } else if (error.response.status === 400) {
+                    toast.error('Email/password field can\'t be empty!', {
+                        position: toast.POSITION.TOP_CENTER
+                    })
                 }
             })
     }
