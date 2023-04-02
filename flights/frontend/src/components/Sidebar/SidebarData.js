@@ -7,7 +7,7 @@ import * as RiIcons from "react-icons/ri";
 export const SidebarData = [
   {
     title: "Flights",
-    role: ['guest'],
+    role: ['user', 'guest', 'admin'],
     icon: <FaIcons.FaPlaneDeparture />,
     iconClosed: <RiIcons.RiArrowDownSFill />,
     iconOpened: <RiIcons.RiArrowUpSFill />,
@@ -29,7 +29,7 @@ export const SidebarData = [
   },
   {
     title: "Tickets",
-    role: ['guest'],
+    role: ['user'],
     iconClosed: <RiIcons.RiArrowDownSFill />,
     iconOpened: <RiIcons.RiArrowUpSFill />,
  
@@ -37,7 +37,7 @@ export const SidebarData = [
       {
         title: "Owned",
         path: "/tickets/owned",
-        role: ['guest']
+        role: ['user']
       }
     ]
   },
@@ -53,4 +53,10 @@ export const SidebarData = [
     role: ['guest'],
     // icon: < />,//<IoIcons.IoIosLogIn />,
   },
+  {
+    title: "Sign Out",
+    path: "/signout",
+    cName: "nav-text",
+    role: ["admin", "user"]
+}
 ];

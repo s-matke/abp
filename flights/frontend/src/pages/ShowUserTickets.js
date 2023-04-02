@@ -2,7 +2,7 @@ import React, {useState, useEffect} from 'react'
 import axios from 'axios'
 import 'bootstrap/dist/css/bootstrap.css'
 import Logo from '../img/Logo.jpg'
-import { useLocation } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
 
 
 
@@ -10,9 +10,13 @@ function ShowUserTickets({params}) {
 
     const[tickets, setTickets] = useState([])
     const {state} = useLocation()
+    const [userId, setUserId] = useState()
+
     console.log(state)
-    useEffect(() => {
-        axios.get('http://localhost:8084/showTickets/'+"c0d55101-4d82-461c-ac54-44a7c464b7dc")
+    const navigate = useNavigate()
+
+    const fetchTickets = (id) => {
+        axios.get('http://localhost:8084/showTickets/' + id)
         .then(response => {
             console.log(response.data)
             setTickets(response.data)
@@ -20,6 +24,22 @@ function ShowUserTickets({params}) {
         .catch(error => {
             console.log(error)
         })
+    }
+
+    useEffect(() => {
+        const role = localStorage.getItem('user') || 'guest';
+        if (role !== "guest") {
+            let parsedUser = JSON.parse(role)
+            // setUserRole(parsedUser['Role'])
+            setUserId(parsedUser["ID"])
+            fetchTickets(parsedUser["ID"]);
+        } else {
+            // setUserRole(role)
+            navigate("/flight/search")
+            navigate(0)
+        }
+
+        
     },[])
 
     return (

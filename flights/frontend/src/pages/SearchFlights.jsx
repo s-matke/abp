@@ -130,13 +130,17 @@ const TotalPrice = styled.h1`
 `;
 
 const SearchFlights = () => {
-  const userRole = localStorage.getItem('userRole') || 'admin';
   const [departure, setDeparture] = useState(new Date().toISOString().substr(0, 10));
   const [origin, setOrigin] = useState("");
   const [destination, setDestination] = useState("");
   const [availableSeats, setAvailableSeats] = useState();
   const [flights, setFlights] = useState([])
   const [NumberOfTicket,setNumberOfTicket] = useState(0);
+
+  const [userRole, setUserRole] = useState(localStorage.getItem('user') || 'guest')
+  const [userId, setUserId] = useState()
+
+
   const navigate = useNavigate()
   useEffect(() => {
     axios.get('http://localhost:8084/showFlights')
@@ -147,6 +151,14 @@ const SearchFlights = () => {
       .catch(error => {
         console.log(error);
       });
+
+    const role = localStorage.getItem('user') || 'guest';
+    if (role !== "guest") {
+      let parsedUser = JSON.parse(role)
+      setUserRole(parsedUser['Role'])
+    } else {
+      setUserRole(role)
+    }
   }, []);
  
   const handleSubmit = (e) => {
@@ -205,6 +217,14 @@ const SearchFlights = () => {
       }
       
       fetchFlights();
+      const role = localStorage.getItem('user') || 'guest';
+      if (role !== "guest") {
+        let parsedUser = JSON.parse(role)
+        setUserRole(parsedUser['Role'])
+        setUserId(parsedUser["ID"])
+      } else {
+        setUserRole(role)
+      }
     },[])
 
 const  deleteClick = async flight =>
@@ -242,12 +262,12 @@ const handleClick = index =>
             "availableSeats":flights[index].availableSeats,
             "departure" : flights[index].departure
             },
-          "IdUser":"c0d55101-4d82-461c-ac54-44a7c464b7dc",
+          "IdUser":userId,
           "NumberOfTickets":parseInt(NumberOfTicket)
         })
         .then(res => {
           if (res.status === 201) {
-            navigate('/tickets/owned', {state : {id:"c0d55101-4d82-461c-ac54-44a7c464b7dc"}})
+            navigate('/tickets/owned', {state : {id: userId}})
           }
         })
 
@@ -312,7 +332,7 @@ const handleClick = index =>
               <FlightLeftWrapper>
               <FlightTitle>{item.origin.city}</FlightTitle>
               <FlightDeparture>{departureDate}</FlightDeparture>
-              <FlightDeparture>{departureTime}</FlightDeparture>
+              <FlightDeparture>{departureTime} CET</FlightDeparture>
               </FlightLeftWrapper>
               <FlightLeftWrapper>
                   <FlightTitle>{item.destination.city}</FlightTitle>
@@ -332,12 +352,16 @@ const handleClick = index =>
                   <TicketPrice>{item.availableSeats}</TicketPrice>
               </FlightRightWrapper>
              <FlightRightWrapper>
-              <LabelInputDiv>
+              
+              { userRole === 'user' &&
+                <LabelInputDiv>
                 <Label htmlFor='origin'>Enter the number of ticket:</Label>
                   <Input type = 'number' min = '1' onChange = {e => setNumberOfTicket(e.target.value)}/>
               </LabelInputDiv>
-                <button type = 'button' class = 'btn btn-success' onClick = {() => handleClick(index)} value = {NumberOfTicket} 
-                 >Buy ticket</button>
+              }
+
+                {userRole === 'user' && <button type = 'button' class = 'btn btn-success' onClick = {() => handleClick(index)} value = {NumberOfTicket} 
+                >Buy ticket</button>}
                 {userRole==='admin'&& <button type='button' class='btn btn-danger' onClick = {() =>  deleteClick(item)}>DELETE</button>} 
               </FlightRightWrapper>
               

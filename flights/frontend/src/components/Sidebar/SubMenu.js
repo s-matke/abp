@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
  
@@ -45,8 +45,24 @@ const SubMenu = ({ item }) => {
  
   const showSubnav = () => setSubnav(!subnav);
 
-  const userRole = localStorage.getItem('userRole') || 'guest';
- 
+  const [userRole, setUserRole] = useState(localStorage.getItem('user') || 'guest')
+  console.log(userRole)
+  
+
+  function updateSidebarData() {
+    const role = localStorage.getItem('user') || 'guest';
+    if (role !== "guest") {
+      let parsedUser = JSON.parse(role)
+      setUserRole(parsedUser['Role'])
+    }
+  }
+
+
+  
+  useEffect(() => {
+    updateSidebarData()  
+  }, [userRole])
+   
   return (
     <>
       <SidebarLink to={item.path}

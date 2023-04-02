@@ -63,7 +63,20 @@ func (handler *UserHandler) SignIn(writer http.ResponseWriter, req *http.Request
 		return
 	}
 
+	var userDto dto.UserDTO
+
+	userDto.ID = user.ID
+	userDto.Name = user.Name
+	userDto.Surname = user.Surname
+	userDto.Email = user.Email
+
+	if user.UserRole == model.REGULAR {
+		userDto.Role = "user"
+	} else {
+		userDto.Role = "admin"
+	}
+
 	writer.WriteHeader(http.StatusOK)
-	json.NewEncoder(writer).Encode(user)
+	json.NewEncoder(writer).Encode(userDto)
 
 }
