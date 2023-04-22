@@ -16,10 +16,10 @@ func NewUserService(store domain.UserStore) *UserService {
 	}
 }
 
-func (service *UserService) Get(id uuid.UUID) (*domain.User, error) {
+func (service *UserService) Get(id uuid.UUID) (*domain.Users, error) {
 	return service.store.Get(id)
 }
 
-func (service *UserService) GetAll() (*[]domain.User, error) {
+func (service *UserService) GetAll() (*[]domain.Users, error) {
 	return service.store.GetAll()
 }

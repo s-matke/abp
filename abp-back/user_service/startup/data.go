@@ -6,16 +6,18 @@ import (
 )
 
 var location_novi_sad = domain.Location{
+	Address: "Mileta Jaksica 2a",
 	City:    "Novi Sad",
 	Country: "Serbia",
 }
 
 var location_beograd = domain.Location{
+	Address: "Dunavski kej 47",
 	City:    "Beograd",
 	Country: "Serbia",
 }
 
-var users = []*domain.User{
+var users = []*domain.Users{
 	{
 		Id:          uuid.New(), //uuid.Must(uuid.New(), context.TODO().Err()),
 		Username:    "pera",
@@ -24,8 +26,10 @@ var users = []*domain.User{
 		PhoneNumber: "+3812312313",
 		Email:       "pera@gmail.com",
 		Password:    "123",
-		// Role:        domain.GUEST,
-		// Location:    location_novi_sad,
+		Role:        domain.GUEST,
+		Address:     location_novi_sad.Address,
+		City:        location_novi_sad.City,
+		Country:     location_novi_sad.Country,
 	},
 	{
 		Id:          uuid.New(),
@@ -35,8 +39,10 @@ var users = []*domain.User{
 		PhoneNumber: "+371823121",
 		Email:       "mirko@gmail.com",
 		Password:    "123",
-		// Role:        domain.GUEST,
-		// Location:    location_novi_sad,
+		Role:        domain.HOST,
+		Address:     location_novi_sad.Address,
+		City:        location_novi_sad.City,
+		Country:     location_novi_sad.Country,
 	},
 	{
 		Id:          uuid.New(),
@@ -46,8 +52,10 @@ var users = []*domain.User{
 		PhoneNumber: "+3812313123",
 		Email:       "maja@gmail.com",
 		Password:    "123",
-		// Role:        domain.HOST,
-		// Location:    location_beograd,
+		Role:        domain.GUEST,
+		Address:     location_beograd.Address,
+		City:        location_beograd.City,
+		Country:     location_beograd.Country,
 	},
 	{
 		Id:          uuid.New(),
@@ -57,7 +65,9 @@ var users = []*domain.User{
 		PhoneNumber: "+381290903",
 		Email:       "dzoni@gmail.com",
 		Password:    "123",
-		// Role:        domain.HOST,
-		// Location:    location_novi_sad,
+		Role:        domain.HOST,
+		Address:     location_beograd.Address,
+		City:        location_beograd.City,
+		Country:     location_beograd.Country,
 	},
 }

@@ -43,7 +43,6 @@ func (server *Server) initPostgresClient() *gorm.DB {
 		server.config.UserDBHost, server.config.UserDBUser,
 		server.config.UserDBPass, server.config.UserDBName,
 		server.config.UserDBPort)
-
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -56,12 +55,12 @@ func (server *Server) initUserStore(client *gorm.DB) domain.UserStore {
 		log.Fatal(err)
 	}
 	store.DeleteAll()
-	// for _, User := range users {
-	// 	err := store.Insert(User)
-	// 	if err != nil {
-	// 		log.Fatal(err)
-	// 	}
-	// }
+	for _, User := range users {
+		err := store.Insert(User)
+		if err != nil {
+			log.Fatal(err)
+		}
+	}
 	return store
 }
 

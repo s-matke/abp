@@ -12,7 +12,7 @@ type UserPostgresStore struct {
 }
 
 func NewUserPostgresStore(db *gorm.DB) (domain.UserStore, error) {
-	err := db.AutoMigrate((&domain.User{}))
+	err := db.AutoMigrate((&domain.Users{}))
 	if err != nil {
 		return nil, err
 	}
@@ -21,8 +21,8 @@ func NewUserPostgresStore(db *gorm.DB) (domain.UserStore, error) {
 	}, nil
 }
 
-func (store *UserPostgresStore) Get(id uuid.UUID) (*domain.User, error) {
-	var user domain.User
+func (store *UserPostgresStore) Get(id uuid.UUID) (*domain.Users, error) {
+	var user domain.Users
 	// result := store.db.First(&user, "id = ?", id)
 	result := store.db.Where("id = ?", id).First(&user) // isto ko ovo gore
 	if result.Error != nil {
@@ -31,8 +31,8 @@ func (store *UserPostgresStore) Get(id uuid.UUID) (*domain.User, error) {
 	return &user, nil
 }
 
-func (store *UserPostgresStore) GetAll() (*[]domain.User, error) {
-	var users []domain.User
+func (store *UserPostgresStore) GetAll() (*[]domain.Users, error) {
+	var users []domain.Users
 	result := store.db.Find(&users)
 	if result.Error != nil {
 		return nil, result.Error
@@ -40,7 +40,7 @@ func (store *UserPostgresStore) GetAll() (*[]domain.User, error) {
 	return &users, nil
 }
 
-func (store *UserPostgresStore) Insert(user *domain.User) error {
+func (store *UserPostgresStore) Insert(user *domain.Users) error {
 	result := store.db.Create(user)
 	if result.Error != nil {
 		return result.Error
@@ -49,5 +49,5 @@ func (store *UserPostgresStore) Insert(user *domain.User) error {
 }
 
 func (store *UserPostgresStore) DeleteAll() {
-	store.db.Session(&gorm.Session{AllowGlobalUpdate: true}).Delete(&domain.User{})
+	store.db.Session(&gorm.Session{AllowGlobalUpdate: true}).Delete(&domain.Users{})
 }

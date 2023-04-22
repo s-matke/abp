@@ -5,7 +5,7 @@ import (
 	"gorm.io/gorm"
 )
 
-type User struct {
+type Users struct {
 	Id          uuid.UUID `json:"id" gorm:"primaryKey;not null;unique"`
 	Username    string    `json:"username" gorm:"unique;not null"`
 	Name        string    `json:"name" gorm:"not null"`
@@ -13,8 +13,10 @@ type User struct {
 	PhoneNumber string    `json:"phonenumber"`
 	Email       string    `json:"email" gorm:"not null"`
 	Password    string    `json:"password" gorm:"not null"`
-	// Role        Role      `json:"role" gorm:"not null"`
-	// Location    Location  `json:"location"`
+	Role        Role      `json:"role" gorm:"not null"`
+	Address     string    `json:"address"`
+	City        string    `json:"city"`
+	Country     string    `json:"country"`
 }
 
 type Role int
@@ -25,11 +27,12 @@ const (
 )
 
 type Location struct {
+	Address string `json:"address"`
 	City    string `json:"city"`
 	Country string `json:"country"`
 }
 
-func (user *User) BeforeCreate(scope *gorm.DB) error {
+func (user *Users) BeforeCreate(scope *gorm.DB) error {
 	user.Id = uuid.New()
 	return nil
 }
