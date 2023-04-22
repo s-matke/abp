@@ -13,8 +13,8 @@ type User struct {
 	PhoneNumber string    `json:"phonenumber"`
 	Email       string    `json:"email" gorm:"not null"`
 	Password    string    `json:"password" gorm:"not null"`
-	Role        Role      `json:"role" gorm:"not null"`
-	Location    Location  `json:"location"`
+	// Role        Role      `json:"role" gorm:"not null"`
+	// Location    Location  `json:"location"`
 }
 
 type Role int

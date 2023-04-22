@@ -15,11 +15,11 @@ func mapUser(user *domain.User) *pb.User {
 		PhoneNumber: user.PhoneNumber,
 		Email:       user.Email,
 		Password:    user.Password,
-		Role:        pb.Role(user.Role),
-		Location: &pb.Location{
-			City:    user.Location.City,
-			Country: user.Location.Country,
-		},
+		// Role:        pb.Role(user.Role),
+		// Location: &pb.Location{
+		// 	City:    user.Location.City,
+		// 	Country: user.Location.Country,
+		// },
 	}
 
 	return userPb

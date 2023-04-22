@@ -1,24 +1,24 @@
 version: '3.8'
 
 services:
-  # user_service:
-  #   image: user_service
-  #   container_name: user_service
-  #   build:
-  #     context: .
-  #     dockerfile: ./user_service/Dockerfile
-  #   restart: on-failure
-  #   environment:
-  #     USER_DB_HOST: ${USER_DB_HOST}
-  #     USER_DB_PORT: ${USER_DB_PORT}
-  #     USER_DB_USER: ${USER_DB_USER}
-  #     USER_DB_PASS: ${USER_DB_PASS}
-  #     USER_DB_NAME: ${USER_DB_NAME}
-  #     USER_SERVICE_PORT: ${USER_SERVICE_PORT}
-  #   depends_on:
-  #     - user_db
-  #   networks:
-  #     - network
+  user_service:
+    image: user_service
+    container_name: user_service
+    build:
+      context: .
+      dockerfile: ./user_service/Dockerfile
+    restart: on-failure
+    environment:
+      USER_DB_HOST: ${USER_DB_HOST}
+      USER_DB_PORT: ${USER_DB_PORT}
+      USER_DB_USER: ${USER_DB_USER}
+      USER_DB_PASS: ${USER_DB_PASS}
+      USER_DB_NAME: ${USER_DB_NAME}
+      USER_SERVICE_PORT: ${USER_SERVICE_PORT}
+    depends_on:
+      - user_db
+    networks:
+      - network
   
   api_gateway:
     image: api_gateway
@@ -36,18 +36,18 @@ services:
     networks:
       - network
   
-  # user_db:
-  #   image: postgres
-  #   container_name: user_db
-  #   restart: on-failure
-  #   environment:
-  #     POSTGRES_USER: ${USER_DB_USER}
-  #     POSTGRES_PASSWORD: ${USER_DB_PASS}
-  #     POSTGRES_DB: ${USER_DB_NAME}
-  #   ports:
-  #     - 5433:${USER_DB_PORT}
-  #   networks:
-  #     - network
+  user_db:
+    image: postgres
+    container_name: user_db
+    restart: on-failure
+    environment:
+      POSTGRES_USER: ${USER_DB_USER}
+      POSTGRES_PASSWORD: ${USER_DB_PASS}
+      POSTGRES_DB: ${USER_DB_NAME}
+    ports:
+      - 5433:${USER_DB_PORT}
+    networks:
+      - network
   
 networks:
   network:
