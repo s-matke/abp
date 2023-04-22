@@ -1,8 +1,9 @@
 package services
 
 import (
-	user "common/proto/user_service"
 	"log"
+
+	user "github.com/s-matke/abp/abp-back/common/proto/user_service"
 
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials/insecure"

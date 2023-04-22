@@ -1,4 +1,4 @@
-module common
+module github.com/s-matke/abp/abp-back/common
 
 go 1.20
 

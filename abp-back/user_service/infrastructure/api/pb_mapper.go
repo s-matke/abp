@@ -1,8 +1,9 @@
 package api
 
 import (
-	pb "common/proto/user_service"
-	"user_service/domain"
+	"github.com/s-matke/abp/abp-back/user_service/domain"
+
+	pb "github.com/s-matke/abp/abp-back/common/proto/user_service"
 )
 
 func mapUser(user *domain.User) *pb.User {

@@ -4,13 +4,14 @@ import (
 	"fmt"
 	"log"
 	"net"
-	"user_service/application"
-	"user_service/domain"
-	"user_service/infrastructure/api"
-	"user_service/infrastructure/persistence"
-	"user_service/startup/config"
 
-	user "common/proto/user_service"
+	"github.com/s-matke/abp/abp-back/user_service/application"
+	"github.com/s-matke/abp/abp-back/user_service/domain"
+	"github.com/s-matke/abp/abp-back/user_service/infrastructure/api"
+	"github.com/s-matke/abp/abp-back/user_service/infrastructure/persistence"
+	"github.com/s-matke/abp/abp-back/user_service/startup/config"
+
+	user "github.com/s-matke/abp/abp-back/common/proto/user_service"
 
 	"google.golang.org/grpc"
 	"gorm.io/gorm"

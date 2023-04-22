@@ -1,6 +1,6 @@
 package startup
 
-import "user_service/domain"
+import "github.com/s-matke/abp/abp-back/user_service/domain"
 
 var location_novi_sad = domain.Location{
 	City:    "Novi Sad",

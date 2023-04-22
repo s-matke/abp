@@ -1,7 +1,7 @@
 package application
 
 import (
-	"user_service/domain"
+	"github.com/s-matke/abp/abp-back/user_service/domain"
 
 	"github.com/google/uuid"
 )

@@ -1,8 +1,8 @@
 package main
 
 import (
-	"user_service/startup"
-	cfg "user_service/startup/config"
+	"github.com/s-matke/abp/abp-back/user_service/startup"
+	cfg "github.com/s-matke/abp/abp-back/user_service/startup/config"
 )
 
 func main() {

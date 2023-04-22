@@ -1,11 +1,14 @@
 package api
 
 import (
-	pb "common/proto/user_service"
 	"context"
 	"fmt"
-	"user_service/application"
-	"user_service/domain"
+
+	"github.com/s-matke/abp/abp-back/user_service/domain"
+
+	"github.com/s-matke/abp/abp-back/user_service/application"
+
+	pb "github.com/s-matke/abp/abp-back/common/proto/user_service"
 
 	"github.com/google/uuid"
 )

@@ -1,4 +1,4 @@
-module user_service
+module github.com/s-matke/abp/abp-back/user_service
 
 go 1.20
 

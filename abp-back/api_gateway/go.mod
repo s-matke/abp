@@ -1,4 +1,4 @@
-module api_gateway
+module github.com/s-matke/abp/abp-back/api_gateway
 
 go 1.20
 

@@ -1,8 +1,8 @@
 package main
 
 import (
-	"api_gateway/startup"
-	"api_gateway/startup/config"
+	"github.com/s-matke/abp/abp-back/api_gateway/startup"
+	"github.com/s-matke/abp/abp-back/api_gateway/startup/config"
 )
 
 func main() {

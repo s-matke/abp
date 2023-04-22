@@ -1,13 +1,14 @@
 package startup
 
 import (
-	cfg "api_gateway/startup/config"
 	"context"
 	"fmt"
 	"log"
 	"net/http"
 
-	userGw "common/proto/user_service"
+	cfg "github.com/s-matke/abp/abp-back/api_gateway/startup/config"
+
+	userGw "github.com/s-matke/abp/abp-back/common/proto/user_service"
 
 	"github.com/grpc-ecosystem/grpc-gateway/v2/runtime"
 	"google.golang.org/grpc"
