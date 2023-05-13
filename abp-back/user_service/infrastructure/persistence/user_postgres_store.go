@@ -71,3 +71,12 @@ func (store *UserPostgresStore) GetByEmail(email string) (*domain.User, error) {
 	}
 	return &user, nil
 }
+
+func (store *UserPostgresStore) Login(username string, password string) (*domain.User, error) {
+	var user domain.User
+	result := store.db.Where("username = ? and password = ?", username, password).First(&user) // isto ko ovo gore
+	if result.Error != nil {
+		return nil, result.Error
+	}
+	return &user, nil
+}

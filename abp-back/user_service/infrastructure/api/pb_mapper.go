@@ -41,3 +41,10 @@ func mapNewUser(userPb *pb.NewUser) *domain.User {
 	}
 	return user
 }
+func mapLogin(login *pb.Login) *domain.Login {
+	user := &domain.Login{
+		Username:  login.Username,
+		Password:  login.Password,
+	}
+	return user
+}
