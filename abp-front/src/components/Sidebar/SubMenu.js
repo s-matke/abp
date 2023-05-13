@@ -48,7 +48,7 @@ const SubMenu = ({ item }) => {
   const [userRole, setUserRole] = useState('')
     
   function updateSidebarData() {
-    const role = localStorage.getItem('role') || 'guest';
+    const role = localStorage.getItem('role') || 'unknown';
     setUserRole(role)
   }
 

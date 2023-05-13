@@ -96,13 +96,13 @@ export const SidebarData = [
   {
     title: "Sign Un",
     path: "/signup",
-    role: ['guest'],
+    role: ['unknown'],
     icon: <FaIcons.FaUserAlt />,
   },
   {
     title: "Sign In",
     path: "/signin",
-    role: ['guest'],
+    role: ['unknown'],
     icon: <FaIcons.FaSignInAlt />,//<IoIcons.IoIosLogIn />,
   },
   {
