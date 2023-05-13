@@ -49,6 +49,8 @@ services:
       GATEWAY_PORT: ${GATEWAY_PORT}
       USER_SERVICE_HOST: ${USER_SERVICE_HOST}
       USER_SERVICE_PORT: ${USER_SERVICE_PORT}
+      ACCOMMODATION_SERVICE_HOST: ${ACCOMMODATION_SERVICE_HOST}
+      ACCOMMODATION_SERVICE_PORT: ${ACCOMMODATION_SERVICE_PORT}
     networks:
       - network
   
@@ -68,7 +70,7 @@ services:
   accommodation_db:
     image: mongo
     container_name: accommodation_db
-    restart: on_failure
+    restart: on-failure
     networks:
       - network
   
