@@ -44,7 +44,6 @@ message Accommodation {
     repeated string images = 6;
     int32 minPeople = 7;
     int32 maxPeople = 8;
-    
 }
 
 message Location {

@@ -6,3 +6,15 @@ Service:
 
 Repository:
 	infrastructure/persistence/store.go
+
+Model:
+	domain/model.go
+	
+Koraci:
+	1. Proto -> dodati url putanju
+	2. Izvrsiti proto komandu (common/protoc_cmd.txt - izmeniti naziv servica na dva mesta u 		   toj komandi)
+	3. Ako nema greske -> dalje, u suprotnom -> Matke
+	4. domain/store.go -> dodati naziv funkcije koja ce se koristiti sa parametrima
+	5. infrastructure/api/api.go -> controller klasika
+	6. application/service.go -> service klasika
+	7. infrastructure/persistence/store.go -> repozitorijum klasika
