@@ -22,3 +22,7 @@ func (service *AccommodationService) Get(id primitive.ObjectID) (*domain.Accommo
 func (service *AccommodationService) GetAll() ([]*domain.Accommodation, error) {
 	return service.store.GetAll()
 }
+
+func (service *AccommodationService) CreateAccommodation(accommodation *domain.Accommodation) error {
+	return service.store.Insert(accommodation)
+}

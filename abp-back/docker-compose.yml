@@ -36,23 +36,22 @@ services:
     networks:
       - network
   
-  # auth_service:
-  #   image: auth_service
-  #   container_name: auth_service
-  #   build:
-  #     context: .
-  #     dockerfile: ./auth_service/Dockerfile
-  #   restart: on-failure
-  #   environment:
-  #     AUTH_SERVICE_PORT: ${AUTH_SERVICE_PORT}
-  #     USER_SERVICE_HOST: ${USER_SERVICE_HOST}
-  #     USER_SERVICE_PORT: ${USER_SERVICE_PORT}
-  #     ACCOMMODATION_SERVICE_HOST: ${ACCOMMODATION_SERVICE_HOST}
-  #     ACCOMMODATION_SERVICE_PORT: ${ACCOMMODATION_SERVICE_PORT}
-  #     SECRET_KEY: ${SECRET_KEY}
-  #   networks:
-  #     - network
-  
+  pricing_service:
+    image: pricing_service
+    container_name: pricing_service
+    build:
+      context: .
+      dockerfile: ./pricing_service/Dockerfile
+    restart: on-failure
+    environment:
+      PRICING_DB_HOST: ${PRICING_DB_HOST}
+      PRICING_DB_PORT: ${PRICING_DB_PORT}
+      PRICING_SERVICE_PORT: ${PRICING_SERVICE_PORT}
+    depends_on:
+      - pricing_db
+    networks:
+      - network
+    
   api_gateway:
     image: api_gateway
     container_name: api_gateway
@@ -68,6 +67,8 @@ services:
       USER_SERVICE_PORT: ${USER_SERVICE_PORT}
       ACCOMMODATION_SERVICE_HOST: ${ACCOMMODATION_SERVICE_HOST}
       ACCOMMODATION_SERVICE_PORT: ${ACCOMMODATION_SERVICE_PORT}
+      PRICING_SERVICE_HOST: ${PRICING_SERVICE_HOST}
+      PRICING_SERVICE_PORT: ${PRICING_SERVICE_PORT}
       AUTH_SERVICE_HOST: ${AUTH_SERVICE_HOST}
       AUTH_SERVICE_PORT: ${AUTH_SERVICE_PORT}
     networks:
@@ -92,6 +93,15 @@ services:
     restart: on-failure
     ports:
       - 27018:${ACCOMMODATION_DB_PORT}
+    networks:
+      - network
+  
+  pricing_db:
+    image: mongo
+    container_name: pricing_db
+    restart: on-failure
+    ports:
+      - 27019:${PRICING_DB_PORT}
     networks:
       - network
   
