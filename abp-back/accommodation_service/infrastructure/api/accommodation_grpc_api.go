@@ -59,3 +59,13 @@ func (handler *AccommodationHandler) GetAll(ctx context.Context, request *pb.Get
 
 	return response, nil
 }
+
+func (handler *AccommodationHandler) CreateAccommodation(ctx context.Context, request *pb.CreateAccommodationRequest) (*pb.CreateAccommodationResponse, error) {
+	accommodation := mapNewAccommodation(request)
+	err := handler.service.CreateAccommodation(accommodation)
+	if err != nil {
+		return nil, err
+	}
+	response := pb.CreateAccommodationResponse{Accommodation: mapAccommodation(accommodation)}
+	return &response, nil
+}
