@@ -4,6 +4,7 @@ import {BrowserRouter, Routes, Route} from "react-router-dom";
 import { ToastContainer, toast } from 'react-toastify';
 
 import Sidebar from "./components/Sidebar/Sidebar";
+import CreateAccommodation from './Pages/CreateAccommodation';
 
 function App() {
   return (
@@ -12,6 +13,7 @@ function App() {
         <Sidebar />
         <Routes>
           {/* <Route path="/" element={<Signin />}></Route> */}
+          <Route path="/createAccommodation" element={<CreateAccommodation/>}></Route>
         </Routes>
       </BrowserRouter>
       <ToastContainer/>
