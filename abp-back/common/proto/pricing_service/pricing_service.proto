@@ -1,0 +1,63 @@
+syntax = "proto3";
+
+option go_package = "github.com/s-matke/abp/abp-back/common/pricing";
+
+package pricing;
+
+import "google/api/annotations.proto";
+
+service PricingService {
+    rpc Get(GetRequest) returns(GetResponse) {
+        option (google.api.http) = {
+            get: "/pricing/{id}"
+        };
+    }
+
+    rpc GetByAccommodation(GetByAccommodationRequest) returns(GetByAccommodationResponse) {
+        option (google.api.http) = {
+            get: "/pricing/{accommodation_id}"
+        };
+    }
+}
+
+message GetRequest {
+    string id = 1;
+}
+
+message GetResponse {
+    Pricing pricing = 1;
+}
+
+message GetByAccommodationRequest {
+    string accommodation_id = 1;
+}
+
+message GetByAccommodationResponse {
+    Pricing pricing = 1;
+}
+
+message Pricing {
+    string id = 1;
+    string accommodation_id = 2;
+    float price = 3;
+    Season season = 4;
+    Week week = 5;
+    float holiday = 6;
+    enum PricingType {
+        PER_PERSON = 0;
+        PER_HOUSEHOLD = 1;
+    }
+    PricingType pricingType = 7;
+}
+
+message Season {
+    float springMultiplier = 1;
+    float summerMultiplier = 2;
+    float fallMultiplier = 3;
+    float winterMultiplier = 4;
+}
+
+message Week {
+    float workdayMultiplier = 1;
+    float weekendMultiplier = 2;
+}

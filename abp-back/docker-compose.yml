@@ -36,6 +36,23 @@ services:
     networks:
       - network
   
+  # auth_service:
+  #   image: auth_service
+  #   container_name: auth_service
+  #   build:
+  #     context: .
+  #     dockerfile: ./auth_service/Dockerfile
+  #   restart: on-failure
+  #   environment:
+  #     AUTH_SERVICE_PORT: ${AUTH_SERVICE_PORT}
+  #     USER_SERVICE_HOST: ${USER_SERVICE_HOST}
+  #     USER_SERVICE_PORT: ${USER_SERVICE_PORT}
+  #     ACCOMMODATION_SERVICE_HOST: ${ACCOMMODATION_SERVICE_HOST}
+  #     ACCOMMODATION_SERVICE_PORT: ${ACCOMMODATION_SERVICE_PORT}
+  #     SECRET_KEY: ${SECRET_KEY}
+  #   networks:
+  #     - network
+  
   api_gateway:
     image: api_gateway
     container_name: api_gateway
@@ -51,6 +68,8 @@ services:
       USER_SERVICE_PORT: ${USER_SERVICE_PORT}
       ACCOMMODATION_SERVICE_HOST: ${ACCOMMODATION_SERVICE_HOST}
       ACCOMMODATION_SERVICE_PORT: ${ACCOMMODATION_SERVICE_PORT}
+      AUTH_SERVICE_HOST: ${AUTH_SERVICE_HOST}
+      AUTH_SERVICE_PORT: ${AUTH_SERVICE_PORT}
     networks:
       - network
   

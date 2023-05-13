@@ -25,6 +25,21 @@ service UserService {
             body: "user"
         };
     }
+
+    rpc UpdateUser(UpdateUserRequest) returns(UpdateUserResponse) {
+        option (google.api.http) = {
+            put: "/user"
+            body: "user"
+        };
+    }
+}
+
+message UpdateUserRequest {
+    NewUser user = 1;
+}
+
+message UpdateUserResponse {
+    User user = 1;
 }
 
 message CreateUserRequest {
