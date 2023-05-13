@@ -55,21 +55,19 @@ func (store *UserPostgresStore) DeleteAll() {
 	store.db.Session(&gorm.Session{AllowGlobalUpdate: true}).Delete(&domain.User{})
 }
 
-
 func (store *UserPostgresStore) GetByUsername(username string) (*domain.User, error) {
-    var user domain.User
-    result := store.db.Where("username = ?", username).First(&user)
-    if result.Error != nil {
-        return nil, result.Error
-    }
-    return &user, nil
+	var user domain.User
+	result := store.db.Where("username = ?", username).First(&user)
+	if result.Error != nil {
+		return nil, result.Error
+	}
+	return &user, nil
 }
 func (store *UserPostgresStore) GetByEmail(email string) (*domain.User, error) {
-    var user domain.User
-    result := store.db.Where("email = ?", email).First(&user)
-    if result.Error != nil {
-        return nil, result.Error
-    }
-    return &user, nil
+	var user domain.User
+	result := store.db.Where("email = ?", email).First(&user)
+	if result.Error != nil {
+		return nil, result.Error
+	}
+	return &user, nil
 }
-

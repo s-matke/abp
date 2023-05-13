@@ -11,6 +11,7 @@ import (
 	cfg "github.com/s-matke/abp/abp-back/api_gateway/startup/config"
 
 	accommodationGw "github.com/s-matke/abp/abp-back/common/proto/accommodation_service"
+	pricingGw "github.com/s-matke/abp/abp-back/common/proto/pricing_service"
 	userGw "github.com/s-matke/abp/abp-back/common/proto/user_service"
 
 	"github.com/grpc-ecosystem/grpc-gateway/v2/runtime"
@@ -36,14 +37,20 @@ func NewServer(config *cfg.Config) *Server {
 func (server *Server) initHandlers() {
 	fmt.Print("api_gateway -> initHandlers")
 	opts := []grpc.DialOption{grpc.WithTransportCredentials(insecure.NewCredentials())}
-	catalogueEmdpoint := fmt.Sprintf("%s:%s", server.config.UserHost, server.config.UserPort)
-	err := userGw.RegisterUserServiceHandlerFromEndpoint(context.TODO(), server.mux, catalogueEmdpoint, opts)
+	userEndpoint := fmt.Sprintf("%s:%s", server.config.UserHost, server.config.UserPort)
+	err := userGw.RegisterUserServiceHandlerFromEndpoint(context.TODO(), server.mux, userEndpoint, opts)
 	if err != nil {
 		panic(err)
 	}
 
 	accommodationEndpoint := fmt.Sprintf("%s:%s", server.config.AccommodationHost, server.config.AccommodationPort)
 	err = accommodationGw.RegisterAccommodationServiceHandlerFromEndpoint(context.TODO(), server.mux, accommodationEndpoint, opts)
+	if err != nil {
+		panic(err)
+	}
+
+	pricingEndpoint := fmt.Sprintf("%s:%s", server.config.PricingHost, server.config.PricingPort)
+	err = pricingGw.RegisterPricingServiceHandlerFromEndpoint(context.TODO(), server.mux, pricingEndpoint, opts)
 	if err != nil {
 		panic(err)
 	}
