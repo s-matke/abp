@@ -18,6 +18,18 @@ service PricingService {
             get: "/pricing/{accommodation_id}"
         };
     }
+
+    rpc GetAll(GetAllRequest) returns(GetAllResponse) {
+        option (google.api.http) = {
+            get: "/pricing"
+        };
+    }
+}
+
+message GetAllRequest {}
+
+message GetAllResponse {
+    repeated Pricing pricings = 1;
 }
 
 message GetRequest {

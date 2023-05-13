@@ -6,6 +6,8 @@ import (
 	"log"
 	"net/http"
 
+	"github.com/gorilla/handlers"
+
 	cfg "github.com/s-matke/abp/abp-back/api_gateway/startup/config"
 
 	accommodationGw "github.com/s-matke/abp/abp-back/common/proto/accommodation_service"
@@ -49,5 +51,9 @@ func (server *Server) initHandlers() {
 }
 
 func (server *Server) Start() {
-	log.Fatal(http.ListenAndServe(fmt.Sprintf(":%s", server.config.Port), server.mux))
+	origins := handlers.AllowedOrigins([]string{"http://localhost:3000/**", "http://localhost:3000", "https://localhost:3000/**", "https://localhost:3000"})
+	methods := handlers.AllowedMethods([]string{"GET", "POST", "PUT", "DELETE"})
+	headers := handlers.AllowedHeaders([]string{"Accept", "Accept-Language", "Content-Type", "Content-Language", "Origin", "Authorization", "Access-Control-Allow-Origin", "*"})
+
+	log.Fatal(http.ListenAndServe(fmt.Sprintf(":%s", server.config.Port), handlers.CORS(headers, methods, origins)(server.mux)))
 }
