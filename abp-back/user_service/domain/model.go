@@ -49,3 +49,8 @@ func (user *User) BeforeCreate(scope *gorm.DB) error {
 	user.Id = uuid.New()
 	return nil
 }
+
+type Login struct {
+	Username    string    `json:"username"`
+	Password    string    `json:"password"`
+}

@@ -87,3 +87,19 @@ func (handler *UserHandler) CreateUser(ctx context.Context, request *pb.CreateUs
 		User: mapUser(user),
 	}, nil
 }
+
+func (handler *UserHandler) Login(ctx context.Context, request *pb.LoginRequest) (*pb.LoginResponse, error) {
+	fmt.Print("Request.Login: ")
+	fmt.Println(request.Login)
+	login := mapLogin(request.Login)
+	fmt.Print("Login after mapping: ")
+	fmt.Println(login)
+	user,err := handler.service.Login(login.Username, login.Password)
+	//var err error = nil
+	if err != nil {
+		return nil, err
+	}
+	return &pb.LoginResponse{
+		User: mapUser(user),
+	}, nil
+}
