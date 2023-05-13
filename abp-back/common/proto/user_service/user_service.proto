@@ -18,6 +18,21 @@ service UserService {
             get: "/user"
         };
     }
+
+    rpc CreateUser(CreateUserRequest) returns(CreateUserResponse) {
+        option (google.api.http) = {
+            post: "/user"
+            body: "user"
+        };
+    }
+}
+
+message CreateUserRequest {
+    NewUser user = 1;
+}
+
+message CreateUserResponse {
+    User user = 1;
 }
 
 message GetRequest {
@@ -33,6 +48,19 @@ message GetAllRequest {
 
 message GetAllResponse {
     repeated User users = 1;
+}
+
+message NewUser {
+    string username = 1;
+    string name = 2;
+    string surname = 3;
+    string phoneNumber = 4;
+    string email = 5;
+    string password = 6;
+    Role role = 7;
+    string address = 8;
+    string city = 9;
+    string country = 10;
 }
 
 message User {

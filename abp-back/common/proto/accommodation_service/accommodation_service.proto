@@ -18,6 +18,13 @@ service AccommodationService {
             get: "/accommodation"
         };
     }
+
+    rpc CreateAccommodation(CreateAccommodationRequest) returns(CreateAccommodationResponse) {
+        option (google.api.http) = {
+            post: "/accommodation"
+            body: "accommodation"
+        };
+    }
 }
 
 message GetRequest {
@@ -35,6 +42,14 @@ message GetAllResponse {
     repeated Accommodation accommodations = 1;
 }
 
+message CreateAccommodationRequest {
+    NewAccommodation accommodation = 1;
+}
+
+message CreateAccommodationResponse {
+    Accommodation accommodation = 1;
+}
+
 message Accommodation {
     string id = 1;
     string host_id = 2;
@@ -44,6 +59,16 @@ message Accommodation {
     repeated string images = 6;
     int32 minPeople = 7;
     int32 maxPeople = 8;
+}
+
+message NewAccommodation {
+    string host_id = 1;
+    string name = 2;
+    Location location = 3;
+    repeated Utility utilities  = 4;
+    repeated string images = 5;
+    int32 minPeople = 6;
+    int32 maxPeople = 7;
 }
 
 message Location {
