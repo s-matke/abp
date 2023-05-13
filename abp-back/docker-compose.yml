@@ -28,9 +28,9 @@ services:
       dockerfile: ./accommodation_service/Dockerfile
     restart: on-failure
     environment:
-      - ACCOMMODATION_DB_HOST: ${ACCOMMODATION_DB_HOST}
-      - ACCOMMODATION_DB_PORT: ${ACCOMMODATION_DB_PORT}
-      - ACCOMMODATION_SERVICE_PORT: ${ACCOMMODATION_SERVICE_PORT}
+      ACCOMMODATION_DB_HOST: ${ACCOMMODATION_DB_HOST}
+      ACCOMMODATION_DB_PORT: ${ACCOMMODATION_DB_PORT}
+      ACCOMMODATION_SERVICE_PORT: ${ACCOMMODATION_SERVICE_PORT}
     depends_on:
       - accommodation_db
     networks:
