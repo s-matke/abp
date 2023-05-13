@@ -6,7 +6,7 @@ replace github.com/s-matke/abp/abp-back/common => ../common
 
 require (
 	github.com/google/uuid v1.3.0
-	github.com/s-matke/abp/abp-back/common v0.0.0-00010101000000-000000000000
+	github.com/s-matke/abp/abp-back/common v0.0.0-20230422221353-aac738e9c5a1
 	google.golang.org/grpc v1.54.0
 	gorm.io/driver/postgres v1.5.0
 	gorm.io/gorm v1.25.0

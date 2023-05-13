@@ -6,8 +6,8 @@ import (
 	pb "github.com/s-matke/abp/abp-back/common/proto/user_service"
 )
 
-func mapUser(user *domain.Users) *pb.Users {
-	userPb := &pb.Users{
+func mapUser(user *domain.User) *pb.User {
+	userPb := &pb.User{
 		Id:          user.Id.String(),
 		Username:    user.Username,
 		Name:        user.Name,
@@ -15,11 +15,10 @@ func mapUser(user *domain.Users) *pb.Users {
 		PhoneNumber: user.PhoneNumber,
 		Email:       user.Email,
 		Password:    user.Password,
-		// Role:        pb.Role(user.Role),
-		// Location: &pb.Location{
-		// 	City:    user.Location.City,
-		// 	Country: user.Location.Country,
-		// },
+		Role:        pb.Role(user.Role),
+		Address:     user.Address,
+		City:        user.City,
+		Country:     user.Country,
 	}
 
 	return userPb

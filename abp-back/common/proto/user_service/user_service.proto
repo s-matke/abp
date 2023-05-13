@@ -25,17 +25,17 @@ message GetRequest {
 }
 
 message GetResponse {
-    Users user = 1;
+    User user = 1;
 }
 
 message GetAllRequest {
 }
 
 message GetAllResponse {
-    repeated Users users = 1;
+    repeated User users = 1;
 }
 
-message Users {
+message User {
     string id = 1;
     string username = 2;
     string name = 3;

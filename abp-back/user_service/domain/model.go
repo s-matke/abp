@@ -5,7 +5,7 @@ import (
 	"gorm.io/gorm"
 )
 
-type Users struct {
+type User struct {
 	Id          uuid.UUID `json:"id" gorm:"primaryKey;not null;unique"`
 	Username    string    `json:"username" gorm:"unique;not null"`
 	Name        string    `json:"name" gorm:"not null"`
@@ -32,7 +32,7 @@ type Location struct {
 	Country string `json:"country"`
 }
 
-func (user *Users) BeforeCreate(scope *gorm.DB) error {
+func (user *User) BeforeCreate(scope *gorm.DB) error {
 	user.Id = uuid.New()
 	return nil
 }

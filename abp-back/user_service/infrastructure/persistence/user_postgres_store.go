@@ -1,6 +1,8 @@
 package persistence
 
 import (
+	"fmt"
+
 	"github.com/s-matke/abp/abp-back/user_service/domain"
 
 	"github.com/google/uuid"
@@ -12,7 +14,7 @@ type UserPostgresStore struct {
 }
 
 func NewUserPostgresStore(db *gorm.DB) (domain.UserStore, error) {
-	err := db.AutoMigrate((&domain.Users{}))
+	err := db.AutoMigrate((&domain.User{}))
 	if err != nil {
 		return nil, err
 	}
@@ -21,8 +23,8 @@ func NewUserPostgresStore(db *gorm.DB) (domain.UserStore, error) {
 	}, nil
 }
 
-func (store *UserPostgresStore) Get(id uuid.UUID) (*domain.Users, error) {
-	var user domain.Users
+func (store *UserPostgresStore) Get(id uuid.UUID) (*domain.User, error) {
+	var user domain.User
 	// result := store.db.First(&user, "id = ?", id)
 	result := store.db.Where("id = ?", id).First(&user) // isto ko ovo gore
 	if result.Error != nil {
@@ -31,8 +33,9 @@ func (store *UserPostgresStore) Get(id uuid.UUID) (*domain.Users, error) {
 	return &user, nil
 }
 
-func (store *UserPostgresStore) GetAll() (*[]domain.Users, error) {
-	var users []domain.Users
+func (store *UserPostgresStore) GetAll() (*[]domain.User, error) {
+	fmt.Print("user_service -> GetAll [persistance]\n")
+	var users []domain.User
 	result := store.db.Find(&users)
 	if result.Error != nil {
 		return nil, result.Error
@@ -40,7 +43,7 @@ func (store *UserPostgresStore) GetAll() (*[]domain.Users, error) {
 	return &users, nil
 }
 
-func (store *UserPostgresStore) Insert(user *domain.Users) error {
+func (store *UserPostgresStore) Insert(user *domain.User) error {
 	result := store.db.Create(user)
 	if result.Error != nil {
 		return result.Error
@@ -49,5 +52,5 @@ func (store *UserPostgresStore) Insert(user *domain.Users) error {
 }
 
 func (store *UserPostgresStore) DeleteAll() {
-	store.db.Session(&gorm.Session{AllowGlobalUpdate: true}).Delete(&domain.Users{})
+	store.db.Session(&gorm.Session{AllowGlobalUpdate: true}).Delete(&domain.User{})
 }

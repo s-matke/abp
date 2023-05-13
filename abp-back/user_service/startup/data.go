@@ -17,7 +17,7 @@ var location_beograd = domain.Location{
 	Country: "Serbia",
 }
 
-var users = []*domain.Users{
+var users = []*domain.User{
 	{
 		Id:          uuid.New(), //uuid.Must(uuid.New(), context.TODO().Err()),
 		Username:    "pera",

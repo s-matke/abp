@@ -20,6 +20,22 @@ services:
     networks:
       - network
   
+  accommodation_service:
+    image: accommodation_service
+    container_name: accommodation_service
+    build:
+      context: .
+      dockerfile: ./accommodation_service/Dockerfile
+    restart: on-failure
+    environment:
+      - ACCOMMODATION_DB_HOST: ${ACCOMMODATION_DB_HOST}
+      - ACCOMMODATION_DB_PORT: ${ACCOMMODATION_DB_PORT}
+      - ACCOMMODATION_SERVICE_PORT: ${ACCOMMODATION_SERVICE_PORT}
+    depends_on:
+      - accommodation_db
+    networks:
+      - network
+  
   api_gateway:
     image: api_gateway
     container_name: api_gateway
@@ -46,6 +62,13 @@ services:
       POSTGRES_DB: ${USER_DB_NAME}
     ports:
       - 5433:${USER_DB_PORT}
+    networks:
+      - network
+  
+  accommodation_db:
+    image: mongo
+    container_name: accommodation_db
+    restart: on_failure
     networks:
       - network
   

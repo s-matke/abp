@@ -35,7 +35,7 @@ func (handler *UserHandler) Get(ctx context.Context, request *pb.GetRequest) (*p
 		return nil, err
 	}
 
-	var user *domain.Users
+	var user *domain.User
 	user, err = handler.service.Get(uid)
 
 	if err != nil {
@@ -52,6 +52,7 @@ func (handler *UserHandler) Get(ctx context.Context, request *pb.GetRequest) (*p
 }
 
 func (handler *UserHandler) GetAll(ctx context.Context, request *pb.GetAllRequest) (*pb.GetAllResponse, error) {
+	fmt.Print("user_service -> GetAll [api]\n")
 	users, err := handler.service.GetAll()
 
 	if err != nil || *users == nil {
@@ -59,7 +60,7 @@ func (handler *UserHandler) GetAll(ctx context.Context, request *pb.GetAllReques
 	}
 
 	response := &pb.GetAllResponse{
-		Users: []*pb.Users{},
+		Users: []*pb.User{},
 	}
 
 	for _, user := range *users {

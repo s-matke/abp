@@ -1,0 +1,60 @@
+syntax = "proto3";
+
+option go_package = "github.com/s-matke/abp/abp-back/common/accommodation";
+
+package accommodation;
+
+import "google/api/annotations.proto";
+
+service AccommodationService {
+    rpc Get(GetRequest) returns(GetResponse) {
+        option (google.api.http) = {
+            get: "/accommodation/{id}"
+        };
+    }
+
+    rpc GetAll(GetAllRequest) returns(GetAllResponse) {
+        option (google.api.http) = {
+            get: "/accommodation"
+        };
+    }
+}
+
+message GetRequest {
+    string id = 1;
+}
+
+message GetResponse {
+    Accommodation accommodation = 1;
+}
+
+message GetAllRequest {
+}
+
+message GetAllResponse {
+    repeated Accommodation accommodations = 1;
+}
+
+message Accommodation {
+    string id = 1;
+    string host_id = 2;
+    string name = 3;
+    Location location = 4;
+    repeated Utility utilities  = 5;
+    repeated string images = 6;
+    int32 minPeople = 7;
+    int32 maxPeople = 8;
+    
+}
+
+message Location {
+    string address = 1;
+    string city = 2;
+    string country = 3;
+}
+
+message Utility {
+    string name = 1;
+    string description = 2;
+    // string icon = 3
+}
