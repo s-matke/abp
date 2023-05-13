@@ -70,3 +70,20 @@ func (handler *UserHandler) GetAll(ctx context.Context, request *pb.GetAllReques
 
 	return response, nil
 }
+
+func (handler *UserHandler) CreateUser(ctx context.Context, request *pb.CreateUserRequest) (*pb.CreateUserResponse, error) {
+	fmt.Println("In CreateUser grpc api")
+	fmt.Print("Request.User: ")
+	fmt.Println(request.User)
+	user := mapNewUser(request.User)
+	fmt.Print("user after mapping: ")
+	fmt.Println(user)
+	err := handler.service.Create(user)
+
+	if err != nil {
+		return nil, err
+	}
+	return &pb.CreateUserResponse{
+		User: mapUser(user),
+	}, nil
+}

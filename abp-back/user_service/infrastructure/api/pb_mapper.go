@@ -23,3 +23,21 @@ func mapUser(user *domain.User) *pb.User {
 
 	return userPb
 }
+
+func mapNewUser(userPb *pb.NewUser) *domain.User {
+	user := &domain.User{
+
+		//Id: uuid.New(),
+		Username:  userPb.Username,
+		Name:  userPb.Name,
+		Surname:  userPb.Surname,
+		PhoneNumber:  userPb.PhoneNumber,
+		Email:     userPb.Email,
+		Password:  userPb.Password,
+		Role:  domain.Role(userPb.Role),
+		Address:   userPb.Address,
+		City:   userPb.City,
+		Country:   userPb.Country,
+	}
+	return user
+}
