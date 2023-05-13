@@ -51,5 +51,6 @@ message User {
 
 enum Role {
     GUEST = 0;
-    HOST = 1;    
+    HOST = 1;
+    ADMIN = 2;
 }

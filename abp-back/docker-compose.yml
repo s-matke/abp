@@ -71,6 +71,8 @@ services:
     image: mongo
     container_name: accommodation_db
     restart: on-failure
+    ports:
+      - 27018:${ACCOMMODATION_DB_PORT}
     networks:
       - network
   

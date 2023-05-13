@@ -24,7 +24,20 @@ type Role int
 const (
 	GUEST Role = iota
 	HOST
+	ADMIN
 )
+
+func (role Role) String() string {
+	switch role {
+	case GUEST:
+		return "Guest"
+	case HOST:
+		return "Host"
+	case ADMIN:
+		return "Admin"
+	}
+	return "Unknown"
+}
 
 type Location struct {
 	Address string `json:"address"`
