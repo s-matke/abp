@@ -25,6 +25,42 @@ service UserService {
             body: "user"
         };
     }
+
+    rpc UpdateUser(UpdateUserRequest) returns(UpdateUserResponse) {
+        option (google.api.http) = {
+            put: "/user"
+            body: "user"
+        };
+    }
+
+    rpc Login(LoginRequest) returns(LoginResponse) {
+        option (google.api.http) = {
+            post: "/login"
+            body: "login"
+        };
+    }
+}
+
+message LoginRequest {
+    Login login = 1;
+}
+
+message LoginResponse {
+    User user = 1;
+}
+
+message Login {
+    string username = 1;
+    string password = 2;
+}
+
+
+message UpdateUserRequest {
+    User user = 1;
+}
+
+message UpdateUserResponse {
+    User user = 1;
 }
 
 message CreateUserRequest {

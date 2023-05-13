@@ -7,4 +7,6 @@ type UserStore interface {
 	GetAll() (*[]User, error)
 	Insert(user *User) error
 	DeleteAll()
+	GetByUsername(username string) (*User, error)
+	GetByEmail(email string) (*User, error)
 }
