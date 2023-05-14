@@ -23,6 +23,7 @@ const (
 	PricingService_GetByAccommodation_FullMethodName = "/pricing.PricingService/GetByAccommodation"
 	PricingService_GetAll_FullMethodName             = "/pricing.PricingService/GetAll"
 	PricingService_CreatePricing_FullMethodName      = "/pricing.PricingService/CreatePricing"
+	PricingService_CalculatePrice_FullMethodName     = "/pricing.PricingService/CalculatePrice"
 )
 
 // PricingServiceClient is the client API for PricingService service.
@@ -33,6 +34,7 @@ type PricingServiceClient interface {
 	GetByAccommodation(ctx context.Context, in *GetByAccommodationRequest, opts ...grpc.CallOption) (*GetByAccommodationResponse, error)
 	GetAll(ctx context.Context, in *GetAllRequest, opts ...grpc.CallOption) (*GetAllResponse, error)
 	CreatePricing(ctx context.Context, in *CreatePricingRequest, opts ...grpc.CallOption) (*CreatePricingResponse, error)
+	CalculatePrice(ctx context.Context, in *CalculatePriceRequest, opts ...grpc.CallOption) (*CalculatePriceResponse, error)
 }
 
 type pricingServiceClient struct {
@@ -79,6 +81,15 @@ func (c *pricingServiceClient) CreatePricing(ctx context.Context, in *CreatePric
 	return out, nil
 }
 
+func (c *pricingServiceClient) CalculatePrice(ctx context.Context, in *CalculatePriceRequest, opts ...grpc.CallOption) (*CalculatePriceResponse, error) {
+	out := new(CalculatePriceResponse)
+	err := c.cc.Invoke(ctx, PricingService_CalculatePrice_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // PricingServiceServer is the server API for PricingService service.
 // All implementations must embed UnimplementedPricingServiceServer
 // for forward compatibility
@@ -87,6 +98,7 @@ type PricingServiceServer interface {
 	GetByAccommodation(context.Context, *GetByAccommodationRequest) (*GetByAccommodationResponse, error)
 	GetAll(context.Context, *GetAllRequest) (*GetAllResponse, error)
 	CreatePricing(context.Context, *CreatePricingRequest) (*CreatePricingResponse, error)
+	CalculatePrice(context.Context, *CalculatePriceRequest) (*CalculatePriceResponse, error)
 	mustEmbedUnimplementedPricingServiceServer()
 }
 
@@ -105,6 +117,9 @@ func (UnimplementedPricingServiceServer) GetAll(context.Context, *GetAllRequest)
 }
 func (UnimplementedPricingServiceServer) CreatePricing(context.Context, *CreatePricingRequest) (*CreatePricingResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreatePricing not implemented")
+}
+func (UnimplementedPricingServiceServer) CalculatePrice(context.Context, *CalculatePriceRequest) (*CalculatePriceResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CalculatePrice not implemented")
 }
 func (UnimplementedPricingServiceServer) mustEmbedUnimplementedPricingServiceServer() {}
 
@@ -191,6 +206,24 @@ func _PricingService_CreatePricing_Handler(srv interface{}, ctx context.Context,
 	return interceptor(ctx, in, info, handler)
 }
 
+func _PricingService_CalculatePrice_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(CalculatePriceRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(PricingServiceServer).CalculatePrice(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: PricingService_CalculatePrice_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(PricingServiceServer).CalculatePrice(ctx, req.(*CalculatePriceRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // PricingService_ServiceDesc is the grpc.ServiceDesc for PricingService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -213,6 +246,10 @@ var PricingService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "CreatePricing",
 			Handler:    _PricingService_CreatePricing_Handler,
+		},
+		{
+			MethodName: "CalculatePrice",
+			Handler:    _PricingService_CalculatePrice_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

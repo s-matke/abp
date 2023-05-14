@@ -21,7 +21,24 @@ service AvailabilityService {
             body: "availability"
         };
     }
+
+    rpc GetAllUnavailable(GetAllUnavailableRequest) returns(GetAllUnavailableResponse) {
+        option (google.api.http) = {
+            post: "/availability/unavailable"
+            body: "*"
+        };
+    }
 }
+
+message GetAllUnavailableRequest {
+    google.protobuf.Timestamp startDate = 1;
+    google.protobuf.Timestamp endDate = 2;
+}
+
+message GetAllUnavailableResponse {
+    repeated string ids = 1;
+}
+
 
 message GetAllRequest {}
 

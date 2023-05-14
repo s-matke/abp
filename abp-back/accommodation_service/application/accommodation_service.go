@@ -69,3 +69,10 @@ func (service *AccommodationService) CreateAccommodation(accommodation *domain.A
 func (service *AccommodationService) GetByHost(id string) ([]*domain.Accommodation, error) {
 	return service.store.GetByHost(id)
 }
+func (service *AccommodationService) GetAccommodationsBySearchCriteria(availableSeats int32,destination string) ([]*domain.Accommodation, error) {
+	accommodations, err := service.store.SearchAccommodation(availableSeats,destination)
+	if err != nil {
+		return nil, err
+	}
+	return accommodations, nil
+}
