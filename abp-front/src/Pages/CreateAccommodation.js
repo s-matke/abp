@@ -13,7 +13,20 @@ export default function CreateAccommodation() {
         
       };
 
+      const handleUtilities = (name) => (event) => {
+        const val = event.target.value;
+        setAccommodation({...accommodation, [name] : val})
+        
+      };
       const CreateAccommodation = () => {
+        const separatedVal = accommodation.utilities.split(',')
+        
+        var carArray = new Array();  
+        for(var sv in separatedVal) {
+            var jsonObj = new Object();
+            jsonObj.name = separatedVal[sv];
+            carArray.push(jsonObj);
+          }
         axios.post('http://localhost:8000/accommodation',
         {
             name : accommodation.name,
@@ -22,6 +35,7 @@ export default function CreateAccommodation() {
             country : accommodation.country, 
             address : accommodation.address
         },
+            utilities : carArray,
             minPeople : accommodation.minPeople,
             maxPeople : accommodation.maxPeople
           })
@@ -37,7 +51,7 @@ export default function CreateAccommodation() {
     <div>
         <div style={{marginLeft:'650px',
                     width:'30%',
-                    marginTop:'100px'}}>
+                    marginTop:'30px'}}>
         <h1>Create Accommodation</h1>
         <Form>
                 <Form.Group className="mb-3" controlId="formBasicName">
@@ -63,6 +77,10 @@ export default function CreateAccommodation() {
                 <Form.Group className="mb-3" controlId="formBasicLastAddress">
                     <Form.Label>Max people</Form.Label>
                     <Form.Control type="text" placeholder="Enter max people" name="address" value={accommodation.maxPeople} onChange={handleFormInputChange("maxPeople")}/>
+                </Form.Group>
+                <Form.Group className="mb-3" controlId="formBasicName">
+                    <Form.Label>Utlities</Form.Label>
+                    <Form.Control type="text" placeholder="Enter utilities" name="name" value={accommodation.utilities} onChange={handleUtilities("utilities")}/>
                 </Form.Group>
                 <Button variant="primary" onClick={CreateAccommodation}>
                     Submit
