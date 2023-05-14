@@ -121,7 +121,7 @@ const handleSubmit = (e) => {
         <Title>Accommodations</Title>
         <Form onSubmit={e=>handleSubmit(e)}> {/* onSubmit={} */}
             <LabelInputDiv>
-        <Label htmlFor="departure">Date:</Label>
+        <Label htmlFor="departure">Kog Datuma:</Label>
         <Input
           type="date"
           id="departure"
@@ -131,7 +131,7 @@ const handleSubmit = (e) => {
         />
 </LabelInputDiv>
 <LabelInputDiv>
-        <Label htmlFor="destination">Destination city:</Label>
+        <Label htmlFor="destination">Gde idete?</Label>
         <Input
           type="text"
           id="destination"
@@ -141,7 +141,7 @@ const handleSubmit = (e) => {
         />
 </LabelInputDiv>
 <LabelInputDiv>
-        <Label htmlFor="availableSeats">Seats:</Label>
+        <Label htmlFor="availableSeats">Koliko osoba?</Label>
         <Input
           type="number"
           id="availableSeats"
