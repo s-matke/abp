@@ -49,7 +49,7 @@ const Sidebar = () => {
 
   
   useEffect(() => {
-    const role = localStorage.getItem('role') || 'unknown'
+    const role = localStorage.getItem('userRole') || 'unknown'
     setUserRole(role)
 
   }, [localStorage.getItem('role')])

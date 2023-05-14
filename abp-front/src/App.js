@@ -20,7 +20,7 @@ function App() {
           <Route path="/signup" element={<Register />}></Route> 
           <Route path="/signin" element={<Login />}></Route> 
           {/* <Route path="/" element={<Signin />}></Route> */}
-          <Route path="/createAccommodation" element={<CreateAccommodation/>}></Route>
+          <Route path="/accommodation/create" element={<CreateAccommodation/>}></Route>
         </Routes>
         </AuthProvider>
       </BrowserRouter>
