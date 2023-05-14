@@ -5,6 +5,7 @@ import (
 
 	"github.com/s-matke/abp/abp-back/availability_service/domain"
 	"go.mongodb.org/mongo-driver/bson"
+	"go.mongodb.org/mongo-driver/bson/primitive"
 	"go.mongodb.org/mongo-driver/mongo"
 )
 
@@ -30,7 +31,11 @@ func (store *AvailabilityMongoDBStore) GetAll() ([]*domain.Availability, error) 
 }
 
 func (store *AvailabilityMongoDBStore) Insert(availability *domain.Availability) error {
-	// TODO: Insert
+	result, err := store.availabilities.InsertOne(context.TODO(), availability)
+	if err != nil {
+		return err
+	}
+	availability.Id = result.InsertedID.(primitive.ObjectID)
 	return nil
 }
 
