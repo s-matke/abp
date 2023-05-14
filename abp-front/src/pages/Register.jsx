@@ -156,7 +156,7 @@ const Register = () => {
     try {
       const response = await APIService.Register(username, password, email, firstName, lastName, phone, roleNum, address, city, country);
       console.log(response);
-      navigate('/singin')
+      navigate('/signin')
       
     } catch (error) {
       console.error(error);
@@ -263,7 +263,7 @@ const Register = () => {
         <FormField>
         <QuantitySelect value={role} onChange={e => setRole(e.target.value)} >
                         <option>{role}</option>
-                            {["GUEST", "USER"].map((quantity) => {
+                            {["GUEST", "HOST"].map((quantity) => {
                                 return role !== quantity ? (
                                 <option key={quantity}>{quantity}</option>
                                 ) : null;
