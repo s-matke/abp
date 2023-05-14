@@ -22,6 +22,7 @@ const (
 	PricingService_Get_FullMethodName                = "/pricing.PricingService/Get"
 	PricingService_GetByAccommodation_FullMethodName = "/pricing.PricingService/GetByAccommodation"
 	PricingService_GetAll_FullMethodName             = "/pricing.PricingService/GetAll"
+	PricingService_CreatePricing_FullMethodName      = "/pricing.PricingService/CreatePricing"
 )
 
 // PricingServiceClient is the client API for PricingService service.
@@ -31,6 +32,7 @@ type PricingServiceClient interface {
 	Get(ctx context.Context, in *GetRequest, opts ...grpc.CallOption) (*GetResponse, error)
 	GetByAccommodation(ctx context.Context, in *GetByAccommodationRequest, opts ...grpc.CallOption) (*GetByAccommodationResponse, error)
 	GetAll(ctx context.Context, in *GetAllRequest, opts ...grpc.CallOption) (*GetAllResponse, error)
+	CreatePricing(ctx context.Context, in *CreatePricingRequest, opts ...grpc.CallOption) (*CreatePricingResponse, error)
 }
 
 type pricingServiceClient struct {
@@ -68,6 +70,15 @@ func (c *pricingServiceClient) GetAll(ctx context.Context, in *GetAllRequest, op
 	return out, nil
 }
 
+func (c *pricingServiceClient) CreatePricing(ctx context.Context, in *CreatePricingRequest, opts ...grpc.CallOption) (*CreatePricingResponse, error) {
+	out := new(CreatePricingResponse)
+	err := c.cc.Invoke(ctx, PricingService_CreatePricing_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // PricingServiceServer is the server API for PricingService service.
 // All implementations must embed UnimplementedPricingServiceServer
 // for forward compatibility
@@ -75,6 +86,7 @@ type PricingServiceServer interface {
 	Get(context.Context, *GetRequest) (*GetResponse, error)
 	GetByAccommodation(context.Context, *GetByAccommodationRequest) (*GetByAccommodationResponse, error)
 	GetAll(context.Context, *GetAllRequest) (*GetAllResponse, error)
+	CreatePricing(context.Context, *CreatePricingRequest) (*CreatePricingResponse, error)
 	mustEmbedUnimplementedPricingServiceServer()
 }
 
@@ -90,6 +102,9 @@ func (UnimplementedPricingServiceServer) GetByAccommodation(context.Context, *Ge
 }
 func (UnimplementedPricingServiceServer) GetAll(context.Context, *GetAllRequest) (*GetAllResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetAll not implemented")
+}
+func (UnimplementedPricingServiceServer) CreatePricing(context.Context, *CreatePricingRequest) (*CreatePricingResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CreatePricing not implemented")
 }
 func (UnimplementedPricingServiceServer) mustEmbedUnimplementedPricingServiceServer() {}
 
@@ -158,6 +173,24 @@ func _PricingService_GetAll_Handler(srv interface{}, ctx context.Context, dec fu
 	return interceptor(ctx, in, info, handler)
 }
 
+func _PricingService_CreatePricing_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(CreatePricingRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(PricingServiceServer).CreatePricing(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: PricingService_CreatePricing_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(PricingServiceServer).CreatePricing(ctx, req.(*CreatePricingRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // PricingService_ServiceDesc is the grpc.ServiceDesc for PricingService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -176,6 +209,10 @@ var PricingService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetAll",
 			Handler:    _PricingService_GetAll_Handler,
+		},
+		{
+			MethodName: "CreatePricing",
+			Handler:    _PricingService_CreatePricing_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
