@@ -6,7 +6,6 @@ import (
 	"github.com/s-matke/abp/abp-back/user_service/domain"
 
 	"github.com/google/uuid"
-
 )
 
 type UserService struct {
@@ -28,7 +27,7 @@ func (service *UserService) GetAll() (*[]domain.User, error) {
 	return service.store.GetAll()
 }
 
-func (service *UserService) Create(user *domain.User) error{
+func (service *UserService) Create(user *domain.User) error {
 	/*checkUser, err := service.store.GetByUsername(user.Username)
 	if err != nil {
 	    if errors.Is(err, gorm.ErrRecordNotFound) {
@@ -42,7 +41,7 @@ func (service *UserService) Create(user *domain.User) error{
 	if checkUser != nil  {
 		return fmt.Errorf("user with username %s already exists", user.Username)
 	}
-	
+
 	checkUser, err = service.store.GetByEmail(user.Email)
 	if err != nil {
 	    return err
@@ -52,8 +51,16 @@ func (service *UserService) Create(user *domain.User) error{
 	}
 	fmt.Print("Get user by email: ")
 	fmt.Println(checkUser)*/
-	//TODO: Optional 
+	//TODO: Optional
 	err := service.store.Insert(user)
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
+func (service *UserService) UpdateUser(user *domain.User) error {
+	err := service.store.UpdateUser(user)
 	if err != nil {
 		return err
 	}

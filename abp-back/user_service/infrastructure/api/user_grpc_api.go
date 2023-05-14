@@ -87,3 +87,20 @@ func (handler *UserHandler) CreateUser(ctx context.Context, request *pb.CreateUs
 		User: mapUser(user),
 	}, nil
 }
+
+func (handler *UserHandler) UpdateUser(ctx context.Context, request *pb.UpdateUserRequest) (*pb.UpdateUserResponse, error) {
+	fmt.Println("In UpdateUser grpc api")
+	fmt.Print("Request.User: ")
+	fmt.Println(request.User)
+	user := mapUpdateUser(request.User)
+	fmt.Print("user after mapping: ")
+	fmt.Println(user)
+	err := handler.service.UpdateUser(user)
+
+	if err != nil {
+		return nil, err
+	}
+	return &pb.UpdateUserResponse{
+		User: mapUser(user),
+	}, nil
+}
