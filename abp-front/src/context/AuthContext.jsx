@@ -18,7 +18,7 @@ export const AuthProvider = ({children}) =>{
           const response = await APIService.Login(e.target.username.value, e.target.password.value);
           console.log(response);
           localStorage.setItem('userID', JSON.stringify(response.user.id))
-          localStorage.setItem('userRole', JSON.stringify(response.user.role))
+          localStorage.setItem('userRole', JSON.stringify(response.user.role).toLowerCase())
         } catch (error) {
           console.error(error);
         }

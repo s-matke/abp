@@ -25,7 +25,25 @@ service AccommodationService {
             body: "accommodation"
         };
     }
+
+    rpc Search(SearchRequest) returns(SearchResponse) {
+        option (google.api.http) = {
+            post: "/search"
+            body: "*"
+        };
+    }
 }
+
+message SearchRequest {
+    Location location = 1;
+    int32 numOfPeople = 2;
+    // todo: startDate endDate
+}
+
+message SearchResponse {
+    repeated Accommodation accommodations = 1;
+}
+
 
 message GetRequest {
     string id = 1;

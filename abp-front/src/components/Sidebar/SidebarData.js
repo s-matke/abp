@@ -72,24 +72,24 @@ export const SidebarData = [
     ],
   },
   {
-    title: "Material",
-    role: ['Worker', 'Plan Manager', 'Inventory Manager'],
-    icon: <FaIcons.FaTools />,
+    title: "Accommodation",
+    role: ['host', 'admin', 'guest', 'unknown'],
+    icon: <FaIcons.FaBed />,
     iconClosed: <RiIcons.RiArrowDownSFill />,
     iconOpened: <RiIcons.RiArrowUpSFill />,
  
     subNav: [
       {
         title: "Add",
-        path: "/material/create",
+        path: "/accommodation/create",
         icon: <IoIcons.IoMdCreate />,
-        role: ['Worker', 'Inventory Manager']
+        role: ['host', 'admin']
       },
       {
         title: "Search",
-        path: "/material/search",
+        path: "/accommodation/search",
         icon: <IoIcons.IoIosSearch />,
-        role: ['User', 'Worker', 'Plan Manager', 'Inventory Manager']
+        role: ['guest', 'host', 'admin', 'unknown']
       },
     ],
   },
