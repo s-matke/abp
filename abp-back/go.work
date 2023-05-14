@@ -3,6 +3,7 @@ go 1.20
 use (
 	./accommodation_service
 	./api_gateway
+	./availability_service
 	./common
 	./pricing_service
 	./user_service

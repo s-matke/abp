@@ -11,6 +11,7 @@ import (
 	cfg "github.com/s-matke/abp/abp-back/api_gateway/startup/config"
 
 	accommodationGw "github.com/s-matke/abp/abp-back/common/proto/accommodation_service"
+	availabilityGw "github.com/s-matke/abp/abp-back/common/proto/availability_service"
 	pricingGw "github.com/s-matke/abp/abp-back/common/proto/pricing_service"
 	userGw "github.com/s-matke/abp/abp-back/common/proto/user_service"
 
@@ -55,6 +56,11 @@ func (server *Server) initHandlers() {
 		panic(err)
 	}
 
+	availabilityEndpoint := fmt.Sprintf("%s:%s", server.config.AvailabilityHost, server.config.AvailabilityPort)
+	err = availabilityGw.RegisterAvailabilityServiceHandlerFromEndpoint(context.TODO(), server.mux, availabilityEndpoint, opts)
+	if err != nil {
+		panic(err)
+	}
 }
 
 func (server *Server) Start() {
