@@ -43,5 +43,36 @@ export default class APIService{
           throw error
         }
       }
+    static async SearchAccommodations(city, numOfPeople) {
+      console.log(city,numOfPeople);
+        try {
+          const response = await axios.post(APIService.URL + '/search', {
+            location: {
+              city:city
+            },
+            numOfPeople: numOfPeople,
+          }, {
+            headers: {
+              'Content-Type': 'application/json'
+            }
+          });
+          return response.data;
+        } catch (error) {
+          throw error
+        }
+      }
+      static async GetAllAccommodations() {
+        try {
+            const response = await axios.get(APIService.URL + '/accommodation', null, {
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            });
+            return response.data;
+        } catch (error) {
+            throw error
+        }
+    }
+    
 }
   

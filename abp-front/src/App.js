@@ -8,6 +8,7 @@ import Register from './pages/Register';
 import CreateAccommodation from './Pages/CreateAccommodation';
 import Login from './pages/Login';
 import { AuthProvider } from './context/AuthContext';
+import Accommodation from './pages/Accommodation';
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
           {/*<Route path="/signup" element={<Register />}></Route> */}
           <Route path="/signup" element={<Register />}></Route> 
           <Route path="/signin" element={<Login />}></Route> 
+          <Route path="/accommodation" element={<Accommodation />}></Route> 
           {/* <Route path="/" element={<Signin />}></Route> */}
           <Route path="/accommodation/create" element={<CreateAccommodation/>}></Route>
         </Routes>
