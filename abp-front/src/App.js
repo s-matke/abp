@@ -4,7 +4,7 @@ import {BrowserRouter, Routes, Route} from "react-router-dom";
 import { ToastContainer, toast } from 'react-toastify';
 
 import Sidebar from "./components/Sidebar/Sidebar";
-//import Register from './Pages/Register';
+import Register from './pages/Register';
 import CreateAccommodation from './Pages/CreateAccommodation';
 import Login from './pages/Login';
 import { AuthProvider } from './context/AuthContext';
