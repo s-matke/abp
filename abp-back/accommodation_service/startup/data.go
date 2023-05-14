@@ -25,9 +25,10 @@ var accommodations = []*domain.Accommodation{
 				Description: "Free parking spot",
 			},
 		},
-		Images:    []string{"image1", "image2"},
-		MinPeople: 1,
-		MaxPeople: 4,
+		Images:               []string{"image1", "image2"},
+		MinPeople:            1,
+		MaxPeople:            4,
+		AutomaticReservation: false,
 	},
 	{
 		Id:     getObjectId("2"),
@@ -48,9 +49,10 @@ var accommodations = []*domain.Accommodation{
 				Description: "Free parking spot",
 			},
 		},
-		Images:    []string{"image2", "image3"},
-		MinPeople: 2,
-		MaxPeople: 9,
+		Images:               []string{"image2", "image3"},
+		MinPeople:            2,
+		MaxPeople:            9,
+		AutomaticReservation: true,
 	},
 }
 

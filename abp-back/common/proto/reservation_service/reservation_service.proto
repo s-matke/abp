@@ -1,0 +1,82 @@
+syntax = "proto3";
+
+option go_package = "github.com/s-matke/abp/abp-back/common/reservation";
+
+package reservation;
+
+import "google/api/annotations.proto";
+import "google/protobuf/timestamp.proto";
+
+service ReservationService {
+    rpc GetAll(GetAllRequest) returns(GetAllResponse) {
+        option (google.api.http) = {
+            get: "/reservation"
+        };
+    }
+
+    rpc GetByAccommodation(GetByAccommodationRequest) returns(GetByAccommodationResponse) {
+        option (google.api.http) = {
+            get: "/reservation/accommodation/{id}"
+        };
+    }
+
+    rpc CreateReservation(CreateReservationRequest) returns(CreateReservationResponse) {
+        option (google.api.http) = {
+            post: "/reservation"
+            body: "reservation"
+        };
+    }
+}
+
+message GetAllRequest { }
+
+message GetAllResponse {
+    repeated Reservation reservations = 1;
+}
+
+message GetByAccommodationRequest {
+    string id = 1;
+}
+
+message GetByAccommodationResponse {
+    repeated Reservation reservations = 1;
+}
+
+message CreateReservationRequest {
+    NewReservation reservation = 1;
+}
+
+message CreateReservationResponse {
+    Reservation reservation = 1;
+}
+
+
+message Reservation {
+    string id = 1;
+    string accommodation_id = 2;
+    string guest_id = 3;
+    google.protobuf.Timestamp startDate = 4;
+    google.protobuf.Timestamp endDate = 5;
+    int32 num_of_guests = 6;
+    float price = 7;
+    enum Status {
+        BOOKED = 0;
+        CANCELLED = 1;
+        PENDING = 2;
+    }
+    Status status = 8;
+}
+
+message NewReservation {
+    string accommodation_id = 1;
+    string guest_id = 2;
+    google.protobuf.Timestamp startDate = 3;
+    google.protobuf.Timestamp endDate = 4;
+    int32 num_of_guests = 5;
+    float price = 6;
+    enum Status {
+        BOOKED = 0;
+        CANCELLED = 1;
+    }
+    Status status = 7;
+}

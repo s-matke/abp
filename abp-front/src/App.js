@@ -9,6 +9,11 @@ import CreateAccommodation from './Pages/CreateAccommodation';
 import Login from './Pages/Login';
 import { AuthProvider } from './context/AuthContext';
 import UpdateUser from './Pages/UpdateUser';
+import ShowAccommodation from './Pages/ShowAccommodation';
+
+import Login from './Pages/Login';
+import { AuthProvider } from './context/AuthContext';
+import Accommodation from './pages/Accommodation';
 
 function App() {
   return (
@@ -20,9 +25,12 @@ function App() {
           {/*<Route path="/signup" element={<Register />}></Route> */}
           <Route path="/signup" element={<Register />}></Route> 
           <Route path="/signin" element={<Login />}></Route>
-          <Route path="/userupdate" element={<UpdateUser/>}></Route>
-         
+          <Route path="/userupdate" element={<UpdateUser/>}></Route>        
+          <Route path="/signin" element={<Login />}></Route> 
+          <Route path="/accommodation" element={<Accommodation />}></Route> 
           {/* <Route path="/" element={<Signin />}></Route> */}
+          <Route path="/createAccommodation" element={<CreateAccommodation/>}></Route>
+          <Route path="/accommodation" element={<ShowAccommodation/>}></Route>
           <Route path="/accommodation/create" element={<CreateAccommodation/>}></Route>
         </Routes>
         </AuthProvider>

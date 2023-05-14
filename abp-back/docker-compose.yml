@@ -31,6 +31,10 @@ services:
       ACCOMMODATION_DB_HOST: ${ACCOMMODATION_DB_HOST}
       ACCOMMODATION_DB_PORT: ${ACCOMMODATION_DB_PORT}
       ACCOMMODATION_SERVICE_PORT: ${ACCOMMODATION_SERVICE_PORT}
+      AVAILABILITY_SERVICE_HOST: ${AVAILABILITY_SERVICE_HOST}
+      AVAILABILITY_SERVICE_PORT: ${AVAILABILITY_SERVICE_PORT}
+      PRICING_SERVICE_HOST: ${PRICING_SERVICE_HOST}
+      PRICING_SERVICE_PORT: ${PRICING_SERVICE_PORT}
     depends_on:
       - accommodation_db
     networks:
@@ -51,7 +55,39 @@ services:
       - pricing_db
     networks:
       - network
-    
+  
+  availability_service:
+    image: availability_service
+    container_name: availability_service
+    build:
+      context: .
+      dockerfile: ./availability_service/Dockerfile
+    restart: on-failure
+    environment:
+      AVAILABILITY_DB_HOST: ${AVAILABILITY_DB_HOST}
+      AVAILABILITY_DB_PORT: ${AVAILABILITY_DB_PORT}
+      AVAILABILITY_SERVICE_PORT: ${AVAILABILITY_SERVICE_PORT}
+    depends_on:
+      - availability_db
+    networks:
+      - network
+  
+  reservation_service:
+    image: reservation_service
+    container_name: reservation_service
+    build:
+      context: .
+      dockerfile: ./reservation_service/Dockerfile
+    restart: on-failure
+    environment:
+      RESERVATION_DB_HOST: ${RESERVATION_DB_HOST}
+      RESERVATION_DB_PORT: ${RESERVATION_DB_PORT}
+      RESERVATION_SERVICE_PORT: ${RESERVATION_SERVICE_PORT}
+    depends_on:
+      - reservation_db
+    networks:
+      - network
+
   api_gateway:
     image: api_gateway
     container_name: api_gateway
@@ -71,6 +107,11 @@ services:
       PRICING_SERVICE_PORT: ${PRICING_SERVICE_PORT}
       AUTH_SERVICE_HOST: ${AUTH_SERVICE_HOST}
       AUTH_SERVICE_PORT: ${AUTH_SERVICE_PORT}
+      AVAILABILITY_SERVICE_HOST: ${AVAILABILITY_SERVICE_HOST}
+      AVAILABILITY_SERVICE_PORT: ${AVAILABILITY_SERVICE_PORT}
+      RESERVATION_SERVICE_HOST: ${RESERVATION_SERVICE_HOST}
+      RESERVATION_SERVICE_PORT: ${RESERVATION_SERVICE_PORT}
+
     networks:
       - network
   
@@ -105,6 +146,24 @@ services:
     networks:
       - network
   
+  availability_db:
+    image: mongo
+    container_name: availability_db
+    restart: on-failure
+    ports:
+      - 27020:${AVAILABILITY_DB_PORT}
+    networks:
+      - network
+  
+  reservation_db:
+    image: mongo
+    container_name: reservation_db
+    restart: on-failure
+    ports:
+      - 27021:${RESERVATION_DB_PORT}
+    networks:
+      - network
+
 networks:
   network:
     driver: bridge

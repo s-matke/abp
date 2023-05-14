@@ -11,7 +11,9 @@ import (
 	cfg "github.com/s-matke/abp/abp-back/api_gateway/startup/config"
 
 	accommodationGw "github.com/s-matke/abp/abp-back/common/proto/accommodation_service"
+	availabilityGw "github.com/s-matke/abp/abp-back/common/proto/availability_service"
 	pricingGw "github.com/s-matke/abp/abp-back/common/proto/pricing_service"
+	reservationGw "github.com/s-matke/abp/abp-back/common/proto/reservation_service"
 	userGw "github.com/s-matke/abp/abp-back/common/proto/user_service"
 
 	"github.com/grpc-ecosystem/grpc-gateway/v2/runtime"
@@ -55,6 +57,17 @@ func (server *Server) initHandlers() {
 		panic(err)
 	}
 
+	availabilityEndpoint := fmt.Sprintf("%s:%s", server.config.AvailabilityHost, server.config.AvailabilityPort)
+	err = availabilityGw.RegisterAvailabilityServiceHandlerFromEndpoint(context.TODO(), server.mux, availabilityEndpoint, opts)
+	if err != nil {
+		panic(err)
+	}
+
+	reservationEndpoint := fmt.Sprintf("%s:%s", server.config.ReservationHost, server.config.ReservationPort)
+	err = reservationGw.RegisterReservationServiceHandlerFromEndpoint(context.TODO(), server.mux, reservationEndpoint, opts)
+	if err != nil {
+		panic(err)
+	}
 }
 
 func (server *Server) Start() {

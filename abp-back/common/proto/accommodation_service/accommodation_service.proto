@@ -6,6 +6,8 @@ package accommodation;
 
 import "google/api/annotations.proto";
 
+import "google/protobuf/timestamp.proto";
+
 service AccommodationService {
     rpc Get(GetRequest) returns(GetResponse) {
         option (google.api.http) = {
@@ -32,18 +34,32 @@ service AccommodationService {
             body: "*"
         };
     }
+
+    rpc GetByHost(GetByHostRequest) returns(GetByHostResponse) {
+        option (google.api.http) = {
+            get: "/accommodation/host/{id}"
+        };
+    }
+}
+
+message GetByHostRequest {
+    string id = 1;
+}
+
+message GetByHostResponse {
+    repeated Accommodation accommodations = 1;
 }
 
 message SearchRequest {
     Location location = 1;
     int32 numOfPeople = 2;
-    // todo: startDate endDate
+    google.protobuf.Timestamp startDate = 3;
+    google.protobuf.Timestamp endDate = 4;
 }
 
 message SearchResponse {
     repeated Accommodation accommodations = 1;
 }
-
 
 message GetRequest {
     string id = 1;
@@ -77,6 +93,20 @@ message Accommodation {
     repeated string images = 6;
     int32 minPeople = 7;
     int32 maxPeople = 8;
+    bool automaticReservation = 9;
+}
+
+message AccommodationPricing {
+    string id = 1;
+    string host_id = 2;
+    string name = 3;
+    Location location = 4;
+    repeated Utility utilities  = 5;
+    repeated string images = 6;
+    int32 minPeople = 7;
+    int32 maxPeople = 8;
+    bool automaticReservation = 9;
+    float price = 10;
 }
 
 message NewAccommodation {
@@ -87,6 +117,7 @@ message NewAccommodation {
     repeated string images = 5;
     int32 minPeople = 6;
     int32 maxPeople = 7;
+    bool automaticReservation = 8;
 }
 
 message Location {
