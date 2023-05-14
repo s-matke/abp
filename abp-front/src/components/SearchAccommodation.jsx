@@ -6,6 +6,9 @@ import { BrowserRouter, Route, Routes, useNavigate } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import APIService from '../services/APIService';
 
+import DatePicker from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css';
+
 const Container = styled.div`
 margin-left: 300px;
 margin-top: 40px;
@@ -75,7 +78,9 @@ const Button = styled.button`
 `;
 
 const SearchAccommodation = () => {
-  const [departure, setDeparture] = useState(new Date().toISOString().substr(0, 10));
+    const [startDate, setStartDate] = useState(null);
+    const [endDate, setEndDate] = useState(new Date().toISOString().substr(0, 10));
+  //const [departureEnd, setDepartureEnd] = useState(new Date().toISOString().substr(0, 10));
   const [destination, setDestination] = useState("");
   const [availableSeats, setAvailableSeats] = useState();
   const [accommodations, setAccommodations] = useState([])
@@ -96,11 +101,20 @@ const SearchAccommodation = () => {
     fetchData();
 }, []);
 
+  
+
 const handleSubmit = (e) => {
     e.preventDefault();
-    let departureDate = new Date(departure);
+    let departureDate = new Date(startDate);
     departureDate.setHours(2, 0, 0, 0);
-    let formattedDeparture = departureDate.toISOString();
+    let formattedDeparture = departureDate.toISOString().substring(0, 10);;
+
+    let departureDateEnd = new Date(endDate);
+    departureDateEnd.setHours(2, 0, 0, 0);
+    let formattedDepartureEnd = departureDateEnd.toISOString().substring(0, 10);;
+
+    console.log(formattedDeparture,formattedDepartureEnd);
+
     async function search(destination, availableSeats) {
         try {
             const response = await APIService.SearchAccommodations(destination, parseInt(availableSeats));
@@ -113,7 +127,17 @@ const handleSubmit = (e) => {
     search(destination, availableSeats);
 }
  
-  
+const excludedDates = ['2023-05-15', '2023-05-20', '2023-05-25'];
+
+
+const isDateExcluded = (date) => {
+  const formattedDate = date.toISOString().slice(0, 10);
+  return excludedDates.includes(formattedDate);
+};
+
+const filterExcludedDates = (date) => {
+  return !isDateExcluded(date);
+};
 
   
   return (
@@ -121,14 +145,20 @@ const handleSubmit = (e) => {
         <Title>Accommodations</Title>
         <Form onSubmit={e=>handleSubmit(e)}> {/* onSubmit={} */}
             <LabelInputDiv>
-        <Label htmlFor="departure">Kog Datuma:</Label>
-        <Input
-          type="date"
-          id="departure"
-          value={departure}
-          onChange={(e) => setDeparture(e.target.value)}
-          required
-        />
+        <Label htmlFor="departure">Od Kog Datuma:</Label>
+        <DatePicker
+      selected={startDate}
+      onChange={(date) => setStartDate(date)}
+      filterDate={filterExcludedDates}
+    />
+</LabelInputDiv>
+<LabelInputDiv>
+<Label htmlFor="departure">Do Kog Datuma:</Label>
+<DatePicker
+      selected={startDate}
+      onChange={(date) => setStartDate(date)}
+      filterDate={filterExcludedDates}
+    />
 </LabelInputDiv>
 <LabelInputDiv>
         <Label htmlFor="destination">Gde idete?</Label>
