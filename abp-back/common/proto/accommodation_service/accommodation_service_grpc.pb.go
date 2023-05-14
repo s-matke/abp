@@ -23,6 +23,7 @@ const (
 	AccommodationService_GetAll_FullMethodName              = "/accommodation.AccommodationService/GetAll"
 	AccommodationService_CreateAccommodation_FullMethodName = "/accommodation.AccommodationService/CreateAccommodation"
 	AccommodationService_Search_FullMethodName              = "/accommodation.AccommodationService/Search"
+	AccommodationService_GetByHost_FullMethodName           = "/accommodation.AccommodationService/GetByHost"
 )
 
 // AccommodationServiceClient is the client API for AccommodationService service.
@@ -33,6 +34,7 @@ type AccommodationServiceClient interface {
 	GetAll(ctx context.Context, in *GetAllRequest, opts ...grpc.CallOption) (*GetAllResponse, error)
 	CreateAccommodation(ctx context.Context, in *CreateAccommodationRequest, opts ...grpc.CallOption) (*CreateAccommodationResponse, error)
 	Search(ctx context.Context, in *SearchRequest, opts ...grpc.CallOption) (*SearchResponse, error)
+	GetByHost(ctx context.Context, in *GetByHostRequest, opts ...grpc.CallOption) (*GetByHostResponse, error)
 }
 
 type accommodationServiceClient struct {
@@ -79,6 +81,15 @@ func (c *accommodationServiceClient) Search(ctx context.Context, in *SearchReque
 	return out, nil
 }
 
+func (c *accommodationServiceClient) GetByHost(ctx context.Context, in *GetByHostRequest, opts ...grpc.CallOption) (*GetByHostResponse, error) {
+	out := new(GetByHostResponse)
+	err := c.cc.Invoke(ctx, AccommodationService_GetByHost_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // AccommodationServiceServer is the server API for AccommodationService service.
 // All implementations must embed UnimplementedAccommodationServiceServer
 // for forward compatibility
@@ -87,6 +98,7 @@ type AccommodationServiceServer interface {
 	GetAll(context.Context, *GetAllRequest) (*GetAllResponse, error)
 	CreateAccommodation(context.Context, *CreateAccommodationRequest) (*CreateAccommodationResponse, error)
 	Search(context.Context, *SearchRequest) (*SearchResponse, error)
+	GetByHost(context.Context, *GetByHostRequest) (*GetByHostResponse, error)
 	mustEmbedUnimplementedAccommodationServiceServer()
 }
 
@@ -105,6 +117,9 @@ func (UnimplementedAccommodationServiceServer) CreateAccommodation(context.Conte
 }
 func (UnimplementedAccommodationServiceServer) Search(context.Context, *SearchRequest) (*SearchResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Search not implemented")
+}
+func (UnimplementedAccommodationServiceServer) GetByHost(context.Context, *GetByHostRequest) (*GetByHostResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetByHost not implemented")
 }
 func (UnimplementedAccommodationServiceServer) mustEmbedUnimplementedAccommodationServiceServer() {}
 
@@ -191,6 +206,24 @@ func _AccommodationService_Search_Handler(srv interface{}, ctx context.Context, 
 	return interceptor(ctx, in, info, handler)
 }
 
+func _AccommodationService_GetByHost_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetByHostRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(AccommodationServiceServer).GetByHost(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: AccommodationService_GetByHost_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(AccommodationServiceServer).GetByHost(ctx, req.(*GetByHostRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // AccommodationService_ServiceDesc is the grpc.ServiceDesc for AccommodationService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -213,6 +246,10 @@ var AccommodationService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "Search",
 			Handler:    _AccommodationService_Search_Handler,
+		},
+		{
+			MethodName: "GetByHost",
+			Handler:    _AccommodationService_GetByHost_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

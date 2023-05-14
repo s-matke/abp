@@ -32,6 +32,20 @@ service AccommodationService {
             body: "*"
         };
     }
+
+    rpc GetByHost(GetByHostRequest) returns(GetByHostResponse) {
+        option (google.api.http) = {
+            get: "/accommodation/host/{id}"
+        };
+    }
+}
+
+message GetByHostRequest {
+    string id = 1;
+}
+
+message GetByHostResponse {
+    repeated Accommodation accommodations = 1;
 }
 
 message SearchRequest {
