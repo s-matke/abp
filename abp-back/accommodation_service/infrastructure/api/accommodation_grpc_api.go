@@ -41,6 +41,27 @@ func (handler *AccommodationHandler) Get(ctx context.Context, request *pb.GetReq
 	return response, nil
 }
 
+func (handler *AccommodationHandler) GetByHost(ctx context.Context, request *pb.GetByHostRequest) (*pb.GetByHostResponse, error) {
+	id := request.Id
+
+	accommodations, err := handler.service.GetByHost(id)
+
+	if err != nil {
+		return nil, err
+	}
+
+	response := &pb.GetByHostResponse{
+		Accommodations: []*pb.Accommodation{},
+	}
+
+	for _, accommodation := range accommodations {
+		current := mapAccommodation(accommodation)
+		response.Accommodations = append(response.Accommodations, current)
+	}
+
+	return response, nil
+}
+
 func (handler *AccommodationHandler) GetAll(ctx context.Context, request *pb.GetAllRequest) (*pb.GetAllResponse, error) {
 	accommodations, err := handler.service.GetAll()
 

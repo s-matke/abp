@@ -8,8 +8,9 @@ function ShowAccommodation() {
     const [accommodation, setAccommodation] = useState([])
     const [showInputs, setShowInputs] = useState(false)
     const [price, setPrice] = useState({})
+    const id = JSON.parse(localStorage.getItem('userID'))
     useEffect(() => {
-        axios.get('http://localhost:8000/accommodation')
+        axios.get(`http://localhost:8000/accommodation/host/${id}`)
         .then(res => {
             
             setAccommodation(res.data.accommodations)

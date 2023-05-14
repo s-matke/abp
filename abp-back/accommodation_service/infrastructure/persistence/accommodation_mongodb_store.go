@@ -78,3 +78,9 @@ func decode(cursor *mongo.Cursor) (accommodations []*domain.Accommodation, err e
 	err = cursor.Err()
 	return
 }
+
+func (store *AccommodationMongoDBStore) GetByHost(id string) ([]*domain.Accommodation, error) {
+	filter := bson.M{"host_id": id}
+	print(store.filter(filter))
+	return store.filter(filter)
+}

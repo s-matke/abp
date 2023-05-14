@@ -29,6 +29,7 @@ export default function CreateAccommodation() {
           }
         axios.post('http://localhost:8000/accommodation',
         {
+            hostId : JSON.parse(localStorage.getItem('userID')),
             name : accommodation.name,
             location : {
             city : accommodation.city,
