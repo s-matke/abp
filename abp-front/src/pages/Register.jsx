@@ -142,7 +142,7 @@ const Register = () => {
     try {
       const response = await APIService.Register(username, password, email, firstName, lastName, phone);
       console.log(response);
-      navigate('/login')
+      navigate('/singin')
       
     } catch (error) {
       console.error(error);
