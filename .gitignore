@@ -21,6 +21,8 @@
 # Go workspace file
 # go.work
 
+OneNote Table Of Contents.onetoc2
+
 ### react ###
 .DS_*
 *.log
