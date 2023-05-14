@@ -294,7 +294,7 @@ func RegisterPricingServiceHandlerServer(ctx context.Context, mux *runtime.Serve
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/pricing.PricingService/GetByAccommodation", runtime.WithHTTPPathPattern("/pricing/{accommodation_id}"))
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/pricing.PricingService/GetByAccommodation", runtime.WithHTTPPathPattern("/pricing/accommodation/{accommodation_id}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -455,7 +455,7 @@ func RegisterPricingServiceHandlerClient(ctx context.Context, mux *runtime.Serve
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/pricing.PricingService/GetByAccommodation", runtime.WithHTTPPathPattern("/pricing/{accommodation_id}"))
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/pricing.PricingService/GetByAccommodation", runtime.WithHTTPPathPattern("/pricing/accommodation/{accommodation_id}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -543,7 +543,7 @@ func RegisterPricingServiceHandlerClient(ctx context.Context, mux *runtime.Serve
 var (
 	pattern_PricingService_Get_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 1, 0, 4, 1, 5, 1}, []string{"pricing", "id"}, ""))
 
-	pattern_PricingService_GetByAccommodation_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 1, 0, 4, 1, 5, 1}, []string{"pricing", "accommodation_id"}, ""))
+	pattern_PricingService_GetByAccommodation_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 1, 0, 4, 1, 5, 2}, []string{"pricing", "accommodation", "accommodation_id"}, ""))
 
 	pattern_PricingService_GetAll_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0}, []string{"pricing"}, ""))
 

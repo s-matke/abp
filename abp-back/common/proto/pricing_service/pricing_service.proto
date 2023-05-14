@@ -16,7 +16,7 @@ service PricingService {
 
     rpc GetByAccommodation(GetByAccommodationRequest) returns(GetByAccommodationResponse) {
         option (google.api.http) = {
-            get: "/pricing/{accommodation_id}"
+            get: "/pricing/accommodation/{accommodation_id}"
         };
     }
 
@@ -45,6 +45,7 @@ message CalculatePriceRequest {
     string id = 1;
     google.protobuf.Timestamp startDate = 2;
     google.protobuf.Timestamp endDate = 3;
+    int32 numPeople = 4;
 }
 
 message CalculatePriceResponse {

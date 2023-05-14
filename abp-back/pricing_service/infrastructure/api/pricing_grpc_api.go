@@ -2,7 +2,6 @@ package api
 
 import (
 	"context"
-	"errors"
 	"fmt"
 
 	pb "github.com/s-matke/abp/abp-back/common/proto/pricing_service"
@@ -94,11 +93,20 @@ func (handler *PricingHandler) CalculatePrice(ctx context.Context, request *pb.C
 	accommodation_id := request.Id
 	startDate := request.StartDate
 	endDate := request.EndDate
+	numPeople := request.NumPeople
 
-	fmt.Println("Acc. ID: ", accommodation_id)
-	fmt.Println("Start Date: ", startDate.AsTime())
-	fmt.Println("End Date: ", endDate.AsTime())
+	price, err := handler.service.CalculatePrice(accommodation_id, int(numPeople), startDate.AsTime(), endDate.AsTime())
 
-	return nil, errors.New("hiiii")
+	fmt.Println("CENA: ", price)
+
+	if err != nil {
+		return nil, err
+	}
+
+	response := &pb.CalculatePriceResponse{
+		Price: price,
+	}
+
+	return response, nil
 
 }
