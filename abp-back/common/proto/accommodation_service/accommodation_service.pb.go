@@ -21,6 +21,108 @@ const (
 	_ = protoimpl.EnforceVersion(protoimpl.MaxVersion - 20)
 )
 
+type SearchRequest struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Location    *Location `protobuf:"bytes,1,opt,name=location,proto3" json:"location,omitempty"`
+	NumOfPeople int32     `protobuf:"varint,2,opt,name=numOfPeople,proto3" json:"numOfPeople,omitempty"` // todo: startDate endDate
+}
+
+func (x *SearchRequest) Reset() {
+	*x = SearchRequest{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_accommodation_service_accommodation_service_proto_msgTypes[0]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *SearchRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*SearchRequest) ProtoMessage() {}
+
+func (x *SearchRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_accommodation_service_accommodation_service_proto_msgTypes[0]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use SearchRequest.ProtoReflect.Descriptor instead.
+func (*SearchRequest) Descriptor() ([]byte, []int) {
+	return file_accommodation_service_accommodation_service_proto_rawDescGZIP(), []int{0}
+}
+
+func (x *SearchRequest) GetLocation() *Location {
+	if x != nil {
+		return x.Location
+	}
+	return nil
+}
+
+func (x *SearchRequest) GetNumOfPeople() int32 {
+	if x != nil {
+		return x.NumOfPeople
+	}
+	return 0
+}
+
+type SearchResponse struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Accommodations []*Accommodation `protobuf:"bytes,1,rep,name=accommodations,proto3" json:"accommodations,omitempty"`
+}
+
+func (x *SearchResponse) Reset() {
+	*x = SearchResponse{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_accommodation_service_accommodation_service_proto_msgTypes[1]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *SearchResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*SearchResponse) ProtoMessage() {}
+
+func (x *SearchResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_accommodation_service_accommodation_service_proto_msgTypes[1]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use SearchResponse.ProtoReflect.Descriptor instead.
+func (*SearchResponse) Descriptor() ([]byte, []int) {
+	return file_accommodation_service_accommodation_service_proto_rawDescGZIP(), []int{1}
+}
+
+func (x *SearchResponse) GetAccommodations() []*Accommodation {
+	if x != nil {
+		return x.Accommodations
+	}
+	return nil
+}
+
 type GetRequest struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
@@ -32,7 +134,7 @@ type GetRequest struct {
 func (x *GetRequest) Reset() {
 	*x = GetRequest{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_accommodation_service_accommodation_service_proto_msgTypes[0]
+		mi := &file_accommodation_service_accommodation_service_proto_msgTypes[2]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -45,7 +147,7 @@ func (x *GetRequest) String() string {
 func (*GetRequest) ProtoMessage() {}
 
 func (x *GetRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_accommodation_service_accommodation_service_proto_msgTypes[0]
+	mi := &file_accommodation_service_accommodation_service_proto_msgTypes[2]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -58,7 +160,7 @@ func (x *GetRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetRequest.ProtoReflect.Descriptor instead.
 func (*GetRequest) Descriptor() ([]byte, []int) {
-	return file_accommodation_service_accommodation_service_proto_rawDescGZIP(), []int{0}
+	return file_accommodation_service_accommodation_service_proto_rawDescGZIP(), []int{2}
 }
 
 func (x *GetRequest) GetId() string {
@@ -79,7 +181,7 @@ type GetResponse struct {
 func (x *GetResponse) Reset() {
 	*x = GetResponse{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_accommodation_service_accommodation_service_proto_msgTypes[1]
+		mi := &file_accommodation_service_accommodation_service_proto_msgTypes[3]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -92,7 +194,7 @@ func (x *GetResponse) String() string {
 func (*GetResponse) ProtoMessage() {}
 
 func (x *GetResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_accommodation_service_accommodation_service_proto_msgTypes[1]
+	mi := &file_accommodation_service_accommodation_service_proto_msgTypes[3]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -105,7 +207,7 @@ func (x *GetResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetResponse.ProtoReflect.Descriptor instead.
 func (*GetResponse) Descriptor() ([]byte, []int) {
-	return file_accommodation_service_accommodation_service_proto_rawDescGZIP(), []int{1}
+	return file_accommodation_service_accommodation_service_proto_rawDescGZIP(), []int{3}
 }
 
 func (x *GetResponse) GetAccommodation() *Accommodation {
@@ -124,7 +226,7 @@ type GetAllRequest struct {
 func (x *GetAllRequest) Reset() {
 	*x = GetAllRequest{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_accommodation_service_accommodation_service_proto_msgTypes[2]
+		mi := &file_accommodation_service_accommodation_service_proto_msgTypes[4]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -137,7 +239,7 @@ func (x *GetAllRequest) String() string {
 func (*GetAllRequest) ProtoMessage() {}
 
 func (x *GetAllRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_accommodation_service_accommodation_service_proto_msgTypes[2]
+	mi := &file_accommodation_service_accommodation_service_proto_msgTypes[4]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -150,7 +252,7 @@ func (x *GetAllRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetAllRequest.ProtoReflect.Descriptor instead.
 func (*GetAllRequest) Descriptor() ([]byte, []int) {
-	return file_accommodation_service_accommodation_service_proto_rawDescGZIP(), []int{2}
+	return file_accommodation_service_accommodation_service_proto_rawDescGZIP(), []int{4}
 }
 
 type GetAllResponse struct {
@@ -164,7 +266,7 @@ type GetAllResponse struct {
 func (x *GetAllResponse) Reset() {
 	*x = GetAllResponse{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_accommodation_service_accommodation_service_proto_msgTypes[3]
+		mi := &file_accommodation_service_accommodation_service_proto_msgTypes[5]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -177,7 +279,7 @@ func (x *GetAllResponse) String() string {
 func (*GetAllResponse) ProtoMessage() {}
 
 func (x *GetAllResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_accommodation_service_accommodation_service_proto_msgTypes[3]
+	mi := &file_accommodation_service_accommodation_service_proto_msgTypes[5]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -190,7 +292,7 @@ func (x *GetAllResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetAllResponse.ProtoReflect.Descriptor instead.
 func (*GetAllResponse) Descriptor() ([]byte, []int) {
-	return file_accommodation_service_accommodation_service_proto_rawDescGZIP(), []int{3}
+	return file_accommodation_service_accommodation_service_proto_rawDescGZIP(), []int{5}
 }
 
 func (x *GetAllResponse) GetAccommodations() []*Accommodation {
@@ -211,7 +313,7 @@ type CreateAccommodationRequest struct {
 func (x *CreateAccommodationRequest) Reset() {
 	*x = CreateAccommodationRequest{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_accommodation_service_accommodation_service_proto_msgTypes[4]
+		mi := &file_accommodation_service_accommodation_service_proto_msgTypes[6]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -224,7 +326,7 @@ func (x *CreateAccommodationRequest) String() string {
 func (*CreateAccommodationRequest) ProtoMessage() {}
 
 func (x *CreateAccommodationRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_accommodation_service_accommodation_service_proto_msgTypes[4]
+	mi := &file_accommodation_service_accommodation_service_proto_msgTypes[6]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -237,7 +339,7 @@ func (x *CreateAccommodationRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use CreateAccommodationRequest.ProtoReflect.Descriptor instead.
 func (*CreateAccommodationRequest) Descriptor() ([]byte, []int) {
-	return file_accommodation_service_accommodation_service_proto_rawDescGZIP(), []int{4}
+	return file_accommodation_service_accommodation_service_proto_rawDescGZIP(), []int{6}
 }
 
 func (x *CreateAccommodationRequest) GetAccommodation() *NewAccommodation {
@@ -258,7 +360,7 @@ type CreateAccommodationResponse struct {
 func (x *CreateAccommodationResponse) Reset() {
 	*x = CreateAccommodationResponse{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_accommodation_service_accommodation_service_proto_msgTypes[5]
+		mi := &file_accommodation_service_accommodation_service_proto_msgTypes[7]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -271,7 +373,7 @@ func (x *CreateAccommodationResponse) String() string {
 func (*CreateAccommodationResponse) ProtoMessage() {}
 
 func (x *CreateAccommodationResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_accommodation_service_accommodation_service_proto_msgTypes[5]
+	mi := &file_accommodation_service_accommodation_service_proto_msgTypes[7]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -284,7 +386,7 @@ func (x *CreateAccommodationResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use CreateAccommodationResponse.ProtoReflect.Descriptor instead.
 func (*CreateAccommodationResponse) Descriptor() ([]byte, []int) {
-	return file_accommodation_service_accommodation_service_proto_rawDescGZIP(), []int{5}
+	return file_accommodation_service_accommodation_service_proto_rawDescGZIP(), []int{7}
 }
 
 func (x *CreateAccommodationResponse) GetAccommodation() *Accommodation {
@@ -312,7 +414,7 @@ type Accommodation struct {
 func (x *Accommodation) Reset() {
 	*x = Accommodation{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_accommodation_service_accommodation_service_proto_msgTypes[6]
+		mi := &file_accommodation_service_accommodation_service_proto_msgTypes[8]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -325,7 +427,7 @@ func (x *Accommodation) String() string {
 func (*Accommodation) ProtoMessage() {}
 
 func (x *Accommodation) ProtoReflect() protoreflect.Message {
-	mi := &file_accommodation_service_accommodation_service_proto_msgTypes[6]
+	mi := &file_accommodation_service_accommodation_service_proto_msgTypes[8]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -338,7 +440,7 @@ func (x *Accommodation) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use Accommodation.ProtoReflect.Descriptor instead.
 func (*Accommodation) Descriptor() ([]byte, []int) {
-	return file_accommodation_service_accommodation_service_proto_rawDescGZIP(), []int{6}
+	return file_accommodation_service_accommodation_service_proto_rawDescGZIP(), []int{8}
 }
 
 func (x *Accommodation) GetId() string {
@@ -414,7 +516,7 @@ type NewAccommodation struct {
 func (x *NewAccommodation) Reset() {
 	*x = NewAccommodation{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_accommodation_service_accommodation_service_proto_msgTypes[7]
+		mi := &file_accommodation_service_accommodation_service_proto_msgTypes[9]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -427,7 +529,7 @@ func (x *NewAccommodation) String() string {
 func (*NewAccommodation) ProtoMessage() {}
 
 func (x *NewAccommodation) ProtoReflect() protoreflect.Message {
-	mi := &file_accommodation_service_accommodation_service_proto_msgTypes[7]
+	mi := &file_accommodation_service_accommodation_service_proto_msgTypes[9]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -440,7 +542,7 @@ func (x *NewAccommodation) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use NewAccommodation.ProtoReflect.Descriptor instead.
 func (*NewAccommodation) Descriptor() ([]byte, []int) {
-	return file_accommodation_service_accommodation_service_proto_rawDescGZIP(), []int{7}
+	return file_accommodation_service_accommodation_service_proto_rawDescGZIP(), []int{9}
 }
 
 func (x *NewAccommodation) GetHostId() string {
@@ -505,7 +607,7 @@ type Location struct {
 func (x *Location) Reset() {
 	*x = Location{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_accommodation_service_accommodation_service_proto_msgTypes[8]
+		mi := &file_accommodation_service_accommodation_service_proto_msgTypes[10]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -518,7 +620,7 @@ func (x *Location) String() string {
 func (*Location) ProtoMessage() {}
 
 func (x *Location) ProtoReflect() protoreflect.Message {
-	mi := &file_accommodation_service_accommodation_service_proto_msgTypes[8]
+	mi := &file_accommodation_service_accommodation_service_proto_msgTypes[10]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -531,7 +633,7 @@ func (x *Location) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use Location.ProtoReflect.Descriptor instead.
 func (*Location) Descriptor() ([]byte, []int) {
-	return file_accommodation_service_accommodation_service_proto_rawDescGZIP(), []int{8}
+	return file_accommodation_service_accommodation_service_proto_rawDescGZIP(), []int{10}
 }
 
 func (x *Location) GetAddress() string {
@@ -567,7 +669,7 @@ type Utility struct {
 func (x *Utility) Reset() {
 	*x = Utility{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_accommodation_service_accommodation_service_proto_msgTypes[9]
+		mi := &file_accommodation_service_accommodation_service_proto_msgTypes[11]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -580,7 +682,7 @@ func (x *Utility) String() string {
 func (*Utility) ProtoMessage() {}
 
 func (x *Utility) ProtoReflect() protoreflect.Message {
-	mi := &file_accommodation_service_accommodation_service_proto_msgTypes[9]
+	mi := &file_accommodation_service_accommodation_service_proto_msgTypes[11]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -593,7 +695,7 @@ func (x *Utility) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use Utility.ProtoReflect.Descriptor instead.
 func (*Utility) Descriptor() ([]byte, []int) {
-	return file_accommodation_service_accommodation_service_proto_rawDescGZIP(), []int{9}
+	return file_accommodation_service_accommodation_service_proto_rawDescGZIP(), []int{11}
 }
 
 func (x *Utility) GetName() string {
@@ -619,6 +721,18 @@ var file_accommodation_service_accommodation_service_proto_rawDesc = []byte{
 	0x6f, 0x74, 0x6f, 0x12, 0x0d, 0x61, 0x63, 0x63, 0x6f, 0x6d, 0x6d, 0x6f, 0x64, 0x61, 0x74, 0x69,
 	0x6f, 0x6e, 0x1a, 0x1c, 0x67, 0x6f, 0x6f, 0x67, 0x6c, 0x65, 0x2f, 0x61, 0x70, 0x69, 0x2f, 0x61,
 	0x6e, 0x6e, 0x6f, 0x74, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x73, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f,
+	0x22, 0x66, 0x0a, 0x0d, 0x53, 0x65, 0x61, 0x72, 0x63, 0x68, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73,
+	0x74, 0x12, 0x33, 0x0a, 0x08, 0x6c, 0x6f, 0x63, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x18, 0x01, 0x20,
+	0x01, 0x28, 0x0b, 0x32, 0x17, 0x2e, 0x61, 0x63, 0x63, 0x6f, 0x6d, 0x6d, 0x6f, 0x64, 0x61, 0x74,
+	0x69, 0x6f, 0x6e, 0x2e, 0x4c, 0x6f, 0x63, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x52, 0x08, 0x6c, 0x6f,
+	0x63, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x12, 0x20, 0x0a, 0x0b, 0x6e, 0x75, 0x6d, 0x4f, 0x66, 0x50,
+	0x65, 0x6f, 0x70, 0x6c, 0x65, 0x18, 0x02, 0x20, 0x01, 0x28, 0x05, 0x52, 0x0b, 0x6e, 0x75, 0x6d,
+	0x4f, 0x66, 0x50, 0x65, 0x6f, 0x70, 0x6c, 0x65, 0x22, 0x56, 0x0a, 0x0e, 0x53, 0x65, 0x61, 0x72,
+	0x63, 0x68, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x44, 0x0a, 0x0e, 0x61, 0x63,
+	0x63, 0x6f, 0x6d, 0x6d, 0x6f, 0x64, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x73, 0x18, 0x01, 0x20, 0x03,
+	0x28, 0x0b, 0x32, 0x1c, 0x2e, 0x61, 0x63, 0x63, 0x6f, 0x6d, 0x6d, 0x6f, 0x64, 0x61, 0x74, 0x69,
+	0x6f, 0x6e, 0x2e, 0x41, 0x63, 0x63, 0x6f, 0x6d, 0x6d, 0x6f, 0x64, 0x61, 0x74, 0x69, 0x6f, 0x6e,
+	0x52, 0x0e, 0x61, 0x63, 0x63, 0x6f, 0x6d, 0x6d, 0x6f, 0x64, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x73,
 	0x22, 0x1c, 0x0a, 0x0a, 0x47, 0x65, 0x74, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x12, 0x0e,
 	0x0a, 0x02, 0x69, 0x64, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x02, 0x69, 0x64, 0x22, 0x51,
 	0x0a, 0x0b, 0x47, 0x65, 0x74, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x42, 0x0a,
@@ -687,7 +801,7 @@ var file_accommodation_service_accommodation_service_proto_rawDesc = []byte{
 	0x12, 0x12, 0x0a, 0x04, 0x6e, 0x61, 0x6d, 0x65, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x04,
 	0x6e, 0x61, 0x6d, 0x65, 0x12, 0x20, 0x0a, 0x0b, 0x64, 0x65, 0x73, 0x63, 0x72, 0x69, 0x70, 0x74,
 	0x69, 0x6f, 0x6e, 0x18, 0x02, 0x20, 0x01, 0x28, 0x09, 0x52, 0x0b, 0x64, 0x65, 0x73, 0x63, 0x72,
-	0x69, 0x70, 0x74, 0x69, 0x6f, 0x6e, 0x32, 0xe6, 0x02, 0x0a, 0x14, 0x41, 0x63, 0x63, 0x6f, 0x6d,
+	0x69, 0x70, 0x74, 0x69, 0x6f, 0x6e, 0x32, 0xc1, 0x03, 0x0a, 0x14, 0x41, 0x63, 0x63, 0x6f, 0x6d,
 	0x6d, 0x6f, 0x64, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x53, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x12,
 	0x59, 0x0a, 0x03, 0x47, 0x65, 0x74, 0x12, 0x19, 0x2e, 0x61, 0x63, 0x63, 0x6f, 0x6d, 0x6d, 0x6f,
 	0x64, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x2e, 0x47, 0x65, 0x74, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73,
@@ -709,11 +823,17 @@ var file_accommodation_service_accommodation_service_proto_rawDesc = []byte{
 	0x61, 0x74, 0x65, 0x41, 0x63, 0x63, 0x6f, 0x6d, 0x6d, 0x6f, 0x64, 0x61, 0x74, 0x69, 0x6f, 0x6e,
 	0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x22, 0x25, 0x82, 0xd3, 0xe4, 0x93, 0x02, 0x1f,
 	0x3a, 0x0d, 0x61, 0x63, 0x63, 0x6f, 0x6d, 0x6d, 0x6f, 0x64, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x22,
-	0x0e, 0x2f, 0x61, 0x63, 0x63, 0x6f, 0x6d, 0x6d, 0x6f, 0x64, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x42,
-	0x36, 0x5a, 0x34, 0x67, 0x69, 0x74, 0x68, 0x75, 0x62, 0x2e, 0x63, 0x6f, 0x6d, 0x2f, 0x73, 0x2d,
-	0x6d, 0x61, 0x74, 0x6b, 0x65, 0x2f, 0x61, 0x62, 0x70, 0x2f, 0x61, 0x62, 0x70, 0x2d, 0x62, 0x61,
-	0x63, 0x6b, 0x2f, 0x63, 0x6f, 0x6d, 0x6d, 0x6f, 0x6e, 0x2f, 0x61, 0x63, 0x63, 0x6f, 0x6d, 0x6d,
-	0x6f, 0x64, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
+	0x0e, 0x2f, 0x61, 0x63, 0x63, 0x6f, 0x6d, 0x6d, 0x6f, 0x64, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x12,
+	0x59, 0x0a, 0x06, 0x53, 0x65, 0x61, 0x72, 0x63, 0x68, 0x12, 0x1c, 0x2e, 0x61, 0x63, 0x63, 0x6f,
+	0x6d, 0x6d, 0x6f, 0x64, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x2e, 0x53, 0x65, 0x61, 0x72, 0x63, 0x68,
+	0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x1d, 0x2e, 0x61, 0x63, 0x63, 0x6f, 0x6d, 0x6d,
+	0x6f, 0x64, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x2e, 0x53, 0x65, 0x61, 0x72, 0x63, 0x68, 0x52, 0x65,
+	0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x22, 0x12, 0x82, 0xd3, 0xe4, 0x93, 0x02, 0x0c, 0x3a, 0x01,
+	0x2a, 0x22, 0x07, 0x2f, 0x73, 0x65, 0x61, 0x72, 0x63, 0x68, 0x42, 0x36, 0x5a, 0x34, 0x67, 0x69,
+	0x74, 0x68, 0x75, 0x62, 0x2e, 0x63, 0x6f, 0x6d, 0x2f, 0x73, 0x2d, 0x6d, 0x61, 0x74, 0x6b, 0x65,
+	0x2f, 0x61, 0x62, 0x70, 0x2f, 0x61, 0x62, 0x70, 0x2d, 0x62, 0x61, 0x63, 0x6b, 0x2f, 0x63, 0x6f,
+	0x6d, 0x6d, 0x6f, 0x6e, 0x2f, 0x61, 0x63, 0x63, 0x6f, 0x6d, 0x6d, 0x6f, 0x64, 0x61, 0x74, 0x69,
+	0x6f, 0x6e, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
 }
 
 var (
@@ -728,39 +848,45 @@ func file_accommodation_service_accommodation_service_proto_rawDescGZIP() []byte
 	return file_accommodation_service_accommodation_service_proto_rawDescData
 }
 
-var file_accommodation_service_accommodation_service_proto_msgTypes = make([]protoimpl.MessageInfo, 10)
+var file_accommodation_service_accommodation_service_proto_msgTypes = make([]protoimpl.MessageInfo, 12)
 var file_accommodation_service_accommodation_service_proto_goTypes = []interface{}{
-	(*GetRequest)(nil),                  // 0: accommodation.GetRequest
-	(*GetResponse)(nil),                 // 1: accommodation.GetResponse
-	(*GetAllRequest)(nil),               // 2: accommodation.GetAllRequest
-	(*GetAllResponse)(nil),              // 3: accommodation.GetAllResponse
-	(*CreateAccommodationRequest)(nil),  // 4: accommodation.CreateAccommodationRequest
-	(*CreateAccommodationResponse)(nil), // 5: accommodation.CreateAccommodationResponse
-	(*Accommodation)(nil),               // 6: accommodation.Accommodation
-	(*NewAccommodation)(nil),            // 7: accommodation.NewAccommodation
-	(*Location)(nil),                    // 8: accommodation.Location
-	(*Utility)(nil),                     // 9: accommodation.Utility
+	(*SearchRequest)(nil),               // 0: accommodation.SearchRequest
+	(*SearchResponse)(nil),              // 1: accommodation.SearchResponse
+	(*GetRequest)(nil),                  // 2: accommodation.GetRequest
+	(*GetResponse)(nil),                 // 3: accommodation.GetResponse
+	(*GetAllRequest)(nil),               // 4: accommodation.GetAllRequest
+	(*GetAllResponse)(nil),              // 5: accommodation.GetAllResponse
+	(*CreateAccommodationRequest)(nil),  // 6: accommodation.CreateAccommodationRequest
+	(*CreateAccommodationResponse)(nil), // 7: accommodation.CreateAccommodationResponse
+	(*Accommodation)(nil),               // 8: accommodation.Accommodation
+	(*NewAccommodation)(nil),            // 9: accommodation.NewAccommodation
+	(*Location)(nil),                    // 10: accommodation.Location
+	(*Utility)(nil),                     // 11: accommodation.Utility
 }
 var file_accommodation_service_accommodation_service_proto_depIdxs = []int32{
-	6,  // 0: accommodation.GetResponse.accommodation:type_name -> accommodation.Accommodation
-	6,  // 1: accommodation.GetAllResponse.accommodations:type_name -> accommodation.Accommodation
-	7,  // 2: accommodation.CreateAccommodationRequest.accommodation:type_name -> accommodation.NewAccommodation
-	6,  // 3: accommodation.CreateAccommodationResponse.accommodation:type_name -> accommodation.Accommodation
-	8,  // 4: accommodation.Accommodation.location:type_name -> accommodation.Location
-	9,  // 5: accommodation.Accommodation.utilities:type_name -> accommodation.Utility
-	8,  // 6: accommodation.NewAccommodation.location:type_name -> accommodation.Location
-	9,  // 7: accommodation.NewAccommodation.utilities:type_name -> accommodation.Utility
-	0,  // 8: accommodation.AccommodationService.Get:input_type -> accommodation.GetRequest
-	2,  // 9: accommodation.AccommodationService.GetAll:input_type -> accommodation.GetAllRequest
-	4,  // 10: accommodation.AccommodationService.CreateAccommodation:input_type -> accommodation.CreateAccommodationRequest
-	1,  // 11: accommodation.AccommodationService.Get:output_type -> accommodation.GetResponse
-	3,  // 12: accommodation.AccommodationService.GetAll:output_type -> accommodation.GetAllResponse
-	5,  // 13: accommodation.AccommodationService.CreateAccommodation:output_type -> accommodation.CreateAccommodationResponse
-	11, // [11:14] is the sub-list for method output_type
-	8,  // [8:11] is the sub-list for method input_type
-	8,  // [8:8] is the sub-list for extension type_name
-	8,  // [8:8] is the sub-list for extension extendee
-	0,  // [0:8] is the sub-list for field type_name
+	10, // 0: accommodation.SearchRequest.location:type_name -> accommodation.Location
+	8,  // 1: accommodation.SearchResponse.accommodations:type_name -> accommodation.Accommodation
+	8,  // 2: accommodation.GetResponse.accommodation:type_name -> accommodation.Accommodation
+	8,  // 3: accommodation.GetAllResponse.accommodations:type_name -> accommodation.Accommodation
+	9,  // 4: accommodation.CreateAccommodationRequest.accommodation:type_name -> accommodation.NewAccommodation
+	8,  // 5: accommodation.CreateAccommodationResponse.accommodation:type_name -> accommodation.Accommodation
+	10, // 6: accommodation.Accommodation.location:type_name -> accommodation.Location
+	11, // 7: accommodation.Accommodation.utilities:type_name -> accommodation.Utility
+	10, // 8: accommodation.NewAccommodation.location:type_name -> accommodation.Location
+	11, // 9: accommodation.NewAccommodation.utilities:type_name -> accommodation.Utility
+	2,  // 10: accommodation.AccommodationService.Get:input_type -> accommodation.GetRequest
+	4,  // 11: accommodation.AccommodationService.GetAll:input_type -> accommodation.GetAllRequest
+	6,  // 12: accommodation.AccommodationService.CreateAccommodation:input_type -> accommodation.CreateAccommodationRequest
+	0,  // 13: accommodation.AccommodationService.Search:input_type -> accommodation.SearchRequest
+	3,  // 14: accommodation.AccommodationService.Get:output_type -> accommodation.GetResponse
+	5,  // 15: accommodation.AccommodationService.GetAll:output_type -> accommodation.GetAllResponse
+	7,  // 16: accommodation.AccommodationService.CreateAccommodation:output_type -> accommodation.CreateAccommodationResponse
+	1,  // 17: accommodation.AccommodationService.Search:output_type -> accommodation.SearchResponse
+	14, // [14:18] is the sub-list for method output_type
+	10, // [10:14] is the sub-list for method input_type
+	10, // [10:10] is the sub-list for extension type_name
+	10, // [10:10] is the sub-list for extension extendee
+	0,  // [0:10] is the sub-list for field type_name
 }
 
 func init() { file_accommodation_service_accommodation_service_proto_init() }
@@ -770,7 +896,7 @@ func file_accommodation_service_accommodation_service_proto_init() {
 	}
 	if !protoimpl.UnsafeEnabled {
 		file_accommodation_service_accommodation_service_proto_msgTypes[0].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*GetRequest); i {
+			switch v := v.(*SearchRequest); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -782,7 +908,7 @@ func file_accommodation_service_accommodation_service_proto_init() {
 			}
 		}
 		file_accommodation_service_accommodation_service_proto_msgTypes[1].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*GetResponse); i {
+			switch v := v.(*SearchResponse); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -794,7 +920,7 @@ func file_accommodation_service_accommodation_service_proto_init() {
 			}
 		}
 		file_accommodation_service_accommodation_service_proto_msgTypes[2].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*GetAllRequest); i {
+			switch v := v.(*GetRequest); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -806,7 +932,7 @@ func file_accommodation_service_accommodation_service_proto_init() {
 			}
 		}
 		file_accommodation_service_accommodation_service_proto_msgTypes[3].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*GetAllResponse); i {
+			switch v := v.(*GetResponse); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -818,7 +944,7 @@ func file_accommodation_service_accommodation_service_proto_init() {
 			}
 		}
 		file_accommodation_service_accommodation_service_proto_msgTypes[4].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*CreateAccommodationRequest); i {
+			switch v := v.(*GetAllRequest); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -830,7 +956,7 @@ func file_accommodation_service_accommodation_service_proto_init() {
 			}
 		}
 		file_accommodation_service_accommodation_service_proto_msgTypes[5].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*CreateAccommodationResponse); i {
+			switch v := v.(*GetAllResponse); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -842,7 +968,7 @@ func file_accommodation_service_accommodation_service_proto_init() {
 			}
 		}
 		file_accommodation_service_accommodation_service_proto_msgTypes[6].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*Accommodation); i {
+			switch v := v.(*CreateAccommodationRequest); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -854,7 +980,7 @@ func file_accommodation_service_accommodation_service_proto_init() {
 			}
 		}
 		file_accommodation_service_accommodation_service_proto_msgTypes[7].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*NewAccommodation); i {
+			switch v := v.(*CreateAccommodationResponse); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -866,7 +992,7 @@ func file_accommodation_service_accommodation_service_proto_init() {
 			}
 		}
 		file_accommodation_service_accommodation_service_proto_msgTypes[8].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*Location); i {
+			switch v := v.(*Accommodation); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -878,6 +1004,30 @@ func file_accommodation_service_accommodation_service_proto_init() {
 			}
 		}
 		file_accommodation_service_accommodation_service_proto_msgTypes[9].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*NewAccommodation); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_accommodation_service_accommodation_service_proto_msgTypes[10].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*Location); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_accommodation_service_accommodation_service_proto_msgTypes[11].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*Utility); i {
 			case 0:
 				return &v.state
@@ -896,7 +1046,7 @@ func file_accommodation_service_accommodation_service_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: file_accommodation_service_accommodation_service_proto_rawDesc,
 			NumEnums:      0,
-			NumMessages:   10,
+			NumMessages:   12,
 			NumExtensions: 0,
 			NumServices:   1,
 		},
