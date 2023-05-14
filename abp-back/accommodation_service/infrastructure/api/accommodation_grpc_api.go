@@ -91,7 +91,7 @@ func (handler *AccommodationHandler) CreateAccommodation(ctx context.Context, re
 	return &response, nil
 }
 func (handler *AccommodationHandler) Search(ctx context.Context, request *pb.SearchRequest) (*pb.SearchResponse, error) {
-
+	print("Hello world")
 	accommodations, err := handler.service.GetAccommodationsBySearchCriteria(request.NumOfPeople, request.Location.City)
 	//var err error
 	if err != nil {
@@ -105,7 +105,6 @@ func (handler *AccommodationHandler) Search(ctx context.Context, request *pb.Sea
 		current := mapAccommodation(accommodation)
 		response.Accommodations = append(response.Accommodations, current)
 	}
-
 
 	return response, nil
 }
