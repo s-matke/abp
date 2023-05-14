@@ -26,3 +26,7 @@ func (service *PricingService) GetAll() ([]*domain.Pricing, error) {
 func (service *PricingService) GetByAccommodation(id string) (*domain.Pricing, error) {
 	return service.store.GetByAccommodation(id)
 }
+
+func (service *PricingService) CreatePricing(pricing *domain.Pricing) error {
+	return service.store.Insert(pricing)
+}
