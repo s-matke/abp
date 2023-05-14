@@ -94,6 +94,12 @@ export const SidebarData = [
     ],
   },
   {
+    title: "User info",
+    path: "/userupdate",
+    role: ['unknown', 'host', 'guest'],
+    icon: <FaIcons.FaUserAlt />,
+  },
+  {
     title: "Sign Up",
     path: "/signup",
     role: ['unknown'],
