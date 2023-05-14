@@ -40,12 +40,21 @@ func mapNewAccommodation(request *pb.CreateAccommodationRequest) *domain.Accommo
 		Images:    request.Accommodation.Images,
 		MinPeople: uint32(request.Accommodation.MinPeople),
 		MaxPeople: uint32(request.Accommodation.MaxPeople),
+		Utilities: make([]domain.Utility, 0),
 	}
 
 	location := &domain.Location{
 		Address: request.Accommodation.Location.Address,
 		City:    request.Accommodation.Location.City,
 		Country: request.Accommodation.Location.Country,
+	}
+
+	for _, utilitiesPb := range request.Accommodation.Utilities {
+		utility := domain.Utility{
+			Name:        utilitiesPb.Name,
+			Description: utilitiesPb.Description,
+		}
+		accommodation.Utilities = append(accommodation.Utilities, utility)
 	}
 
 	accommodation.Location = *location

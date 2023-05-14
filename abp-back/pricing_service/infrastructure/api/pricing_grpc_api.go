@@ -76,3 +76,13 @@ func (handler *PricingHandler) GetAll(ctx context.Context, request *pb.GetAllReq
 
 	return response, nil
 }
+
+func (handler *PricingHandler) CreatePricing(ctx context.Context, request *pb.CreatePricingRequest) (*pb.CreatePricingResponse, error) {
+	pricing := mapNewPricing(request)
+	err := handler.service.CreatePricing(pricing)
+	if err != nil {
+		return nil, err
+	}
+	response := pb.CreatePricingResponse{Pricing: mapPricing(pricing)}
+	return &response, nil
+}
