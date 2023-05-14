@@ -5,6 +5,7 @@ option go_package = "github.com/s-matke/abp/abp-back/common/pricing";
 package pricing;
 
 import "google/api/annotations.proto";
+import "google/protobuf/timestamp.proto";
 
 service PricingService {
     rpc Get(GetRequest) returns(GetResponse) {
@@ -34,13 +35,16 @@ service PricingService {
 
     rpc CalculatePrice(CalculatePriceRequest) returns(CalculatePriceResponse) {
         option (google.api.http) = {
-            get: "/pricing/calculate/{id}"
+            post: "/pricing/calculate/{id}"
+            body: "*"
         };
     }
 }
 
 message CalculatePriceRequest {
     string id = 1;
+    google.protobuf.Timestamp startDate = 2;
+    google.protobuf.Timestamp endDate = 3;
 }
 
 message CalculatePriceResponse {
