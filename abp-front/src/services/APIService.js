@@ -3,7 +3,7 @@ import axios from 'axios';
 export default class APIService{
     static URL = "http://127.0.0.1:8000";
 
-    static async Register(username, password, email, firstName, lastName, phone) {
+    static async Register(username, password, email, firstName, lastName, phone, roleNum, address, city, country) {
       try {
         const response = await axios.post(APIService.URL + '/user', {
           username: username,
@@ -12,10 +12,10 @@ export default class APIService{
           phoneNumber: phone,
           email: email,
           password: password,
-          role: 0,
-          address: "123 Main St",
-          city: "Anytown",
-          country: "USA"
+          role: roleNum,
+          address: address,
+          city: city,
+          country: country
 
         }, {
           headers: {

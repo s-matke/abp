@@ -101,7 +101,11 @@ const CheckoutButton = styled.button`
         
     }
 `;
-
+const QuantitySelect = styled.select`
+    width:250px;
+    height:30px;
+    display:flex;
+`;
 const Register = () => {
   const navigate = useNavigate();
     const [firstName, setFirstName] = useState('');
@@ -111,7 +115,13 @@ const Register = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
+  const [role, setRole] = useState('GUEST');
+  const [address, setAddress] = useState('');
+  const [city, setCity] = useState('Novi Sad');
+  const [country, setCountry] = useState('Serbia');
+
   const [isFocusedName, setIsFocusedName] = useState(false);
+
     const [isFocusedSurname, setIsFocusedSurname] = useState(false);
     const [isPasswordValid, setIsPasswordValid] = useState(true);
     const [isConfirmPasswordValid, setIsConfirmPasswordValid] = useState(true);
@@ -136,11 +146,15 @@ const Register = () => {
   }
   const handleSubmit = async (e) => {
     e.preventDefault();
+    let roleNum = 0;
+    if (role === "GUEST"){
+         roleNum = 0
+    }else {  roleNum = 1}
     if (!isConfirmPasswordValid || !isPasswordValid) {
       return;
     }
     try {
-      const response = await APIService.Register(username, password, email, firstName, lastName, phone);
+      const response = await APIService.Register(username, password, email, firstName, lastName, phone, roleNum, address, city, country);
       console.log(response);
       navigate('/singin')
       
@@ -166,6 +180,7 @@ const Register = () => {
   const handleConfirmPasswordIconClick = () => {
     setConfirmPasswordIconVisability(!confirmPasswordIconVisability);
   };
+
     
   return (
     <div>
@@ -243,6 +258,46 @@ const Register = () => {
             onChange={e => setUsername(e.target.value)}
             required
             placeholder="marko11"
+          />
+        </FormField>
+        <FormField>
+        <QuantitySelect value={role} onChange={e => setRole(e.target.value)} >
+                        <option>{role}</option>
+                            {["GUEST", "USER"].map((quantity) => {
+                                return role !== quantity ? (
+                                <option key={quantity}>{quantity}</option>
+                                ) : null;
+                            })}
+                        </QuantitySelect>
+        </FormField>
+        <FormField>
+          <Label>Adresa *</Label>
+          <Input
+            type="text"
+            value={address}
+            onChange={e => setAddress(e.target.value)}
+            required
+            placeholder="Love Braculjevica 1"
+          />
+        </FormField>
+        <FormField>
+          <Label>Grad *</Label>
+          <Input
+            type="text"
+            value={city}
+            onChange={e => setCity(e.target.value)}
+            required
+            placeholder="Novi Sad"
+          />
+        </FormField>
+        <FormField>
+          <Label>Drzava *</Label>
+          <Input
+            type="text"
+            value={country}
+            onChange={e => setCountry(e.target.value)}
+            required
+            placeholder="SRBIJA"
           />
         </FormField>
         <FormField>
