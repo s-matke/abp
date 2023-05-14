@@ -5,6 +5,8 @@ import (
 
 	"github.com/s-matke/abp/abp-back/user_service/domain"
 
+	"errors"
+
 	"github.com/google/uuid"
 )
 
@@ -57,6 +59,12 @@ func (service *UserService) Create(user *domain.User) error {
 		return err
 	}
 	return nil
+}
+func (service *UserService) Login(username string, password string) (*domain.User, error) {
+	if username == "" || password == "" {
+		return nil, errors.New("Username and password are required")
+	}
+	return service.store.Login(username, password)
 }
 
 func (service *UserService) UpdateUser(user *domain.User) error {

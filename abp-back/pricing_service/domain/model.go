@@ -9,7 +9,7 @@ type Pricing struct {
 	Season          Season             `bson:"season"`
 	Week            Week               `bson:"week"`
 	Holiday         float32            `bson:"holiday"`
-	PriceType       PricingType        `bson:"pricing_type"`
+	PricingType     PricingType        `bson:"pricing_type"`
 }
 
 type PricingType int

@@ -10,4 +10,5 @@ type UserStore interface {
 	GetByUsername(username string) (*User, error)
 	GetByEmail(email string) (*User, error)
 	UpdateUser(user *User) error
+	Login(username string, email string) (*User, error)
 }
