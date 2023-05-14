@@ -11,6 +11,7 @@ type Status int
 const (
 	BOOKED Status = iota
 	CANCELLED
+	PENDING
 )
 
 type Reservation struct {

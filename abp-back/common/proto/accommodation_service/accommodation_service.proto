@@ -91,6 +91,7 @@ message Accommodation {
     repeated string images = 6;
     int32 minPeople = 7;
     int32 maxPeople = 8;
+    bool automaticReservation = 9;
 }
 
 message NewAccommodation {
@@ -101,6 +102,7 @@ message NewAccommodation {
     repeated string images = 5;
     int32 minPeople = 6;
     int32 maxPeople = 7;
+    bool automaticReservation = 8;
 }
 
 message Location {

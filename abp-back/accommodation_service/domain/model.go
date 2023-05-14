@@ -5,14 +5,15 @@ import (
 )
 
 type Accommodation struct {
-	Id        primitive.ObjectID `bson:"_id"`
-	HostId    string             `bson:"host_id"`
-	Name      string             `bson:"name"`
-	Location  Location           `bson:"location"`
-	Utilities []Utility          `bson:"utilities"`
-	Images    []string           `bson:"images"`
-	MinPeople uint32             `bson:"minPeople"`
-	MaxPeople uint32             `bson:"maxPeople"`
+	Id                   primitive.ObjectID `bson:"_id"`
+	HostId               string             `bson:"host_id"`
+	Name                 string             `bson:"name"`
+	Location             Location           `bson:"location"`
+	Utilities            []Utility          `bson:"utilities"`
+	Images               []string           `bson:"images"`
+	MinPeople            uint32             `bson:"minPeople"`
+	MaxPeople            uint32             `bson:"maxPeople"`
+	AutomaticReservation bool               `bson:"automatic_reservation"`
 	// Price     float64            `bson:"price"`
 	// Status    AvailableStatus
 }

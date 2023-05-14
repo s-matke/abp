@@ -6,5 +6,6 @@ use (
 	./availability_service
 	./common
 	./pricing_service
+	./reservation_service
 	./user_service
 )

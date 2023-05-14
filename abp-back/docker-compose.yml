@@ -68,6 +68,24 @@ services:
     networks:
       - network
   
+  reservation_service:
+    image: reservation_service
+    container_name: reservation_service
+    build:
+      context: .
+      dockerfile: ./reservation_service/Dockerfile
+    restart: on-failure
+    environment:
+      RESERVATION_DB_HOST: ${RESERVATION_DB_HOST}
+      RESERVATION_DB_PORT: ${RESERVATION_DB_PORT}
+      RESERVATION_SERVICE_PORT: ${RESERVATION_SERVICE_PORT}
+      PRICING_SERVICE_HOST: ${PRICING_SERVICE_HOST}
+      PRICING_SERVICE_PORT: ${PRICING_SERVICE_PORT}
+    depends_on:
+      - reservation_db
+    networks:
+      - network
+
   api_gateway:
     image: api_gateway
     container_name: api_gateway
@@ -89,6 +107,9 @@ services:
       AUTH_SERVICE_PORT: ${AUTH_SERVICE_PORT}
       AVAILABILITY_SERVICE_HOST: ${AVAILABILITY_SERVICE_HOST}
       AVAILABILITY_SERVICE_PORT: ${AVAILABILITY_SERVICE_PORT}
+      RESERVATION_SERVICE_HOST: ${RESERVATION_SERVICE_HOST}
+      RESERVATION_SERVICE_PORT: ${RESERVATION_SERVICE_PORT}
+
     networks:
       - network
   
@@ -129,6 +150,15 @@ services:
     restart: on-failure
     ports:
       - 27020:${AVAILABILITY_DB_PORT}
+    networks:
+      - network
+  
+  reservation_db:
+    image: mongo
+    container_name: reservation_db
+    restart: on-failure
+    ports:
+      - 27021:${RESERVATION_DB_PORT}
     networks:
       - network
 
