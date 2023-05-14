@@ -7,6 +7,8 @@ import (
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/bson/primitive"
 	"go.mongodb.org/mongo-driver/mongo"
+	"github.com/golang/protobuf/ptypes/timestamp"
+	"time"
 )
 
 const (
@@ -66,4 +68,38 @@ func decode(cursor *mongo.Cursor) (availabilities []*domain.Availability, err er
 	}
 	err = cursor.Err()
 	return
+}
+
+func (store *AvailabilityMongoDBStore) SearchAccommodationGetAllUnavailable(startDate *timestamp.Timestamp, endDate *timestamp.Timestamp) ([]*string, error) {
+    startTime := time.Unix(startDate.GetSeconds(), int64(startDate.GetNanos()))
+    endTime := time.Unix(endDate.GetSeconds(), int64(endDate.GetNanos()))
+
+    filter := bson.M{
+        "$and": []bson.M{
+            bson.M{"startTime": bson.M{"$gte": startTime}},
+            bson.M{"startTime": bson.M{"$lte": endTime}},
+            bson.M{"endTime": bson.M{"$gte": startTime}},
+            bson.M{"endTime": bson.M{"$lte": endTime}},
+        },
+    }
+
+    var results []*string
+    cur, err := store.availabilities.Find(context.Background(), filter)
+    if err != nil {
+        return nil, err
+    } 
+    defer cur.Close(context.Background())
+    for cur.Next(context.Background()) {
+        var obj string
+        if err := cur.Decode(&obj); err != nil {
+            return nil, err
+        }
+        results = append(results, &obj)
+    }
+    if err := cur.Err(); err != nil {
+        return nil, err
+    }
+	print("REZULTAT")
+	print( results)
+    return results, nil
 }

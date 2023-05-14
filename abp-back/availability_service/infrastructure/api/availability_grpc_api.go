@@ -42,3 +42,13 @@ func (handler *AvailabilityHandler) CreateAvailability(ctx context.Context, requ
 	print(request.Availability)
 	return nil, nil
 }
+
+func (handler *AvailabilityHandler) GetAllUnavailable(ctx context.Context, request *pb.GetAllUnavailableRequest) (*pb.GetAllUnavailableResponse, error) {
+	startDate := request.StartDate.AsTime()
+	endDate := request.EndDate.AsTime()
+	ids, err := handler.service.GetAllUnavailable(startDate,endDate)
+	print(ids)
+	return nil,errors.New("greska")
+
+}
+
