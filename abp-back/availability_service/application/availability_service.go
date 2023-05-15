@@ -16,6 +16,10 @@ func (service *AvailabilityService) GetAll() ([]*domain.Availability, error) {
 	return service.store.GetAll()
 }
 
+func (service *AvailabilityService) GetByAccommodation(id string) ([]*domain.Availability, error) {
+	return service.store.GetByAccommodation(id)
+}
+
 func (service *AvailabilityService) CreateAvailability(availability *domain.Availability) error {
 	return service.store.Insert(availability)
 }

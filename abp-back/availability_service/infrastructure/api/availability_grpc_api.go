@@ -37,8 +37,35 @@ func (handler *AvailabilityHandler) GetAll(ctx context.Context, request *pb.GetA
 	return response, nil
 }
 
+func (handler *AvailabilityHandler) GetByAccommodation(ctx context.Context, request *pb.GetByAccommodationRequest) (*pb.GetByAccommodationResponse, error) {
+	accommodation_id := request.Id
+
+	availabilities, err := handler.service.GetByAccommodation(accommodation_id)
+
+	if err != nil {
+		return nil, err
+	}
+
+	response := &pb.GetByAccommodationResponse{
+		Availabilities: []*pb.Availability{},
+	}
+
+	for _, availability := range availabilities {
+		current := mapAvailability(availability)
+		response.Availabilities = append(response.Availabilities, current)
+	}
+
+	return response, nil
+}
+
 func (handler *AvailabilityHandler) CreateAvailability(ctx context.Context, request *pb.CreateAvailabilityRequest) (*pb.CreateAvailabilityResponse, error) {
-	// TODO: Create availability
-	print(request.Availability)
-	return nil, nil
+	availability := mapNewAvailability(request)
+	err := handler.service.CreateAvailability(availability)
+	if err != nil {
+		return nil, err
+	}
+
+	response := &pb.CreateAvailabilityResponse{Availability: mapAvailability(availability)}
+
+	return response, nil
 }

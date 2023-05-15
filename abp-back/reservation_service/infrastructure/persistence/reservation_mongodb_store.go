@@ -2,6 +2,7 @@ package persistence
 
 import (
 	"context"
+	"fmt"
 
 	"github.com/s-matke/abp/abp-back/reservation_service/domain"
 	"go.mongodb.org/mongo-driver/bson"
@@ -32,6 +33,21 @@ func (store *ReservationMongoDBStore) GetAll() ([]*domain.Reservation, error) {
 
 func (store *ReservationMongoDBStore) GetByAccommodation(id primitive.ObjectID) ([]*domain.Reservation, error) {
 	filter := bson.M{"accommodation_id": id}
+	return store.filter(filter)
+}
+
+func (store *ReservationMongoDBStore) GetCancelledAmount(id string) int32 {
+	filter := bson.M{"guest_id": id, "status": domain.CANCELLED}
+	count, err := store.reservations.CountDocuments(context.TODO(), filter)
+	if err != nil {
+		fmt.Println("Nije pronasao ni jednog user-a sa CANCELLED.")
+		return 0
+	}
+	return int32(count)
+}
+
+func (store *ReservationMongoDBStore) GetAllPendingByAccommodation(id primitive.ObjectID) ([]*domain.Reservation, error) {
+	filter := bson.M{"accommodation_id": id, "status": domain.PENDING}
 	return store.filter(filter)
 }
 

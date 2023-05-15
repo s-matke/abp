@@ -40,6 +40,21 @@ service AccommodationService {
             get: "/accommodation/host/{id}"
         };
     }
+
+    rpc GetReservationStatus(GetReservationStatusRequest) returns(GetReservationStatusResponse) {
+        option (google.api.http) = {
+            post: "/accommodation/reservation"
+            body: "*"
+        };
+    }
+}
+
+message GetReservationStatusRequest {
+    string id = 1;
+}
+
+message GetReservationStatusResponse {
+    Accommodation accommodation = 1;
 }
 
 message GetByHostRequest {
