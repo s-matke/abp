@@ -23,7 +23,7 @@ function ShowReservation() {
 
     const handleReservation = (id) => {
         setShowTable(true)
-        axios.get(`http://localhost:8000/reservation/accommodation/646208ca3d8eb6a701948786`)
+        axios.get(`http://localhost:8000/reservation/pending/64621f6a8f37f1357a23b363`)
         .then(res => {
             
             setReservation(res.data.reservations)
@@ -81,7 +81,7 @@ function ShowReservation() {
           <th>{r.endDate}</th>
           <th>{r.numOfGuests}</th>
           <th>{r.price}</th>
-          <th><Button onClick={()=> cancelReservation(r.id)}>Cancel</Button></th>
+          <th><Button onClick={()=> cancelReservation(r.id)}>Confirm</Button></th>
         </tr>
       ))}
     </tbody>
