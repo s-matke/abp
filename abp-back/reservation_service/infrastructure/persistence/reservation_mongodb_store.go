@@ -51,6 +51,28 @@ func (store *ReservationMongoDBStore) GetAllPendingByAccommodation(id primitive.
 	return store.filter(filter)
 }
 
+func (store *ReservationMongoDBStore) ConfirmReservation(id primitive.ObjectID) (*domain.Reservation, error) {
+	filter := bson.M{"_id": id}
+
+	// Define the update
+	update := bson.M{"$set": bson.M{"status": domain.BOOKED}}
+
+	_, err := store.reservations.UpdateOne(context.Background(), filter, update)
+
+	if err != nil {
+		return nil, err
+	}
+
+	return store.filterOne(filter)
+
+}
+
+func (store *ReservationMongoDBStore) filterOne(filter interface{}) (reservation *domain.Reservation, err error) {
+	result := store.reservations.FindOne(context.TODO(), filter)
+	err = result.Decode(&reservation)
+	return
+}
+
 func (store *ReservationMongoDBStore) Insert(reservation *domain.Reservation) error {
 	result, err := store.reservations.InsertOne(context.TODO(), reservation)
 
@@ -64,6 +86,20 @@ func (store *ReservationMongoDBStore) Insert(reservation *domain.Reservation) er
 
 func (store *ReservationMongoDBStore) DeleteAll() {
 	store.reservations.DeleteMany(context.TODO(), bson.D{{}})
+}
+
+func (store *ReservationMongoDBStore) DeleteByIds(ids []primitive.ObjectID) error {
+	filter := bson.M{
+		"_id": bson.M{"$in": ids},
+	}
+
+	_, err := store.reservations.DeleteMany(context.TODO(), filter)
+
+	if err != nil {
+		return err
+	}
+
+	return nil
 }
 
 func (store *ReservationMongoDBStore) filter(filter interface{}) ([]*domain.Reservation, error) {
