@@ -157,3 +157,20 @@ func (handler *ReservationHandler) GetByGuest(ctx context.Context, request *pb.G
 
 	return response, nil
 }
+
+func (handler *ReservationHandler) CancelReservation(ctx context.Context, request *pb.CancelReservationRequest) (*pb.CancelReservationResponse, error) {
+	id, err := primitive.ObjectIDFromHex(request.Id)
+
+	if err != nil {
+		return nil, err
+	}
+
+	err = handler.service.CancelReservation(id)
+
+	if err != nil {
+		return nil, err
+	}
+
+	return nil, nil
+
+}
