@@ -30,6 +30,17 @@ func (store *AvailabilityMongoDBStore) GetAll() ([]*domain.Availability, error) 
 	return store.filter(filter)
 }
 
+func (store *AvailabilityMongoDBStore) GetByAccommodation(id string) ([]*domain.Availability, error) {
+	accId, err := primitive.ObjectIDFromHex(id)
+
+	if err != nil {
+		return nil, err
+	}
+
+	filter := bson.M{"accommodation_id": accId}
+	return store.filter(filter)
+}
+
 func (store *AvailabilityMongoDBStore) Insert(availability *domain.Availability) error {
 	result, err := store.availabilities.InsertOne(context.TODO(), availability)
 	if err != nil {
@@ -41,6 +52,19 @@ func (store *AvailabilityMongoDBStore) Insert(availability *domain.Availability)
 
 func (store *AvailabilityMongoDBStore) DeleteAll() {
 	store.availabilities.DeleteMany(context.TODO(), bson.D{{}})
+}
+
+func (store *AvailabilityMongoDBStore) GetAllUnavailable(availability *domain.Availability) ([]*domain.Availability, error) {
+	filter := bson.M{
+		"$or": bson.A{
+			bson.M{
+				"startTime": bson.M{"$lt": availability.EndDate},
+				"endTime":   bson.M{"$gt": availability.StartDate},
+			},
+		},
+	}
+	return store.filter(filter)
+
 }
 
 func (store *AvailabilityMongoDBStore) filter(filter interface{}) ([]*domain.Availability, error) {

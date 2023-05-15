@@ -21,7 +21,38 @@ service AvailabilityService {
             body: "availability"
         };
     }
+
+    rpc GetByAccommodation(GetByAccommodationRequest) returns(GetByAccommodationResponse) {
+        option (google.api.http) = {
+            get: "/availability/{id}"
+        };
+    }
+    
+    rpc GetAllUnavailable(GetAllUnavailableRequest) returns(GetAllUnavailableResponse) {
+        option (google.api.http) = {
+            post: "/availability/unavailable"
+            body: "*"
+        };
+    }
 }
+
+message GetByAccommodationRequest {
+    string id = 1;
+}
+
+message GetByAccommodationResponse {
+    repeated Availability availabilities = 1;
+}
+
+message GetAllUnavailableRequest {
+    google.protobuf.Timestamp startDate = 1;
+    google.protobuf.Timestamp endDate = 2;
+}
+
+message GetAllUnavailableResponse {
+    repeated Availability availabilities = 1;
+}
+
 
 message GetAllRequest {}
 

@@ -19,6 +19,7 @@ export const AuthProvider = ({children}) =>{
           console.log(response);
           localStorage.setItem('userID', JSON.stringify(response.user.id))
           localStorage.setItem('userRole', JSON.stringify(response.user.role).toLowerCase())
+          localStorage.setItem('user', JSON.stringify(response.user))
         } catch (error) {
           console.error(error);
         }

@@ -41,6 +41,30 @@ func (handler *AccommodationHandler) Get(ctx context.Context, request *pb.GetReq
 	return response, nil
 }
 
+// GetReservationStatus
+
+func (handler *AccommodationHandler) GetReservationStatus(ctx context.Context, request *pb.GetReservationStatusRequest) (*pb.GetReservationStatusResponse, error) {
+	id := request.Id
+	objectId, err := primitive.ObjectIDFromHex(id)
+
+	if err != nil {
+		return nil, err
+	}
+
+	accommodation, err := handler.service.Get(objectId)
+
+	if err != nil {
+		return nil, err
+	}
+
+	accommodationPb := mapAccommodation(accommodation)
+	response := &pb.GetReservationStatusResponse{
+		Accommodation: accommodationPb,
+	}
+
+	return response, nil
+}
+
 func (handler *AccommodationHandler) GetByHost(ctx context.Context, request *pb.GetByHostRequest) (*pb.GetByHostResponse, error) {
 	id := request.Id
 
@@ -89,4 +113,39 @@ func (handler *AccommodationHandler) CreateAccommodation(ctx context.Context, re
 	}
 	response := pb.CreateAccommodationResponse{Accommodation: mapAccommodation(accommodation)}
 	return &response, nil
+}
+func (handler *AccommodationHandler) Search(ctx context.Context, request *pb.SearchRequest) (*pb.SearchResponse, error) {
+	print("Hello world")
+
+	// startDate := time.Date(
+	// 	request.StartDate.AsTime().Year(),
+	// 	request.StartDate.AsTime().Month(),
+	// 	request.StartDate.AsTime().Day(),
+	// 	0, 0, 0, 0,
+	// 	request.StartDate.AsTime().Location(),
+	// )
+
+	// endDate := time.Date(
+	// 	request.EndDate.AsTime().Year(),
+	// 	request.EndDate.AsTime().Month(),
+	// 	request.EndDate.AsTime().Day(),
+	// 	0, 0, 0, 0,
+	// 	request.EndDate.AsTime().Location(),
+	// )
+
+	accommodations, err := handler.service.GetAccommodationsBySearchCriteria(request.NumOfPeople, request.Location.City, *request.StartDate, *request.EndDate)
+	//var err error
+	if err != nil {
+		return nil, err
+	}
+	response := &pb.SearchResponse{
+		Accommodations: []*pb.Accommodation{},
+	}
+
+	for _, accommodation := range accommodations {
+		current := mapAccommodation(accommodation)
+		response.Accommodations = append(response.Accommodations, current)
+	}
+
+	return response, nil
 }

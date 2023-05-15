@@ -7,9 +7,9 @@ import (
 
 var accommodations = []*domain.Accommodation{
 	{
-		Id:     getObjectId("1"),
+		Id:     getObjectId("64621a0d4a9b18ce6897930e"),
 		HostId: "Host1_Id",
-		Name:   "Naziv 1",
+		Name:   "111111111111111111",
 		Location: domain.Location{
 			Address: "Adresa 1",
 			City:    "City 1",
@@ -28,12 +28,12 @@ var accommodations = []*domain.Accommodation{
 		Images:               []string{"image1", "image2"},
 		MinPeople:            1,
 		MaxPeople:            4,
-		AutomaticReservation: false,
+		AutomaticReservation: true,
 	},
 	{
-		Id:     getObjectId("2"),
+		Id:     getObjectId("64621a0d4a9b18ce6897930d"),
 		HostId: "Host2_Id",
-		Name:   "Naziv 2",
+		Name:   "22222222222222",
 		Location: domain.Location{
 			Address: "Adresa 2",
 			City:    "City 2",

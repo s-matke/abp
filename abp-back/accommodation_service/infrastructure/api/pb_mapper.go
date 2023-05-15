@@ -8,12 +8,13 @@ import (
 
 func mapAccommodation(accommodation *domain.Accommodation) *pb.Accommodation {
 	accommodationPb := &pb.Accommodation{
-		Id:        accommodation.Id.Hex(),
-		HostId:    accommodation.HostId,
-		Name:      accommodation.Name,
-		Images:    accommodation.Images,
-		MinPeople: int32(accommodation.MinPeople),
-		MaxPeople: int32(accommodation.MaxPeople),
+		Id:                   accommodation.Id.Hex(),
+		HostId:               accommodation.HostId,
+		Name:                 accommodation.Name,
+		Images:               accommodation.Images,
+		MinPeople:            int32(accommodation.MinPeople),
+		MaxPeople:            int32(accommodation.MaxPeople),
+		AutomaticReservation: accommodation.AutomaticReservation,
 	}
 
 	accommodationPb.Location = &pb.Location{
@@ -34,13 +35,14 @@ func mapAccommodation(accommodation *domain.Accommodation) *pb.Accommodation {
 
 func mapNewAccommodation(request *pb.CreateAccommodationRequest) *domain.Accommodation {
 	accommodation := &domain.Accommodation{
-		Id:        primitive.NewObjectID(),
-		HostId:    request.Accommodation.HostId,
-		Name:      request.Accommodation.Name,
-		Images:    request.Accommodation.Images,
-		MinPeople: uint32(request.Accommodation.MinPeople),
-		MaxPeople: uint32(request.Accommodation.MaxPeople),
-		Utilities: make([]domain.Utility, 0),
+		Id:                   primitive.NewObjectID(),
+		HostId:               request.Accommodation.HostId,
+		Name:                 request.Accommodation.Name,
+		Images:               request.Accommodation.Images,
+		MinPeople:            uint32(request.Accommodation.MinPeople),
+		MaxPeople:            uint32(request.Accommodation.MaxPeople),
+		Utilities:            make([]domain.Utility, 0),
+		AutomaticReservation: request.Accommodation.AutomaticReservation,
 	}
 
 	location := &domain.Location{
