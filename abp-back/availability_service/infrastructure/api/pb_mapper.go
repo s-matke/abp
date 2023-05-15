@@ -37,6 +37,22 @@ func mapNewAvailability(request *pb.CreateAvailabilityRequest) *domain.Availabil
 	return availability
 }
 
+func mapDeleteAvailability(request *pb.DeleteByDataRequest) *domain.Availability {
+	accId, err := primitive.ObjectIDFromHex(request.AccommodationId)
+
+	if err != nil {
+		return nil
+	}
+
+	availability := &domain.Availability{
+		AccommodationId: accId,
+		StartDate:       request.StartDate.AsTime(),
+		EndDate:         request.EndDate.AsTime(),
+	}
+
+	return availability
+}
+
 func mapDates(request *pb.GetAllUnavailableRequest) *domain.Availability {
 
 	reservation := &domain.Availability{

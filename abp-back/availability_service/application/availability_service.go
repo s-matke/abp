@@ -1,6 +1,8 @@
 package application
 
-import "github.com/s-matke/abp/abp-back/availability_service/domain"
+import (
+	"github.com/s-matke/abp/abp-back/availability_service/domain"
+)
 
 type AvailabilityService struct {
 	store domain.AvailabilityStore
@@ -22,6 +24,10 @@ func (service *AvailabilityService) GetByAccommodation(id string) ([]*domain.Ava
 
 func (service *AvailabilityService) CreateAvailability(availability *domain.Availability) error {
 	return service.store.Insert(availability)
+}
+
+func (service *AvailabilityService) DeleteByData(availability *domain.Availability) error {
+	return service.store.DeleteByData(availability)
 }
 
 func (service *AvailabilityService) GetAllUnavailable(availability *domain.Availability) ([]*domain.Availability, error) {

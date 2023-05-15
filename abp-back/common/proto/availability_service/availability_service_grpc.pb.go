@@ -23,6 +23,7 @@ const (
 	AvailabilityService_CreateAvailability_FullMethodName = "/availability.AvailabilityService/CreateAvailability"
 	AvailabilityService_GetByAccommodation_FullMethodName = "/availability.AvailabilityService/GetByAccommodation"
 	AvailabilityService_GetAllUnavailable_FullMethodName  = "/availability.AvailabilityService/GetAllUnavailable"
+	AvailabilityService_DeleteByData_FullMethodName       = "/availability.AvailabilityService/DeleteByData"
 )
 
 // AvailabilityServiceClient is the client API for AvailabilityService service.
@@ -33,6 +34,7 @@ type AvailabilityServiceClient interface {
 	CreateAvailability(ctx context.Context, in *CreateAvailabilityRequest, opts ...grpc.CallOption) (*CreateAvailabilityResponse, error)
 	GetByAccommodation(ctx context.Context, in *GetByAccommodationRequest, opts ...grpc.CallOption) (*GetByAccommodationResponse, error)
 	GetAllUnavailable(ctx context.Context, in *GetAllUnavailableRequest, opts ...grpc.CallOption) (*GetAllUnavailableResponse, error)
+	DeleteByData(ctx context.Context, in *DeleteByDataRequest, opts ...grpc.CallOption) (*DeleteByDataResponse, error)
 }
 
 type availabilityServiceClient struct {
@@ -79,6 +81,15 @@ func (c *availabilityServiceClient) GetAllUnavailable(ctx context.Context, in *G
 	return out, nil
 }
 
+func (c *availabilityServiceClient) DeleteByData(ctx context.Context, in *DeleteByDataRequest, opts ...grpc.CallOption) (*DeleteByDataResponse, error) {
+	out := new(DeleteByDataResponse)
+	err := c.cc.Invoke(ctx, AvailabilityService_DeleteByData_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // AvailabilityServiceServer is the server API for AvailabilityService service.
 // All implementations must embed UnimplementedAvailabilityServiceServer
 // for forward compatibility
@@ -87,6 +98,7 @@ type AvailabilityServiceServer interface {
 	CreateAvailability(context.Context, *CreateAvailabilityRequest) (*CreateAvailabilityResponse, error)
 	GetByAccommodation(context.Context, *GetByAccommodationRequest) (*GetByAccommodationResponse, error)
 	GetAllUnavailable(context.Context, *GetAllUnavailableRequest) (*GetAllUnavailableResponse, error)
+	DeleteByData(context.Context, *DeleteByDataRequest) (*DeleteByDataResponse, error)
 	mustEmbedUnimplementedAvailabilityServiceServer()
 }
 
@@ -105,6 +117,9 @@ func (UnimplementedAvailabilityServiceServer) GetByAccommodation(context.Context
 }
 func (UnimplementedAvailabilityServiceServer) GetAllUnavailable(context.Context, *GetAllUnavailableRequest) (*GetAllUnavailableResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetAllUnavailable not implemented")
+}
+func (UnimplementedAvailabilityServiceServer) DeleteByData(context.Context, *DeleteByDataRequest) (*DeleteByDataResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method DeleteByData not implemented")
 }
 func (UnimplementedAvailabilityServiceServer) mustEmbedUnimplementedAvailabilityServiceServer() {}
 
@@ -191,6 +206,24 @@ func _AvailabilityService_GetAllUnavailable_Handler(srv interface{}, ctx context
 	return interceptor(ctx, in, info, handler)
 }
 
+func _AvailabilityService_DeleteByData_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(DeleteByDataRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(AvailabilityServiceServer).DeleteByData(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: AvailabilityService_DeleteByData_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(AvailabilityServiceServer).DeleteByData(ctx, req.(*DeleteByDataRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // AvailabilityService_ServiceDesc is the grpc.ServiceDesc for AvailabilityService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -213,6 +246,10 @@ var AvailabilityService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetAllUnavailable",
 			Handler:    _AvailabilityService_GetAllUnavailable_Handler,
+		},
+		{
+			MethodName: "DeleteByData",
+			Handler:    _AvailabilityService_DeleteByData_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

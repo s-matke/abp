@@ -55,6 +55,48 @@ func (service *ReservationService) GetCancelledAmount(id string) int32 {
 	return service.store.GetCancelledAmount(id)
 }
 
+func (service *ReservationService) CancelReservation(id primitive.ObjectID) error {
+
+	reservation, err := service.store.Get(id)
+
+	if err != nil {
+		return err
+	}
+
+	err = service.store.CancelReservation(id)
+
+	if err != nil {
+		return nil
+	}
+
+	if reservation.Status == domain.PENDING {
+		return nil
+	}
+
+	availabilityClient := persistence.NewAvailabilityService(service.availabilityAddr)
+
+	/*
+		AccommodationId primitive.ObjectID `bson:"accommodation_id"`
+		StartDate       time.Time          `bson:"start_date"`
+		EndDate         time.Time          `bson:"end_date"`
+	*/
+
+	availabilityResponse, err := availabilityClient.DeleteByData(context.TODO(), &availability.DeleteByDataRequest{
+		AccommodationId: reservation.AccommodationId.Hex(),
+		StartDate:       timestamppb.New(reservation.StartDate),
+		EndDate:         timestamppb.New(reservation.EndDate),
+	})
+
+	print(availabilityResponse)
+
+	if err != nil {
+		return err
+	}
+
+	return nil
+
+}
+
 func (service *ReservationService) ConfirmReservation(id primitive.ObjectID) ([]*domain.Reservation, error) {
 	reservation, err := service.store.ConfirmReservation(id)
 
@@ -113,7 +155,6 @@ func (service *ReservationService) ConfirmReservation(id primitive.ObjectID) ([]
 	}
 
 	return reservationsToSave, nil
-
 }
 
 func (service *ReservationService) CreateReservation(reservation *domain.Reservation) (*domain.Reservation, error) {

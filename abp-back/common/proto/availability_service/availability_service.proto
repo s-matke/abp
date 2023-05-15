@@ -34,7 +34,25 @@ service AvailabilityService {
             body: "*"
         };
     }
+
+    rpc DeleteByData(DeleteByDataRequest) returns(DeleteByDataResponse) {
+        option (google.api.http) = {
+            post: "/availability/delete"
+            body: "*"
+        };
+    }
 }
+
+message DeleteByDataRequest {
+    string accommodation_id = 1;
+    google.protobuf.Timestamp startDate = 2;
+    google.protobuf.Timestamp endDate = 3;
+}
+
+message DeleteByDataResponse {
+    bool status = 1;
+}
+
 
 message GetByAccommodationRequest {
     string id = 1;

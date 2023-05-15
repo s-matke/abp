@@ -44,7 +44,19 @@ service ReservationService {
             get: "/reservation/guest/{id}"
         };
     }
+
+    rpc CancelReservation(CancelReservationRequest) returns(CancelReservationResponse) {
+        option (google.api.http) = {
+            get: "/reservation/cancel/{id}"
+        };
+    }
 }
+
+message CancelReservationRequest {
+    string id = 1;
+}
+
+message CancelReservationResponse { }
 
 message GetByGuestRequest {
     string id = 1;

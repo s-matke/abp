@@ -70,6 +70,22 @@ func (handler *AvailabilityHandler) CreateAvailability(ctx context.Context, requ
 	return response, nil
 }
 
+func (handler *AvailabilityHandler) DeleteByData(ctx context.Context, request *pb.DeleteByDataRequest) (*pb.DeleteByDataResponse, error) {
+	availability := mapDeleteAvailability(request)
+
+	err := handler.service.DeleteByData(availability)
+
+	if err != nil {
+		return nil, err
+	}
+
+	response := &pb.DeleteByDataResponse{
+		Status: true,
+	}
+
+	return response, nil
+}
+
 func (handler *AvailabilityHandler) GetAllUnavailable(ctx context.Context, request *pb.GetAllUnavailableRequest) (*pb.GetAllUnavailableResponse, error) {
 	date := mapDates(request)
 

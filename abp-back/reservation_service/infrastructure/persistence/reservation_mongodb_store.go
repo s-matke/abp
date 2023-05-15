@@ -31,6 +31,11 @@ func (store *ReservationMongoDBStore) GetAll() ([]*domain.Reservation, error) {
 	return store.filter(filter)
 }
 
+func (store *ReservationMongoDBStore) Get(id primitive.ObjectID) (*domain.Reservation, error) {
+	filter := bson.M{"_id": id}
+	return store.filterOne(filter)
+}
+
 func (store *ReservationMongoDBStore) GetByAccommodation(id primitive.ObjectID) ([]*domain.Reservation, error) {
 	filter := bson.M{"accommodation_id": id}
 	return store.filter(filter)
@@ -49,6 +54,19 @@ func (store *ReservationMongoDBStore) GetCancelledAmount(id string) int32 {
 		return 0
 	}
 	return int32(count)
+}
+
+func (store *ReservationMongoDBStore) CancelReservation(id primitive.ObjectID) error {
+	filter := bson.M{"_id": id}
+	update := bson.M{"$set": bson.M{"status": domain.CANCELLED}}
+
+	_, err := store.reservations.UpdateOne(context.Background(), filter, update)
+
+	if err != nil {
+		return err
+	}
+
+	return nil
 }
 
 func (store *ReservationMongoDBStore) GetAllPendingByAccommodation(id primitive.ObjectID) ([]*domain.Reservation, error) {
