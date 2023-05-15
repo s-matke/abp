@@ -11,9 +11,9 @@ import ShowAccommodation from './Pages/ShowAccommodation';
 
 import Login from './pages/Login';
 import { AuthProvider } from './context/AuthContext';
+
 import Accommodation from './pages/Accommodation';
 import ShowReservation from './Pages/ShowReservation';
-import Accommodation from './Pages/Accommodation';
 
 function App() {
   return (
@@ -26,6 +26,8 @@ function App() {
           <Route path="/signup" element={<Register />}></Route> 
           <Route path="/userupdate" element={<UpdateUser/>}></Route>        
           <Route path="/signin" element={<Login />}></Route> 
+          {/*<Route path="/accommodation" element={<Accommodation />}></Route> */}
+
           <Route path="/accommodation/search" element={<Accommodation />}></Route> 
           {/* <Route path="/" element={<Signin />}></Route> */}
           <Route path="/accommodation" element={<ShowAccommodation/>}></Route>

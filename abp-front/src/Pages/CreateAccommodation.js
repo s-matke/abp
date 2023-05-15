@@ -51,6 +51,8 @@ export default function CreateAccommodation() {
           }) 
           .then (error => {
             console.log(error)
+            alert("Successfully added accommodation!")
+            window.location.assign("/createAccommodation")
           })
       };
     
