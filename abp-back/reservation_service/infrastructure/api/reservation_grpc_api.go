@@ -111,3 +111,49 @@ func (handler *ReservationHandler) GetAllPendingByAccommodation(ctx context.Cont
 
 	return response, nil
 }
+
+func (handler *ReservationHandler) ConfirmReservation(ctx context.Context, request *pb.ConfirmReservationRequest) (*pb.ConfirmReservationResponse, error) {
+	id, err := primitive.ObjectIDFromHex(request.Id)
+
+	if err != nil {
+		return nil, err
+	}
+	fmt.Println("ID: ", id)
+	reservations, err := handler.service.ConfirmReservation(id)
+
+	if err != nil {
+		return nil, err
+	}
+
+	response := &pb.ConfirmReservationResponse{
+		Reservations: []*pb.Reservation{},
+	}
+
+	for _, reservation := range reservations {
+		current := mapReservation(reservation)
+		response.Reservations = append(response.Reservations, current)
+	}
+
+	return response, nil
+}
+
+func (handler *ReservationHandler) GetByGuest(ctx context.Context, request *pb.GetByGuestRequest) (*pb.GetByGuestResponse, error) {
+	id := request.Id
+
+	reservations, err := handler.service.GetByGuest(id)
+
+	if err != nil {
+		return nil, err
+	}
+
+	response := &pb.GetByGuestResponse{
+		Reservations: []*pb.Reservation{},
+	}
+
+	for _, reservation := range reservations {
+		current := mapReservation(reservation)
+		response.Reservations = append(response.Reservations, current)
+	}
+
+	return response, nil
+}

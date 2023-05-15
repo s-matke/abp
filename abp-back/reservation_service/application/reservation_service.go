@@ -3,6 +3,7 @@ package application
 import (
 	"context"
 	"errors"
+	"fmt"
 	"time"
 
 	accommodation "github.com/s-matke/abp/abp-back/common/proto/accommodation_service"
@@ -38,6 +39,10 @@ func (service *ReservationService) GetByAccommodation(id primitive.ObjectID) ([]
 	return service.store.GetByAccommodation(id)
 }
 
+func (service *ReservationService) GetByGuest(id string) ([]*domain.Reservation, error) {
+	return service.store.GetByGuest(id)
+}
+
 func (service *ReservationService) GetAllPendingByAccommodation(id primitive.ObjectID) ([]*domain.Reservation, error) {
 	return service.store.GetAllPendingByAccommodation(id)
 }
@@ -48,6 +53,67 @@ func (service *ReservationService) Insert(reservation *domain.Reservation) error
 
 func (service *ReservationService) GetCancelledAmount(id string) int32 {
 	return service.store.GetCancelledAmount(id)
+}
+
+func (service *ReservationService) ConfirmReservation(id primitive.ObjectID) ([]*domain.Reservation, error) {
+	reservation, err := service.store.ConfirmReservation(id)
+
+	if err != nil {
+		return nil, err
+	}
+
+	fmt.Println("Izmeni na BOOKED")
+
+	availabilityClient := persistence.NewAvailabilityService(service.availabilityAddr)
+
+	accommodation_id := reservation.AccommodationId
+	startDate := reservation.StartDate
+	endDate := reservation.EndDate
+
+	availabilityResponse, err := availabilityClient.CreateAvailability(context.TODO(), &availability.CreateAvailabilityRequest{
+		Availability: &availability.NewAvailability{
+			AccommodationId: accommodation_id.Hex(),
+			StartDate:       timestamppb.New(startDate),
+			EndDate:         timestamppb.New(endDate),
+		},
+	})
+
+	if err != nil {
+		return nil, err
+	}
+
+	print(availabilityResponse)
+
+	fmt.Println("Prosao create availability")
+
+	pendingReservations, err := service.GetAllPendingByAccommodation(accommodation_id)
+
+	if err != nil {
+		return nil, err
+	}
+
+	var reservationsToSave []*domain.Reservation
+	var reservationsToDelete []primitive.ObjectID
+
+	for _, reservation := range pendingReservations {
+		if startDate.Before(reservation.EndDate) && reservation.StartDate.Before(endDate) {
+			reservationsToDelete = append(reservationsToDelete, reservation.Id)
+		} else {
+			reservationsToSave = append(reservationsToSave, reservation)
+		}
+	}
+
+	fmt.Println("Broj za brisanje: ", len(reservationsToDelete))
+
+	if len(reservationsToDelete) != 0 {
+		err = service.store.DeleteByIds(reservationsToDelete)
+		if err != nil {
+			return nil, err
+		}
+	}
+
+	return reservationsToSave, nil
+
 }
 
 func (service *ReservationService) CreateReservation(reservation *domain.Reservation) (*domain.Reservation, error) {

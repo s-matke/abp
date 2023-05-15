@@ -6,72 +6,6 @@ import * as RiIcons from "react-icons/ri";
  
 export const SidebarData = [
   {
-    title: "Workers",
-    role: ['Admin'],
-    icon: <FaIcons.FaUserCog />,
-    iconClosed: <RiIcons.RiArrowDownSFill />,
-    iconOpened: <RiIcons.RiArrowUpSFill />,
- 
-    subNav: [
-      {
-        title: "Create",
-        path: "/worker/create",
-        icon: <IoIcons.IoMdCreate />,
-        role: ['Admin']
-      },
-      {
-        title: "Search",
-        path: "/worker/search",
-        icon: <IoIcons.IoIosSearch />,
-        role: ['Admin']
-      },
-    ],
-  },
-  {
-    title: "Production",
-    role: ['Worker', 'User', 'Plan Manager'],
-    icon: <FaIcons.FaUserCog />,
-    iconClosed: <RiIcons.RiArrowDownSFill />,
-    iconOpened: <RiIcons.RiArrowUpSFill />,
- 
-    subNav: [
-      {
-        title: "Plan",
-        path: "/production/plan",
-        icon: <IoIcons.IoMdCreate />,
-        role: ['Worker', 'Plan Manager']
-      },
-      {
-        title: "Search",
-        path: "/production/search",
-        icon: <IoIcons.IoIosSearch />,
-        role: ['User', 'Worker', 'Plan Manager']
-      },
-    ],
-  },
-  {
-    title: "Product",
-    role: ['Worker', 'Plan Manager', 'Inventory Manager'],
-    icon: <FaIcons.FaCarBattery />,
-    iconClosed: <RiIcons.RiArrowDownSFill />,
-    iconOpened: <RiIcons.RiArrowUpSFill />,
- 
-    subNav: [
-      {
-        title: "Add",
-        path: "/product/create",
-        icon: <IoIcons.IoMdCreate />,
-        role: ['Worker', 'Inventory Manager']
-      },
-      {
-        title: "Search",
-        path: "/product/search",
-        icon: <IoIcons.IoIosSearch />,
-        role: ['User', 'Worker', 'Plan Manager', 'Inventory Manager']
-      },
-    ],
-  },
-  {
     title: "Accommodation",
     role: ['host', 'admin', 'guest', 'unknown'],
     icon: <FaIcons.FaBed />,
@@ -91,12 +25,24 @@ export const SidebarData = [
         icon: <IoIcons.IoIosSearch />,
         role: ['guest', 'host', 'admin', 'unknown']
       },
+      {
+        title: "Set Price",
+        path: "/accommodation",
+        icon: <IoIcons.IoIosSearch />,
+        role: ['host']
+      },
+      {
+        title: "Pending Reservations",
+        path: "/reservation",
+        icon: <IoIcons.IoIosSearch />,
+        role: ['host']
+      },
     ],
   },
   {
     title: "User info",
     path: "/userupdate",
-    role: ['unknown', 'host', 'guest'],
+    role: ['host', 'guest'],
     icon: <FaIcons.FaUserAlt />,
   },
   {
@@ -115,6 +61,6 @@ export const SidebarData = [
     title: "Sign Out",
     path: "/signout",
     cName: "nav-text",
-    role: ["Admin", "User", "Worker", "Plan Manager", 'Inventory Manager']
+    role: ["host", "guest"]
 }
 ];

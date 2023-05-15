@@ -79,7 +79,7 @@ const Button = styled.button`
 
 const SearchAccommodation = () => {
     const [startDate, setStartDate] = useState(null);
-    const [endDate, setEndDate] = useState(new Date().toISOString().substr(0, 10));
+    const [endDate, setEndDate] = useState(null);
   //const [departureEnd, setDepartureEnd] = useState(new Date().toISOString().substr(0, 10));
   const [destination, setDestination] = useState("");
   const [availableSeats, setAvailableSeats] = useState();
@@ -87,37 +87,23 @@ const SearchAccommodation = () => {
 
 
   const navigate = useNavigate();
-
-  useEffect(() => {
-    async function fetchData() {
-        try {
-            const response = await APIService.GetAllAccommodations();
-            console.log(response.accommodations);
-            setAccommodations(response.accommodations);
-        } catch (error) {
-            console.error(error);
-        }
-    }
-    fetchData();
-}, []);
-
   
 
 const handleSubmit = (e) => {
     e.preventDefault();
     let departureDate = new Date(startDate);
     departureDate.setHours(2, 0, 0, 0);
-    let formattedDeparture = departureDate.toISOString().substring(0, 10);;
+    let formattedDeparture = departureDate.toISOString()//.substring(0, 10);;
 
     let departureDateEnd = new Date(endDate);
     departureDateEnd.setHours(2, 0, 0, 0);
-    let formattedDepartureEnd = departureDateEnd.toISOString().substring(0, 10);;
+    let formattedDepartureEnd = departureDateEnd.toISOString()//.substring(0, 10);;
 
     console.log(formattedDeparture,formattedDepartureEnd);
 
     async function search(destination, availableSeats) {
         try {
-            const response = await APIService.SearchAccommodations(destination, parseInt(availableSeats));
+            const response = await APIService.SearchAccommodations(destination, parseInt(availableSeats), formattedDeparture,formattedDepartureEnd);
             console.log(response.accommodations);
             setAccommodations(response.accommodations);
         } catch (error) {
@@ -126,8 +112,32 @@ const handleSubmit = (e) => {
     }
     search(destination, availableSeats);
 }
+
+const handleReservation = (id) => {
  
-const excludedDates = ['2023-05-15', '2023-05-20', '2023-05-25'];
+  const data = {
+    accommodation_id: id,
+    guest_id: JSON.parse(localStorage.getItem('userID')),
+    startDate: startDate,
+    endDate: endDate,
+    numOfGuests: availableSeats
+
+  }
+
+  console.log(data)
+
+  axios.post("http://localhost:8000/reservation", data)
+    .then(res => {
+      alert("Uspesno odradjeno?")
+      console.log(res)
+    })
+    .catch(error => {
+      console.log(error)
+    })
+
+}
+ 
+const excludedDates = []//['2023-05-15', '2023-05-20', '2023-05-25'];
 
 
 const isDateExcluded = (date) => {
@@ -142,7 +152,9 @@ const filterExcludedDates = (date) => {
   
   return (
     <Container>
+      
         <Title>Accommodations</Title>
+        {!accommodations.length ? 
         <Form onSubmit={e=>handleSubmit(e)}> {/* onSubmit={} */}
             <LabelInputDiv>
         <Label htmlFor="departure">Od Kog Datuma:</Label>
@@ -155,8 +167,8 @@ const filterExcludedDates = (date) => {
 <LabelInputDiv>
 <Label htmlFor="departure">Do Kog Datuma:</Label>
 <DatePicker
-      selected={startDate}
-      onChange={(date) => setStartDate(date)}
+      selected={endDate}
+      onChange={(date) => setEndDate(date)}
       filterDate={filterExcludedDates}
     />
 </LabelInputDiv>
@@ -182,6 +194,7 @@ const filterExcludedDates = (date) => {
 </LabelInputDiv>
         <Button type="submit">Search</Button>
       </Form>
+      :<>
       {accommodations?.map((item,index)=>{
           
           return <div key={index}
@@ -198,13 +211,16 @@ const filterExcludedDates = (date) => {
           >
               <div style={{backgroundColor:"#ccc", flex:"1", width:"100%", height:"100%"}}><img alt="slika"/></div>
               <div style={{backgroundColor:"#c0bebe", flex:"1",width:"100%", height:"100%"}}>
-                  <h3 style={{margin:"20px"}}>{item.location.city} ({item.location.address})</h3>
+                  <h3 style={{margin:"20px"}}>{item.name} - {item.location.city} ({item.location.address})</h3>
                   </div>
-              <div style={{backgroundColor:"#e7e7e7", flex:"1",width:"100%", height:"100%"}}>sekcija 3</div>
+              <div style={{backgroundColor:"#e7e7e7", flex:"1",width:"100%", height:"100%"}}>
+                <button style={{margin:"20px"}} onClick={() => handleReservation(item.id)}>Rezervisi</button>
+              </div>
               
           </div>
           ;
       })}
+      </>}
     </Container>
   )
 }

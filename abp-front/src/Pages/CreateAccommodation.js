@@ -6,7 +6,11 @@ import axios from 'axios'
 export default function CreateAccommodation() {
     
     const [accommodation, setAccommodation] = useState({})
+    const[isChecked, setIsChecked] = useState(true)
 
+    const handleCheckBoxChange = () => {
+      setIsChecked(!isChecked)
+    }
     const handleFormInputChange = (name) => (event) => {
         const val = event.target.value;
         setAccommodation({...accommodation, [name] : val})
@@ -38,13 +42,17 @@ export default function CreateAccommodation() {
         },
             utilities : carArray,
             minPeople : accommodation.minPeople,
-            maxPeople : accommodation.maxPeople
+            maxPeople : accommodation.maxPeople,
+            "automaticReservation" : isChecked
+            
           })
           .then(res => {
             console.log(res.data)
           }) 
           .then (error => {
             console.log(error)
+            alert("Successfully added accommodation!")
+            window.location.assign("/createAccommodation")
           })
       };
     
@@ -83,6 +91,9 @@ export default function CreateAccommodation() {
                     <Form.Label>Utlities</Form.Label>
                     <Form.Control type="text" placeholder="Enter utilities" name="name" value={accommodation.utilities} onChange={handleUtilities("utilities")}/>
                 </Form.Group>
+                <Form.Group className="mb-3"  controlId="formBasicCheckbox">
+          <Form.Check type="checkbox"  label="Automatic" checked={isChecked} onChange={handleCheckBoxChange}/>
+        </Form.Group>
                 <Button variant="primary" onClick={CreateAccommodation}>
                     Submit
                 </Button>

@@ -43,7 +43,7 @@ export default class APIService{
           throw error
         }
       }
-    static async SearchAccommodations(city, numOfPeople) {
+    static async SearchAccommodations(city, numOfPeople, startDate, endDate) {
       console.log(city,numOfPeople);
         try {
           const response = await axios.post(APIService.URL + '/search', {
@@ -51,6 +51,8 @@ export default class APIService{
               city:city
             },
             numOfPeople: numOfPeople,
+            startDate:startDate,
+            endDate: endDate
           }, {
             headers: {
               'Content-Type': 'application/json'
