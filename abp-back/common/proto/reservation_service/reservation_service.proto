@@ -32,6 +32,20 @@ service ReservationService {
             get: "/reservation/pending/{id}"
         };
     }
+
+    rpc ConfirmReservation(ConfirmReservationRequest) returns(ConfirmReservationResponse) {
+        option (google.api.http) = {
+            get: "/reservation/confirm/{id}"
+        };
+    }
+}
+
+message ConfirmReservationRequest {
+    string id = 1;
+}
+
+message ConfirmReservationResponse {
+    repeated Reservation reservations = 1;
 }
 
 message GetAllPendingByAccommodationRequest {
