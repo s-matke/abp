@@ -41,12 +41,26 @@ func (store *AvailabilityMongoDBStore) GetByAccommodation(id string) ([]*domain.
 	return store.filter(filter)
 }
 
-func (store *AvailabilityMongoDBStore) DeleteByData(availability *domain.Availability) error {
+func (store *AvailabilityMongoDBStore) FindByData(availability *domain.Availability) (*domain.Availability, error) {
 	filter := bson.M{
 		"accommodation_id": availability.AccommodationId,
 		"startDate":        availability.StartDate,
 		"endDate":          availability.EndDate,
 	}
+	return store.filterOne(filter)
+}
+
+func (store *AvailabilityMongoDBStore) filterOne(filter interface{}) (availability *domain.Availability, err error) {
+	result := store.availabilities.FindOne(context.TODO(), filter)
+	err = result.Decode(&availability)
+	return
+}
+
+func (store *AvailabilityMongoDBStore) DeleteByData(availability *domain.Availability) error {
+	filter := bson.M{
+		"_id": availability.Id,
+	}
+
 	_, err := store.availabilities.DeleteOne(context.TODO(), filter)
 	if err != nil {
 		return err

@@ -27,7 +27,19 @@ func (service *AvailabilityService) CreateAvailability(availability *domain.Avai
 }
 
 func (service *AvailabilityService) DeleteByData(availability *domain.Availability) error {
-	return service.store.DeleteByData(availability)
+	availabilities, err := service.store.GetByAccommodation(availability.AccommodationId.Hex())
+
+	if err != nil {
+		return err
+	}
+
+	for _, oldAvailability := range availabilities {
+		if availability.StartDate.Compare(oldAvailability.StartDate) == 0 && availability.EndDate.Compare(oldAvailability.EndDate) == 0 {
+			return service.store.DeleteByData(oldAvailability)
+		}
+	}
+
+	return nil
 }
 
 func (service *AvailabilityService) GetAllUnavailable(availability *domain.Availability) ([]*domain.Availability, error) {

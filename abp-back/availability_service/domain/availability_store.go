@@ -7,4 +7,5 @@ type AvailabilityStore interface {
 	GetByAccommodation(id string) ([]*Availability, error)
 	GetAllUnavailable(availability *Availability) ([]*Availability, error)
 	DeleteByData(availability *Availability) error
+	FindByData(availability *Availability) (*Availability, error)
 }

@@ -2,6 +2,7 @@ package api
 
 import (
 	"context"
+	"fmt"
 
 	"github.com/s-matke/abp/abp-back/availability_service/application"
 	pb "github.com/s-matke/abp/abp-back/common/proto/availability_service"
@@ -72,6 +73,8 @@ func (handler *AvailabilityHandler) CreateAvailability(ctx context.Context, requ
 
 func (handler *AvailabilityHandler) DeleteByData(ctx context.Context, request *pb.DeleteByDataRequest) (*pb.DeleteByDataResponse, error) {
 	availability := mapDeleteAvailability(request)
+
+	fmt.Println("Availability: ", availability.StartDate, "::::", availability.EndDate)
 
 	err := handler.service.DeleteByData(availability)
 

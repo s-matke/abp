@@ -75,12 +75,6 @@ func (service *ReservationService) CancelReservation(id primitive.ObjectID) erro
 
 	availabilityClient := persistence.NewAvailabilityService(service.availabilityAddr)
 
-	/*
-		AccommodationId primitive.ObjectID `bson:"accommodation_id"`
-		StartDate       time.Time          `bson:"start_date"`
-		EndDate         time.Time          `bson:"end_date"`
-	*/
-
 	availabilityResponse, err := availabilityClient.DeleteByData(context.TODO(), &availability.DeleteByDataRequest{
 		AccommodationId: reservation.AccommodationId.Hex(),
 		StartDate:       timestamppb.New(reservation.StartDate),
