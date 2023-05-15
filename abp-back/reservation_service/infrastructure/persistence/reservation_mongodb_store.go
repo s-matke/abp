@@ -36,6 +36,11 @@ func (store *ReservationMongoDBStore) GetByAccommodation(id primitive.ObjectID) 
 	return store.filter(filter)
 }
 
+func (store *ReservationMongoDBStore) GetByGuest(id string) ([]*domain.Reservation, error) {
+	filter := bson.M{"guest_id": id, "status": bson.M{"$ne": domain.CANCELLED}}
+	return store.filter(filter)
+}
+
 func (store *ReservationMongoDBStore) GetCancelledAmount(id string) int32 {
 	filter := bson.M{"guest_id": id, "status": domain.CANCELLED}
 	count, err := store.reservations.CountDocuments(context.TODO(), filter)
@@ -66,7 +71,6 @@ func (store *ReservationMongoDBStore) ConfirmReservation(id primitive.ObjectID) 
 	fmt.Println("UpdateOne done")
 
 	return store.filterOne(filter)
-
 }
 
 func (store *ReservationMongoDBStore) filterOne(filter interface{}) (reservation *domain.Reservation, err error) {

@@ -135,5 +135,25 @@ func (handler *ReservationHandler) ConfirmReservation(ctx context.Context, reque
 	}
 
 	return response, nil
+}
 
+func (handler *ReservationHandler) GetByGuest(ctx context.Context, request *pb.GetByGuestRequest) (*pb.GetByGuestResponse, error) {
+	id := request.Id
+
+	reservations, err := handler.service.GetByGuest(id)
+
+	if err != nil {
+		return nil, err
+	}
+
+	response := &pb.GetByGuestResponse{
+		Reservations: []*pb.Reservation{},
+	}
+
+	for _, reservation := range reservations {
+		current := mapReservation(reservation)
+		response.Reservations = append(response.Reservations, current)
+	}
+
+	return response, nil
 }

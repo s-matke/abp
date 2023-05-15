@@ -39,6 +39,10 @@ func (service *ReservationService) GetByAccommodation(id primitive.ObjectID) ([]
 	return service.store.GetByAccommodation(id)
 }
 
+func (service *ReservationService) GetByGuest(id string) ([]*domain.Reservation, error) {
+	return service.store.GetByGuest(id)
+}
+
 func (service *ReservationService) GetAllPendingByAccommodation(id primitive.ObjectID) ([]*domain.Reservation, error) {
 	return service.store.GetAllPendingByAccommodation(id)
 }

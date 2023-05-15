@@ -38,6 +38,20 @@ service ReservationService {
             get: "/reservation/confirm/{id}"
         };
     }
+
+    rpc GetByGuest(GetByGuestRequest) returns(GetByGuestResponse) {
+        option (google.api.http) = {
+            get: "/reservation/guest/{id}"
+        };
+    }
+}
+
+message GetByGuestRequest {
+    string id = 1;
+}
+
+message GetByGuestResponse {
+    repeated Reservation reservations = 1;
 }
 
 message ConfirmReservationRequest {
