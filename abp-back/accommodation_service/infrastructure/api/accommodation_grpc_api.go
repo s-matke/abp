@@ -116,7 +116,24 @@ func (handler *AccommodationHandler) CreateAccommodation(ctx context.Context, re
 }
 func (handler *AccommodationHandler) Search(ctx context.Context, request *pb.SearchRequest) (*pb.SearchResponse, error) {
 	print("Hello world")
-	accommodations, err := handler.service.GetAccommodationsBySearchCriteria(request.NumOfPeople, request.Location.City)
+
+	// startDate := time.Date(
+	// 	request.StartDate.AsTime().Year(),
+	// 	request.StartDate.AsTime().Month(),
+	// 	request.StartDate.AsTime().Day(),
+	// 	0, 0, 0, 0,
+	// 	request.StartDate.AsTime().Location(),
+	// )
+
+	// endDate := time.Date(
+	// 	request.EndDate.AsTime().Year(),
+	// 	request.EndDate.AsTime().Month(),
+	// 	request.EndDate.AsTime().Day(),
+	// 	0, 0, 0, 0,
+	// 	request.EndDate.AsTime().Location(),
+	// )
+
+	accommodations, err := handler.service.GetAccommodationsBySearchCriteria(request.NumOfPeople, request.Location.City, *request.StartDate, *request.EndDate)
 	//var err error
 	if err != nil {
 		return nil, err

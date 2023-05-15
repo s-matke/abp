@@ -8,6 +8,5 @@ type AccommodationStore interface {
 	Insert(accommodation *Accommodation) error
 	DeleteAll()
 	GetByHost(id string) ([]*Accommodation, error)
-	SearchAccommodation(availableSeats int32, destination string) ([]*Accommodation, error) 
-
+	SearchAccommodation(availableSeats int32, destination string, ids []primitive.ObjectID) ([]*Accommodation, error)
 }
