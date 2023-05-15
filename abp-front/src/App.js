@@ -12,8 +12,9 @@ import ShowAccommodation from './Pages/ShowAccommodation';
 import Login from './pages/Login';
 import { AuthProvider } from './context/AuthContext';
 
-import Accommodation from './pages/Accommodation';
+// import Accommodation from './pages/Accommodation';
 import ShowReservation from './Pages/ShowReservation';
+import Accommodation from './pages/Accommodation';
 
 function App() {
   return (

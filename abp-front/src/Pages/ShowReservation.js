@@ -23,7 +23,7 @@ function ShowReservation() {
 
     const handleReservation = (id) => {
         setShowTable(true)
-        axios.get(`http://localhost:8000/reservation/pending/64621f6a8f37f1357a23b363`)
+        axios.get(`http://localhost:8000/reservation/pending/${id}`)
         .then(res => {
             
             setReservation(res.data.reservations)
