@@ -73,6 +73,23 @@ export default class APIService{
             throw error
         }
     }
+
+    static async Availlabillity(accommodationId,startDate,endDate) {
+        try {
+          const response = await axios.post(APIService.URL + '/availability', {
+            accommodationId:accommodationId,
+            startDate: startDate,
+            endDate:endDate
+          }, {
+            headers: {
+              'Content-Type': 'application/json'
+            }
+          });
+          return response.data;
+        } catch (error) {
+          throw error
+        }
+      }
     
 }
   
