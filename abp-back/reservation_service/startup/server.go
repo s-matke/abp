@@ -28,7 +28,12 @@ func NewServer(config *config.Config) *Server {
 func (server *Server) Start() {
 	mongoClient := server.initMongoClient()
 	reservationStore := server.initReservationStore(mongoClient)
-	reservationService := server.initReservationService(reservationStore)
+
+	accommodationAddr := fmt.Sprintf("%s:%s", server.config.AccommodationHost, server.config.AccommodationPort)
+	pricingAddr := fmt.Sprintf("%s:%s", server.config.PricingHost, server.config.PricingPort)
+	availabilityAddr := fmt.Sprintf("%s:%s", server.config.AvailabilityHost, server.config.AvailabilityPort)
+
+	reservationService := server.initReservationService(reservationStore, accommodationAddr, pricingAddr, availabilityAddr)
 	reservationHandler := server.initReservationHandler(reservationService)
 
 	server.startGrpcServer(reservationHandler)
@@ -56,8 +61,8 @@ func (server *Server) initReservationStore(client *mongo.Client) domain.Reservat
 	return store
 }
 
-func (server *Server) initReservationService(store domain.ReservationStore) *application.ReservationService {
-	return application.NewReservationService(store)
+func (server *Server) initReservationService(store domain.ReservationStore, accommodationAddr, pricingAddr, availabilityAddr string) *application.ReservationService {
+	return application.NewReservationService(store, accommodationAddr, pricingAddr, availabilityAddr)
 }
 
 func (server *Server) initReservationHandler(service *application.ReservationService) *api.ReservationHandler {

@@ -22,12 +22,26 @@ service AvailabilityService {
         };
     }
 
+    rpc GetByAccommodation(GetByAccommodationRequest) returns(GetByAccommodationResponse) {
+        option (google.api.http) = {
+            get: "/availability/{id}"
+        };
+    }
+    
     rpc GetAllUnavailable(GetAllUnavailableRequest) returns(GetAllUnavailableResponse) {
         option (google.api.http) = {
             post: "/availability/unavailable"
             body: "*"
         };
     }
+}
+
+message GetByAccommodationRequest {
+    string id = 1;
+}
+
+message GetByAccommodationResponse {
+    repeated Availability availabilities = 1;
 }
 
 message GetAllUnavailableRequest {

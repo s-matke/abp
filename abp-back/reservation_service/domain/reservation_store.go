@@ -7,4 +7,6 @@ type ReservationStore interface {
 	GetByAccommodation(id primitive.ObjectID) ([]*Reservation, error)
 	Insert(reservation *Reservation) error
 	DeleteAll()
+	GetAllPendingByAccommodation(id primitive.ObjectID) ([]*Reservation, error)
+	GetCancelledAmount(id string) int32
 }
