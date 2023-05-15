@@ -63,3 +63,28 @@ func mapNewReservation(request *pb.CreateReservationRequest) *domain.Reservation
 	}
 	return reservation
 }
+
+func mapPendingReservation(reservation *domain.Reservation) *pb.PendingReservation {
+
+	reservationPb := &pb.PendingReservation{
+		Id:             reservation.Id.Hex(),
+		GuestId:        reservation.GuestId,
+		StartDate:      timestamppb.New(reservation.StartDate),
+		EndDate:        timestamppb.New(reservation.EndDate),
+		NumOfGuests:    int32(reservation.NumOfGuests),
+		Price:          reservation.Price,
+	}
+
+	return reservationPb
+}
+
+/*
+    string id = 1;
+    string guest_id = 2;
+    google.protobuf.Timestamp startDate = 3;
+    google.protobuf.Timestamp endDate = 4;
+    int32 num_of_guests = 5;
+    float price = 6;
+    int32 num_of_cancelled = 7;
+}
+*/

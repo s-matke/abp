@@ -38,8 +38,16 @@ func (service *ReservationService) GetByAccommodation(id primitive.ObjectID) ([]
 	return service.store.GetByAccommodation(id)
 }
 
+func (service *ReservationService) GetAllPendingByAccommodation(id primitive.ObjectID) ([]*domain.Reservation, error) {
+	return service.store.GetAllPendingByAccommodation(id)
+}
+
 func (service *ReservationService) Insert(reservation *domain.Reservation) error {
 	return service.store.Insert(reservation)
+}
+
+func (service *ReservationService) GetCancelledAmount(id string) int32 {
+	return service.store.GetCancelledAmount(id)
 }
 
 func (service *ReservationService) CreateReservation(reservation *domain.Reservation) (*domain.Reservation, error) {

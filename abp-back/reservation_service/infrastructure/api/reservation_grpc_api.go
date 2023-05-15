@@ -2,6 +2,7 @@ package api
 
 import (
 	"context"
+	"fmt"
 
 	pb "github.com/s-matke/abp/abp-back/common/proto/reservation_service"
 	"github.com/s-matke/abp/abp-back/reservation_service/application"
@@ -80,12 +81,36 @@ func (handler *ReservationHandler) CreateReservation(ctx context.Context, reques
 	return response, nil
 }
 
-/*
-message NewReservation {
-    string accommodation_id = 1;
-    string guest_id = 2;
-    google.protobuf.Timestamp startDate = 3;
-    google.protobuf.Timestamp endDate = 4;
-    int32 num_of_guests = 5;
+func (handler *ReservationHandler) GetAllPendingByAccommodation(ctx context.Context, request *pb.GetAllPendingByAccommodationRequest) (*pb.GetAllPendingByAccommodationResponse, error) {
+	accommodation_id, err := primitive.ObjectIDFromHex(request.Id)
+
+	if err != nil {
+		return nil, err
+	}
+
+	fmt.Println(accommodation_id)
+	fmt.Println(request.Id)
+
+	reservations, err := handler.service.GetAllPendingByAccommodation(accommodation_id)
+
+	if err != nil {
+		return nil, err
+	}
+
+	response := &pb.GetAllPendingByAccommodationResponse{
+		Reservations: []*pb.PendingReservation{},
+	}
+
+	for _, reservation := range reservations {
+		fmt.Println("Price: ", reservation.Price)
+		fmt.Println("Acc Id: ", reservation.AccommodationId)
+		// num_of_cancelled := handler.service.GetCancelledAmount(reservation.GuestId)
+		current := mapPendingReservation(reservation)
+		fmt.Println("Current: ", current.Id)
+		response.Reservations = append(response.Reservations, current)
+	}
+
+	fmt.Println("Prosao kroz for loop: ", response)
+
+	return response, nil
 }
-*/

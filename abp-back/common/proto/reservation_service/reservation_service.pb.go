@@ -68,7 +68,101 @@ func (x Reservation_Status) Number() protoreflect.EnumNumber {
 
 // Deprecated: Use Reservation_Status.Descriptor instead.
 func (Reservation_Status) EnumDescriptor() ([]byte, []int) {
-	return file_reservation_service_reservation_service_proto_rawDescGZIP(), []int{6, 0}
+	return file_reservation_service_reservation_service_proto_rawDescGZIP(), []int{9, 0}
+}
+
+type GetAllPendingByAccommodationRequest struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Id string `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
+}
+
+func (x *GetAllPendingByAccommodationRequest) Reset() {
+	*x = GetAllPendingByAccommodationRequest{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_reservation_service_reservation_service_proto_msgTypes[0]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *GetAllPendingByAccommodationRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetAllPendingByAccommodationRequest) ProtoMessage() {}
+
+func (x *GetAllPendingByAccommodationRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_reservation_service_reservation_service_proto_msgTypes[0]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetAllPendingByAccommodationRequest.ProtoReflect.Descriptor instead.
+func (*GetAllPendingByAccommodationRequest) Descriptor() ([]byte, []int) {
+	return file_reservation_service_reservation_service_proto_rawDescGZIP(), []int{0}
+}
+
+func (x *GetAllPendingByAccommodationRequest) GetId() string {
+	if x != nil {
+		return x.Id
+	}
+	return ""
+}
+
+type GetAllPendingByAccommodationResponse struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Reservations []*PendingReservation `protobuf:"bytes,1,rep,name=reservations,proto3" json:"reservations,omitempty"`
+}
+
+func (x *GetAllPendingByAccommodationResponse) Reset() {
+	*x = GetAllPendingByAccommodationResponse{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_reservation_service_reservation_service_proto_msgTypes[1]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *GetAllPendingByAccommodationResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetAllPendingByAccommodationResponse) ProtoMessage() {}
+
+func (x *GetAllPendingByAccommodationResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_reservation_service_reservation_service_proto_msgTypes[1]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetAllPendingByAccommodationResponse.ProtoReflect.Descriptor instead.
+func (*GetAllPendingByAccommodationResponse) Descriptor() ([]byte, []int) {
+	return file_reservation_service_reservation_service_proto_rawDescGZIP(), []int{1}
+}
+
+func (x *GetAllPendingByAccommodationResponse) GetReservations() []*PendingReservation {
+	if x != nil {
+		return x.Reservations
+	}
+	return nil
 }
 
 type GetAllRequest struct {
@@ -80,7 +174,7 @@ type GetAllRequest struct {
 func (x *GetAllRequest) Reset() {
 	*x = GetAllRequest{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_reservation_service_reservation_service_proto_msgTypes[0]
+		mi := &file_reservation_service_reservation_service_proto_msgTypes[2]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -93,7 +187,7 @@ func (x *GetAllRequest) String() string {
 func (*GetAllRequest) ProtoMessage() {}
 
 func (x *GetAllRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_reservation_service_reservation_service_proto_msgTypes[0]
+	mi := &file_reservation_service_reservation_service_proto_msgTypes[2]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -106,7 +200,7 @@ func (x *GetAllRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetAllRequest.ProtoReflect.Descriptor instead.
 func (*GetAllRequest) Descriptor() ([]byte, []int) {
-	return file_reservation_service_reservation_service_proto_rawDescGZIP(), []int{0}
+	return file_reservation_service_reservation_service_proto_rawDescGZIP(), []int{2}
 }
 
 type GetAllResponse struct {
@@ -120,7 +214,7 @@ type GetAllResponse struct {
 func (x *GetAllResponse) Reset() {
 	*x = GetAllResponse{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_reservation_service_reservation_service_proto_msgTypes[1]
+		mi := &file_reservation_service_reservation_service_proto_msgTypes[3]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -133,7 +227,7 @@ func (x *GetAllResponse) String() string {
 func (*GetAllResponse) ProtoMessage() {}
 
 func (x *GetAllResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_reservation_service_reservation_service_proto_msgTypes[1]
+	mi := &file_reservation_service_reservation_service_proto_msgTypes[3]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -146,7 +240,7 @@ func (x *GetAllResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetAllResponse.ProtoReflect.Descriptor instead.
 func (*GetAllResponse) Descriptor() ([]byte, []int) {
-	return file_reservation_service_reservation_service_proto_rawDescGZIP(), []int{1}
+	return file_reservation_service_reservation_service_proto_rawDescGZIP(), []int{3}
 }
 
 func (x *GetAllResponse) GetReservations() []*Reservation {
@@ -167,7 +261,7 @@ type GetByAccommodationRequest struct {
 func (x *GetByAccommodationRequest) Reset() {
 	*x = GetByAccommodationRequest{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_reservation_service_reservation_service_proto_msgTypes[2]
+		mi := &file_reservation_service_reservation_service_proto_msgTypes[4]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -180,7 +274,7 @@ func (x *GetByAccommodationRequest) String() string {
 func (*GetByAccommodationRequest) ProtoMessage() {}
 
 func (x *GetByAccommodationRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_reservation_service_reservation_service_proto_msgTypes[2]
+	mi := &file_reservation_service_reservation_service_proto_msgTypes[4]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -193,7 +287,7 @@ func (x *GetByAccommodationRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetByAccommodationRequest.ProtoReflect.Descriptor instead.
 func (*GetByAccommodationRequest) Descriptor() ([]byte, []int) {
-	return file_reservation_service_reservation_service_proto_rawDescGZIP(), []int{2}
+	return file_reservation_service_reservation_service_proto_rawDescGZIP(), []int{4}
 }
 
 func (x *GetByAccommodationRequest) GetId() string {
@@ -214,7 +308,7 @@ type GetByAccommodationResponse struct {
 func (x *GetByAccommodationResponse) Reset() {
 	*x = GetByAccommodationResponse{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_reservation_service_reservation_service_proto_msgTypes[3]
+		mi := &file_reservation_service_reservation_service_proto_msgTypes[5]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -227,7 +321,7 @@ func (x *GetByAccommodationResponse) String() string {
 func (*GetByAccommodationResponse) ProtoMessage() {}
 
 func (x *GetByAccommodationResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_reservation_service_reservation_service_proto_msgTypes[3]
+	mi := &file_reservation_service_reservation_service_proto_msgTypes[5]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -240,7 +334,7 @@ func (x *GetByAccommodationResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetByAccommodationResponse.ProtoReflect.Descriptor instead.
 func (*GetByAccommodationResponse) Descriptor() ([]byte, []int) {
-	return file_reservation_service_reservation_service_proto_rawDescGZIP(), []int{3}
+	return file_reservation_service_reservation_service_proto_rawDescGZIP(), []int{5}
 }
 
 func (x *GetByAccommodationResponse) GetReservations() []*Reservation {
@@ -261,7 +355,7 @@ type CreateReservationRequest struct {
 func (x *CreateReservationRequest) Reset() {
 	*x = CreateReservationRequest{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_reservation_service_reservation_service_proto_msgTypes[4]
+		mi := &file_reservation_service_reservation_service_proto_msgTypes[6]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -274,7 +368,7 @@ func (x *CreateReservationRequest) String() string {
 func (*CreateReservationRequest) ProtoMessage() {}
 
 func (x *CreateReservationRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_reservation_service_reservation_service_proto_msgTypes[4]
+	mi := &file_reservation_service_reservation_service_proto_msgTypes[6]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -287,7 +381,7 @@ func (x *CreateReservationRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use CreateReservationRequest.ProtoReflect.Descriptor instead.
 func (*CreateReservationRequest) Descriptor() ([]byte, []int) {
-	return file_reservation_service_reservation_service_proto_rawDescGZIP(), []int{4}
+	return file_reservation_service_reservation_service_proto_rawDescGZIP(), []int{6}
 }
 
 func (x *CreateReservationRequest) GetReservation() *NewReservation {
@@ -308,7 +402,7 @@ type CreateReservationResponse struct {
 func (x *CreateReservationResponse) Reset() {
 	*x = CreateReservationResponse{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_reservation_service_reservation_service_proto_msgTypes[5]
+		mi := &file_reservation_service_reservation_service_proto_msgTypes[7]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -321,7 +415,7 @@ func (x *CreateReservationResponse) String() string {
 func (*CreateReservationResponse) ProtoMessage() {}
 
 func (x *CreateReservationResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_reservation_service_reservation_service_proto_msgTypes[5]
+	mi := &file_reservation_service_reservation_service_proto_msgTypes[7]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -334,7 +428,7 @@ func (x *CreateReservationResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use CreateReservationResponse.ProtoReflect.Descriptor instead.
 func (*CreateReservationResponse) Descriptor() ([]byte, []int) {
-	return file_reservation_service_reservation_service_proto_rawDescGZIP(), []int{5}
+	return file_reservation_service_reservation_service_proto_rawDescGZIP(), []int{7}
 }
 
 func (x *CreateReservationResponse) GetReservation() *Reservation {
@@ -342,6 +436,93 @@ func (x *CreateReservationResponse) GetReservation() *Reservation {
 		return x.Reservation
 	}
 	return nil
+}
+
+type PendingReservation struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Id          string               `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
+	GuestId     string               `protobuf:"bytes,2,opt,name=guest_id,json=guestId,proto3" json:"guest_id,omitempty"`
+	StartDate   *timestamp.Timestamp `protobuf:"bytes,3,opt,name=startDate,proto3" json:"startDate,omitempty"`
+	EndDate     *timestamp.Timestamp `protobuf:"bytes,4,opt,name=endDate,proto3" json:"endDate,omitempty"`
+	NumOfGuests int32                `protobuf:"varint,5,opt,name=num_of_guests,json=numOfGuests,proto3" json:"num_of_guests,omitempty"`
+	Price       float32              `protobuf:"fixed32,6,opt,name=price,proto3" json:"price,omitempty"`
+}
+
+func (x *PendingReservation) Reset() {
+	*x = PendingReservation{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_reservation_service_reservation_service_proto_msgTypes[8]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *PendingReservation) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*PendingReservation) ProtoMessage() {}
+
+func (x *PendingReservation) ProtoReflect() protoreflect.Message {
+	mi := &file_reservation_service_reservation_service_proto_msgTypes[8]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use PendingReservation.ProtoReflect.Descriptor instead.
+func (*PendingReservation) Descriptor() ([]byte, []int) {
+	return file_reservation_service_reservation_service_proto_rawDescGZIP(), []int{8}
+}
+
+func (x *PendingReservation) GetId() string {
+	if x != nil {
+		return x.Id
+	}
+	return ""
+}
+
+func (x *PendingReservation) GetGuestId() string {
+	if x != nil {
+		return x.GuestId
+	}
+	return ""
+}
+
+func (x *PendingReservation) GetStartDate() *timestamp.Timestamp {
+	if x != nil {
+		return x.StartDate
+	}
+	return nil
+}
+
+func (x *PendingReservation) GetEndDate() *timestamp.Timestamp {
+	if x != nil {
+		return x.EndDate
+	}
+	return nil
+}
+
+func (x *PendingReservation) GetNumOfGuests() int32 {
+	if x != nil {
+		return x.NumOfGuests
+	}
+	return 0
+}
+
+func (x *PendingReservation) GetPrice() float32 {
+	if x != nil {
+		return x.Price
+	}
+	return 0
 }
 
 type Reservation struct {
@@ -362,7 +543,7 @@ type Reservation struct {
 func (x *Reservation) Reset() {
 	*x = Reservation{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_reservation_service_reservation_service_proto_msgTypes[6]
+		mi := &file_reservation_service_reservation_service_proto_msgTypes[9]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -375,7 +556,7 @@ func (x *Reservation) String() string {
 func (*Reservation) ProtoMessage() {}
 
 func (x *Reservation) ProtoReflect() protoreflect.Message {
-	mi := &file_reservation_service_reservation_service_proto_msgTypes[6]
+	mi := &file_reservation_service_reservation_service_proto_msgTypes[9]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -388,7 +569,7 @@ func (x *Reservation) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use Reservation.ProtoReflect.Descriptor instead.
 func (*Reservation) Descriptor() ([]byte, []int) {
-	return file_reservation_service_reservation_service_proto_rawDescGZIP(), []int{6}
+	return file_reservation_service_reservation_service_proto_rawDescGZIP(), []int{9}
 }
 
 func (x *Reservation) GetId() string {
@@ -462,7 +643,7 @@ type NewReservation struct {
 func (x *NewReservation) Reset() {
 	*x = NewReservation{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_reservation_service_reservation_service_proto_msgTypes[7]
+		mi := &file_reservation_service_reservation_service_proto_msgTypes[10]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -475,7 +656,7 @@ func (x *NewReservation) String() string {
 func (*NewReservation) ProtoMessage() {}
 
 func (x *NewReservation) ProtoReflect() protoreflect.Message {
-	mi := &file_reservation_service_reservation_service_proto_msgTypes[7]
+	mi := &file_reservation_service_reservation_service_proto_msgTypes[10]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -488,7 +669,7 @@ func (x *NewReservation) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use NewReservation.ProtoReflect.Descriptor instead.
 func (*NewReservation) Descriptor() ([]byte, []int) {
-	return file_reservation_service_reservation_service_proto_rawDescGZIP(), []int{7}
+	return file_reservation_service_reservation_service_proto_rawDescGZIP(), []int{10}
 }
 
 func (x *NewReservation) GetAccommodationId() string {
@@ -536,33 +717,58 @@ var file_reservation_service_reservation_service_proto_rawDesc = []byte{
 	0x6f, 0x67, 0x6c, 0x65, 0x2f, 0x61, 0x70, 0x69, 0x2f, 0x61, 0x6e, 0x6e, 0x6f, 0x74, 0x61, 0x74,
 	0x69, 0x6f, 0x6e, 0x73, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x1a, 0x1f, 0x67, 0x6f, 0x6f, 0x67,
 	0x6c, 0x65, 0x2f, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x62, 0x75, 0x66, 0x2f, 0x74, 0x69, 0x6d, 0x65,
-	0x73, 0x74, 0x61, 0x6d, 0x70, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x22, 0x0f, 0x0a, 0x0d, 0x47,
-	0x65, 0x74, 0x41, 0x6c, 0x6c, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x22, 0x4e, 0x0a, 0x0e,
-	0x47, 0x65, 0x74, 0x41, 0x6c, 0x6c, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x3c,
-	0x0a, 0x0c, 0x72, 0x65, 0x73, 0x65, 0x72, 0x76, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x73, 0x18, 0x01,
-	0x20, 0x03, 0x28, 0x0b, 0x32, 0x18, 0x2e, 0x72, 0x65, 0x73, 0x65, 0x72, 0x76, 0x61, 0x74, 0x69,
-	0x6f, 0x6e, 0x2e, 0x52, 0x65, 0x73, 0x65, 0x72, 0x76, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x52, 0x0c,
-	0x72, 0x65, 0x73, 0x65, 0x72, 0x76, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x73, 0x22, 0x2b, 0x0a, 0x19,
-	0x47, 0x65, 0x74, 0x42, 0x79, 0x41, 0x63, 0x63, 0x6f, 0x6d, 0x6d, 0x6f, 0x64, 0x61, 0x74, 0x69,
-	0x6f, 0x6e, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x12, 0x0e, 0x0a, 0x02, 0x69, 0x64, 0x18,
-	0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x02, 0x69, 0x64, 0x22, 0x5a, 0x0a, 0x1a, 0x47, 0x65, 0x74,
-	0x42, 0x79, 0x41, 0x63, 0x63, 0x6f, 0x6d, 0x6d, 0x6f, 0x64, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x52,
-	0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x3c, 0x0a, 0x0c, 0x72, 0x65, 0x73, 0x65, 0x72,
-	0x76, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x73, 0x18, 0x01, 0x20, 0x03, 0x28, 0x0b, 0x32, 0x18, 0x2e,
-	0x72, 0x65, 0x73, 0x65, 0x72, 0x76, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x2e, 0x52, 0x65, 0x73, 0x65,
-	0x72, 0x76, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x52, 0x0c, 0x72, 0x65, 0x73, 0x65, 0x72, 0x76, 0x61,
-	0x74, 0x69, 0x6f, 0x6e, 0x73, 0x22, 0x59, 0x0a, 0x18, 0x43, 0x72, 0x65, 0x61, 0x74, 0x65, 0x52,
-	0x65, 0x73, 0x65, 0x72, 0x76, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73,
-	0x74, 0x12, 0x3d, 0x0a, 0x0b, 0x72, 0x65, 0x73, 0x65, 0x72, 0x76, 0x61, 0x74, 0x69, 0x6f, 0x6e,
-	0x18, 0x01, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x1b, 0x2e, 0x72, 0x65, 0x73, 0x65, 0x72, 0x76, 0x61,
-	0x74, 0x69, 0x6f, 0x6e, 0x2e, 0x4e, 0x65, 0x77, 0x52, 0x65, 0x73, 0x65, 0x72, 0x76, 0x61, 0x74,
-	0x69, 0x6f, 0x6e, 0x52, 0x0b, 0x72, 0x65, 0x73, 0x65, 0x72, 0x76, 0x61, 0x74, 0x69, 0x6f, 0x6e,
-	0x22, 0x57, 0x0a, 0x19, 0x43, 0x72, 0x65, 0x61, 0x74, 0x65, 0x52, 0x65, 0x73, 0x65, 0x72, 0x76,
-	0x61, 0x74, 0x69, 0x6f, 0x6e, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x3a, 0x0a,
-	0x0b, 0x72, 0x65, 0x73, 0x65, 0x72, 0x76, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x18, 0x01, 0x20, 0x01,
-	0x28, 0x0b, 0x32, 0x18, 0x2e, 0x72, 0x65, 0x73, 0x65, 0x72, 0x76, 0x61, 0x74, 0x69, 0x6f, 0x6e,
-	0x2e, 0x52, 0x65, 0x73, 0x65, 0x72, 0x76, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x52, 0x0b, 0x72, 0x65,
-	0x73, 0x65, 0x72, 0x76, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x22, 0xf8, 0x02, 0x0a, 0x0b, 0x52, 0x65,
+	0x73, 0x74, 0x61, 0x6d, 0x70, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x22, 0x35, 0x0a, 0x23, 0x47,
+	0x65, 0x74, 0x41, 0x6c, 0x6c, 0x50, 0x65, 0x6e, 0x64, 0x69, 0x6e, 0x67, 0x42, 0x79, 0x41, 0x63,
+	0x63, 0x6f, 0x6d, 0x6d, 0x6f, 0x64, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x52, 0x65, 0x71, 0x75, 0x65,
+	0x73, 0x74, 0x12, 0x0e, 0x0a, 0x02, 0x69, 0x64, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x02,
+	0x69, 0x64, 0x22, 0x6b, 0x0a, 0x24, 0x47, 0x65, 0x74, 0x41, 0x6c, 0x6c, 0x50, 0x65, 0x6e, 0x64,
+	0x69, 0x6e, 0x67, 0x42, 0x79, 0x41, 0x63, 0x63, 0x6f, 0x6d, 0x6d, 0x6f, 0x64, 0x61, 0x74, 0x69,
+	0x6f, 0x6e, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x43, 0x0a, 0x0c, 0x72, 0x65,
+	0x73, 0x65, 0x72, 0x76, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x73, 0x18, 0x01, 0x20, 0x03, 0x28, 0x0b,
+	0x32, 0x1f, 0x2e, 0x72, 0x65, 0x73, 0x65, 0x72, 0x76, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x2e, 0x50,
+	0x65, 0x6e, 0x64, 0x69, 0x6e, 0x67, 0x52, 0x65, 0x73, 0x65, 0x72, 0x76, 0x61, 0x74, 0x69, 0x6f,
+	0x6e, 0x52, 0x0c, 0x72, 0x65, 0x73, 0x65, 0x72, 0x76, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x73, 0x22,
+	0x0f, 0x0a, 0x0d, 0x47, 0x65, 0x74, 0x41, 0x6c, 0x6c, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74,
+	0x22, 0x4e, 0x0a, 0x0e, 0x47, 0x65, 0x74, 0x41, 0x6c, 0x6c, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e,
+	0x73, 0x65, 0x12, 0x3c, 0x0a, 0x0c, 0x72, 0x65, 0x73, 0x65, 0x72, 0x76, 0x61, 0x74, 0x69, 0x6f,
+	0x6e, 0x73, 0x18, 0x01, 0x20, 0x03, 0x28, 0x0b, 0x32, 0x18, 0x2e, 0x72, 0x65, 0x73, 0x65, 0x72,
+	0x76, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x2e, 0x52, 0x65, 0x73, 0x65, 0x72, 0x76, 0x61, 0x74, 0x69,
+	0x6f, 0x6e, 0x52, 0x0c, 0x72, 0x65, 0x73, 0x65, 0x72, 0x76, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x73,
+	0x22, 0x2b, 0x0a, 0x19, 0x47, 0x65, 0x74, 0x42, 0x79, 0x41, 0x63, 0x63, 0x6f, 0x6d, 0x6d, 0x6f,
+	0x64, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x12, 0x0e, 0x0a,
+	0x02, 0x69, 0x64, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x02, 0x69, 0x64, 0x22, 0x5a, 0x0a,
+	0x1a, 0x47, 0x65, 0x74, 0x42, 0x79, 0x41, 0x63, 0x63, 0x6f, 0x6d, 0x6d, 0x6f, 0x64, 0x61, 0x74,
+	0x69, 0x6f, 0x6e, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x3c, 0x0a, 0x0c, 0x72,
+	0x65, 0x73, 0x65, 0x72, 0x76, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x73, 0x18, 0x01, 0x20, 0x03, 0x28,
+	0x0b, 0x32, 0x18, 0x2e, 0x72, 0x65, 0x73, 0x65, 0x72, 0x76, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x2e,
+	0x52, 0x65, 0x73, 0x65, 0x72, 0x76, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x52, 0x0c, 0x72, 0x65, 0x73,
+	0x65, 0x72, 0x76, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x73, 0x22, 0x59, 0x0a, 0x18, 0x43, 0x72, 0x65,
+	0x61, 0x74, 0x65, 0x52, 0x65, 0x73, 0x65, 0x72, 0x76, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x52, 0x65,
+	0x71, 0x75, 0x65, 0x73, 0x74, 0x12, 0x3d, 0x0a, 0x0b, 0x72, 0x65, 0x73, 0x65, 0x72, 0x76, 0x61,
+	0x74, 0x69, 0x6f, 0x6e, 0x18, 0x01, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x1b, 0x2e, 0x72, 0x65, 0x73,
+	0x65, 0x72, 0x76, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x2e, 0x4e, 0x65, 0x77, 0x52, 0x65, 0x73, 0x65,
+	0x72, 0x76, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x52, 0x0b, 0x72, 0x65, 0x73, 0x65, 0x72, 0x76, 0x61,
+	0x74, 0x69, 0x6f, 0x6e, 0x22, 0x57, 0x0a, 0x19, 0x43, 0x72, 0x65, 0x61, 0x74, 0x65, 0x52, 0x65,
+	0x73, 0x65, 0x72, 0x76, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73,
+	0x65, 0x12, 0x3a, 0x0a, 0x0b, 0x72, 0x65, 0x73, 0x65, 0x72, 0x76, 0x61, 0x74, 0x69, 0x6f, 0x6e,
+	0x18, 0x01, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x18, 0x2e, 0x72, 0x65, 0x73, 0x65, 0x72, 0x76, 0x61,
+	0x74, 0x69, 0x6f, 0x6e, 0x2e, 0x52, 0x65, 0x73, 0x65, 0x72, 0x76, 0x61, 0x74, 0x69, 0x6f, 0x6e,
+	0x52, 0x0b, 0x72, 0x65, 0x73, 0x65, 0x72, 0x76, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x22, 0xe9, 0x01,
+	0x0a, 0x12, 0x50, 0x65, 0x6e, 0x64, 0x69, 0x6e, 0x67, 0x52, 0x65, 0x73, 0x65, 0x72, 0x76, 0x61,
+	0x74, 0x69, 0x6f, 0x6e, 0x12, 0x0e, 0x0a, 0x02, 0x69, 0x64, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09,
+	0x52, 0x02, 0x69, 0x64, 0x12, 0x19, 0x0a, 0x08, 0x67, 0x75, 0x65, 0x73, 0x74, 0x5f, 0x69, 0x64,
+	0x18, 0x02, 0x20, 0x01, 0x28, 0x09, 0x52, 0x07, 0x67, 0x75, 0x65, 0x73, 0x74, 0x49, 0x64, 0x12,
+	0x38, 0x0a, 0x09, 0x73, 0x74, 0x61, 0x72, 0x74, 0x44, 0x61, 0x74, 0x65, 0x18, 0x03, 0x20, 0x01,
+	0x28, 0x0b, 0x32, 0x1a, 0x2e, 0x67, 0x6f, 0x6f, 0x67, 0x6c, 0x65, 0x2e, 0x70, 0x72, 0x6f, 0x74,
+	0x6f, 0x62, 0x75, 0x66, 0x2e, 0x54, 0x69, 0x6d, 0x65, 0x73, 0x74, 0x61, 0x6d, 0x70, 0x52, 0x09,
+	0x73, 0x74, 0x61, 0x72, 0x74, 0x44, 0x61, 0x74, 0x65, 0x12, 0x34, 0x0a, 0x07, 0x65, 0x6e, 0x64,
+	0x44, 0x61, 0x74, 0x65, 0x18, 0x04, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x1a, 0x2e, 0x67, 0x6f, 0x6f,
+	0x67, 0x6c, 0x65, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x62, 0x75, 0x66, 0x2e, 0x54, 0x69, 0x6d,
+	0x65, 0x73, 0x74, 0x61, 0x6d, 0x70, 0x52, 0x07, 0x65, 0x6e, 0x64, 0x44, 0x61, 0x74, 0x65, 0x12,
+	0x22, 0x0a, 0x0d, 0x6e, 0x75, 0x6d, 0x5f, 0x6f, 0x66, 0x5f, 0x67, 0x75, 0x65, 0x73, 0x74, 0x73,
+	0x18, 0x05, 0x20, 0x01, 0x28, 0x05, 0x52, 0x0b, 0x6e, 0x75, 0x6d, 0x4f, 0x66, 0x47, 0x75, 0x65,
+	0x73, 0x74, 0x73, 0x12, 0x14, 0x0a, 0x05, 0x70, 0x72, 0x69, 0x63, 0x65, 0x18, 0x06, 0x20, 0x01,
+	0x28, 0x02, 0x52, 0x05, 0x70, 0x72, 0x69, 0x63, 0x65, 0x22, 0xf8, 0x02, 0x0a, 0x0b, 0x52, 0x65,
 	0x73, 0x65, 0x72, 0x76, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x12, 0x0e, 0x0a, 0x02, 0x69, 0x64, 0x18,
 	0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x02, 0x69, 0x64, 0x12, 0x29, 0x0a, 0x10, 0x61, 0x63, 0x63,
 	0x6f, 0x6d, 0x6d, 0x6f, 0x64, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x5f, 0x69, 0x64, 0x18, 0x02, 0x20,
@@ -601,7 +807,7 @@ var file_reservation_service_reservation_service_proto_rawDesc = []byte{
 	0x74, 0x61, 0x6d, 0x70, 0x52, 0x07, 0x65, 0x6e, 0x64, 0x44, 0x61, 0x74, 0x65, 0x12, 0x22, 0x0a,
 	0x0d, 0x6e, 0x75, 0x6d, 0x5f, 0x6f, 0x66, 0x5f, 0x67, 0x75, 0x65, 0x73, 0x74, 0x73, 0x18, 0x05,
 	0x20, 0x01, 0x28, 0x05, 0x52, 0x0b, 0x6e, 0x75, 0x6d, 0x4f, 0x66, 0x47, 0x75, 0x65, 0x73, 0x74,
-	0x73, 0x32, 0x86, 0x03, 0x0a, 0x12, 0x52, 0x65, 0x73, 0x65, 0x72, 0x76, 0x61, 0x74, 0x69, 0x6f,
+	0x73, 0x32, 0xaf, 0x04, 0x0a, 0x12, 0x52, 0x65, 0x73, 0x65, 0x72, 0x76, 0x61, 0x74, 0x69, 0x6f,
 	0x6e, 0x53, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x12, 0x57, 0x0a, 0x06, 0x47, 0x65, 0x74, 0x41,
 	0x6c, 0x6c, 0x12, 0x1a, 0x2e, 0x72, 0x65, 0x73, 0x65, 0x72, 0x76, 0x61, 0x74, 0x69, 0x6f, 0x6e,
 	0x2e, 0x47, 0x65, 0x74, 0x41, 0x6c, 0x6c, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x1b,
@@ -625,11 +831,22 @@ var file_reservation_service_reservation_service_proto_rawDesc = []byte{
 	0x65, 0x61, 0x74, 0x65, 0x52, 0x65, 0x73, 0x65, 0x72, 0x76, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x52,
 	0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x22, 0x21, 0x82, 0xd3, 0xe4, 0x93, 0x02, 0x1b, 0x3a,
 	0x0b, 0x72, 0x65, 0x73, 0x65, 0x72, 0x76, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x22, 0x0c, 0x2f, 0x72,
-	0x65, 0x73, 0x65, 0x72, 0x76, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x42, 0x34, 0x5a, 0x32, 0x67, 0x69,
-	0x74, 0x68, 0x75, 0x62, 0x2e, 0x63, 0x6f, 0x6d, 0x2f, 0x73, 0x2d, 0x6d, 0x61, 0x74, 0x6b, 0x65,
-	0x2f, 0x61, 0x62, 0x70, 0x2f, 0x61, 0x62, 0x70, 0x2d, 0x62, 0x61, 0x63, 0x6b, 0x2f, 0x63, 0x6f,
-	0x6d, 0x6d, 0x6f, 0x6e, 0x2f, 0x72, 0x65, 0x73, 0x65, 0x72, 0x76, 0x61, 0x74, 0x69, 0x6f, 0x6e,
-	0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
+	0x65, 0x73, 0x65, 0x72, 0x76, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x12, 0xa6, 0x01, 0x0a, 0x1c, 0x47,
+	0x65, 0x74, 0x41, 0x6c, 0x6c, 0x50, 0x65, 0x6e, 0x64, 0x69, 0x6e, 0x67, 0x42, 0x79, 0x41, 0x63,
+	0x63, 0x6f, 0x6d, 0x6d, 0x6f, 0x64, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x12, 0x30, 0x2e, 0x72, 0x65,
+	0x73, 0x65, 0x72, 0x76, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x2e, 0x47, 0x65, 0x74, 0x41, 0x6c, 0x6c,
+	0x50, 0x65, 0x6e, 0x64, 0x69, 0x6e, 0x67, 0x42, 0x79, 0x41, 0x63, 0x63, 0x6f, 0x6d, 0x6d, 0x6f,
+	0x64, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x31, 0x2e,
+	0x72, 0x65, 0x73, 0x65, 0x72, 0x76, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x2e, 0x47, 0x65, 0x74, 0x41,
+	0x6c, 0x6c, 0x50, 0x65, 0x6e, 0x64, 0x69, 0x6e, 0x67, 0x42, 0x79, 0x41, 0x63, 0x63, 0x6f, 0x6d,
+	0x6d, 0x6f, 0x64, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65,
+	0x22, 0x21, 0x82, 0xd3, 0xe4, 0x93, 0x02, 0x1b, 0x12, 0x19, 0x2f, 0x72, 0x65, 0x73, 0x65, 0x72,
+	0x76, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x2f, 0x7b, 0x69, 0x64, 0x7d, 0x2f, 0x70, 0x65, 0x6e, 0x64,
+	0x69, 0x6e, 0x67, 0x42, 0x34, 0x5a, 0x32, 0x67, 0x69, 0x74, 0x68, 0x75, 0x62, 0x2e, 0x63, 0x6f,
+	0x6d, 0x2f, 0x73, 0x2d, 0x6d, 0x61, 0x74, 0x6b, 0x65, 0x2f, 0x61, 0x62, 0x70, 0x2f, 0x61, 0x62,
+	0x70, 0x2d, 0x62, 0x61, 0x63, 0x6b, 0x2f, 0x63, 0x6f, 0x6d, 0x6d, 0x6f, 0x6e, 0x2f, 0x72, 0x65,
+	0x73, 0x65, 0x72, 0x76, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f,
+	0x33,
 }
 
 var (
@@ -645,40 +862,48 @@ func file_reservation_service_reservation_service_proto_rawDescGZIP() []byte {
 }
 
 var file_reservation_service_reservation_service_proto_enumTypes = make([]protoimpl.EnumInfo, 1)
-var file_reservation_service_reservation_service_proto_msgTypes = make([]protoimpl.MessageInfo, 8)
+var file_reservation_service_reservation_service_proto_msgTypes = make([]protoimpl.MessageInfo, 11)
 var file_reservation_service_reservation_service_proto_goTypes = []interface{}{
-	(Reservation_Status)(0),            // 0: reservation.Reservation.Status
-	(*GetAllRequest)(nil),              // 1: reservation.GetAllRequest
-	(*GetAllResponse)(nil),             // 2: reservation.GetAllResponse
-	(*GetByAccommodationRequest)(nil),  // 3: reservation.GetByAccommodationRequest
-	(*GetByAccommodationResponse)(nil), // 4: reservation.GetByAccommodationResponse
-	(*CreateReservationRequest)(nil),   // 5: reservation.CreateReservationRequest
-	(*CreateReservationResponse)(nil),  // 6: reservation.CreateReservationResponse
-	(*Reservation)(nil),                // 7: reservation.Reservation
-	(*NewReservation)(nil),             // 8: reservation.NewReservation
-	(*timestamp.Timestamp)(nil),        // 9: google.protobuf.Timestamp
+	(Reservation_Status)(0),                      // 0: reservation.Reservation.Status
+	(*GetAllPendingByAccommodationRequest)(nil),  // 1: reservation.GetAllPendingByAccommodationRequest
+	(*GetAllPendingByAccommodationResponse)(nil), // 2: reservation.GetAllPendingByAccommodationResponse
+	(*GetAllRequest)(nil),                        // 3: reservation.GetAllRequest
+	(*GetAllResponse)(nil),                       // 4: reservation.GetAllResponse
+	(*GetByAccommodationRequest)(nil),            // 5: reservation.GetByAccommodationRequest
+	(*GetByAccommodationResponse)(nil),           // 6: reservation.GetByAccommodationResponse
+	(*CreateReservationRequest)(nil),             // 7: reservation.CreateReservationRequest
+	(*CreateReservationResponse)(nil),            // 8: reservation.CreateReservationResponse
+	(*PendingReservation)(nil),                   // 9: reservation.PendingReservation
+	(*Reservation)(nil),                          // 10: reservation.Reservation
+	(*NewReservation)(nil),                       // 11: reservation.NewReservation
+	(*timestamp.Timestamp)(nil),                  // 12: google.protobuf.Timestamp
 }
 var file_reservation_service_reservation_service_proto_depIdxs = []int32{
-	7,  // 0: reservation.GetAllResponse.reservations:type_name -> reservation.Reservation
-	7,  // 1: reservation.GetByAccommodationResponse.reservations:type_name -> reservation.Reservation
-	8,  // 2: reservation.CreateReservationRequest.reservation:type_name -> reservation.NewReservation
-	7,  // 3: reservation.CreateReservationResponse.reservation:type_name -> reservation.Reservation
-	9,  // 4: reservation.Reservation.startDate:type_name -> google.protobuf.Timestamp
-	9,  // 5: reservation.Reservation.endDate:type_name -> google.protobuf.Timestamp
-	0,  // 6: reservation.Reservation.status:type_name -> reservation.Reservation.Status
-	9,  // 7: reservation.NewReservation.startDate:type_name -> google.protobuf.Timestamp
-	9,  // 8: reservation.NewReservation.endDate:type_name -> google.protobuf.Timestamp
-	1,  // 9: reservation.ReservationService.GetAll:input_type -> reservation.GetAllRequest
-	3,  // 10: reservation.ReservationService.GetByAccommodation:input_type -> reservation.GetByAccommodationRequest
-	5,  // 11: reservation.ReservationService.CreateReservation:input_type -> reservation.CreateReservationRequest
-	2,  // 12: reservation.ReservationService.GetAll:output_type -> reservation.GetAllResponse
-	4,  // 13: reservation.ReservationService.GetByAccommodation:output_type -> reservation.GetByAccommodationResponse
-	6,  // 14: reservation.ReservationService.CreateReservation:output_type -> reservation.CreateReservationResponse
-	12, // [12:15] is the sub-list for method output_type
-	9,  // [9:12] is the sub-list for method input_type
-	9,  // [9:9] is the sub-list for extension type_name
-	9,  // [9:9] is the sub-list for extension extendee
-	0,  // [0:9] is the sub-list for field type_name
+	9,  // 0: reservation.GetAllPendingByAccommodationResponse.reservations:type_name -> reservation.PendingReservation
+	10, // 1: reservation.GetAllResponse.reservations:type_name -> reservation.Reservation
+	10, // 2: reservation.GetByAccommodationResponse.reservations:type_name -> reservation.Reservation
+	11, // 3: reservation.CreateReservationRequest.reservation:type_name -> reservation.NewReservation
+	10, // 4: reservation.CreateReservationResponse.reservation:type_name -> reservation.Reservation
+	12, // 5: reservation.PendingReservation.startDate:type_name -> google.protobuf.Timestamp
+	12, // 6: reservation.PendingReservation.endDate:type_name -> google.protobuf.Timestamp
+	12, // 7: reservation.Reservation.startDate:type_name -> google.protobuf.Timestamp
+	12, // 8: reservation.Reservation.endDate:type_name -> google.protobuf.Timestamp
+	0,  // 9: reservation.Reservation.status:type_name -> reservation.Reservation.Status
+	12, // 10: reservation.NewReservation.startDate:type_name -> google.protobuf.Timestamp
+	12, // 11: reservation.NewReservation.endDate:type_name -> google.protobuf.Timestamp
+	3,  // 12: reservation.ReservationService.GetAll:input_type -> reservation.GetAllRequest
+	5,  // 13: reservation.ReservationService.GetByAccommodation:input_type -> reservation.GetByAccommodationRequest
+	7,  // 14: reservation.ReservationService.CreateReservation:input_type -> reservation.CreateReservationRequest
+	1,  // 15: reservation.ReservationService.GetAllPendingByAccommodation:input_type -> reservation.GetAllPendingByAccommodationRequest
+	4,  // 16: reservation.ReservationService.GetAll:output_type -> reservation.GetAllResponse
+	6,  // 17: reservation.ReservationService.GetByAccommodation:output_type -> reservation.GetByAccommodationResponse
+	8,  // 18: reservation.ReservationService.CreateReservation:output_type -> reservation.CreateReservationResponse
+	2,  // 19: reservation.ReservationService.GetAllPendingByAccommodation:output_type -> reservation.GetAllPendingByAccommodationResponse
+	16, // [16:20] is the sub-list for method output_type
+	12, // [12:16] is the sub-list for method input_type
+	12, // [12:12] is the sub-list for extension type_name
+	12, // [12:12] is the sub-list for extension extendee
+	0,  // [0:12] is the sub-list for field type_name
 }
 
 func init() { file_reservation_service_reservation_service_proto_init() }
@@ -688,7 +913,7 @@ func file_reservation_service_reservation_service_proto_init() {
 	}
 	if !protoimpl.UnsafeEnabled {
 		file_reservation_service_reservation_service_proto_msgTypes[0].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*GetAllRequest); i {
+			switch v := v.(*GetAllPendingByAccommodationRequest); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -700,7 +925,7 @@ func file_reservation_service_reservation_service_proto_init() {
 			}
 		}
 		file_reservation_service_reservation_service_proto_msgTypes[1].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*GetAllResponse); i {
+			switch v := v.(*GetAllPendingByAccommodationResponse); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -712,7 +937,7 @@ func file_reservation_service_reservation_service_proto_init() {
 			}
 		}
 		file_reservation_service_reservation_service_proto_msgTypes[2].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*GetByAccommodationRequest); i {
+			switch v := v.(*GetAllRequest); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -724,7 +949,7 @@ func file_reservation_service_reservation_service_proto_init() {
 			}
 		}
 		file_reservation_service_reservation_service_proto_msgTypes[3].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*GetByAccommodationResponse); i {
+			switch v := v.(*GetAllResponse); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -736,7 +961,7 @@ func file_reservation_service_reservation_service_proto_init() {
 			}
 		}
 		file_reservation_service_reservation_service_proto_msgTypes[4].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*CreateReservationRequest); i {
+			switch v := v.(*GetByAccommodationRequest); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -748,7 +973,7 @@ func file_reservation_service_reservation_service_proto_init() {
 			}
 		}
 		file_reservation_service_reservation_service_proto_msgTypes[5].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*CreateReservationResponse); i {
+			switch v := v.(*GetByAccommodationResponse); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -760,7 +985,7 @@ func file_reservation_service_reservation_service_proto_init() {
 			}
 		}
 		file_reservation_service_reservation_service_proto_msgTypes[6].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*Reservation); i {
+			switch v := v.(*CreateReservationRequest); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -772,6 +997,42 @@ func file_reservation_service_reservation_service_proto_init() {
 			}
 		}
 		file_reservation_service_reservation_service_proto_msgTypes[7].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*CreateReservationResponse); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_reservation_service_reservation_service_proto_msgTypes[8].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*PendingReservation); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_reservation_service_reservation_service_proto_msgTypes[9].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*Reservation); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_reservation_service_reservation_service_proto_msgTypes[10].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*NewReservation); i {
 			case 0:
 				return &v.state
@@ -790,7 +1051,7 @@ func file_reservation_service_reservation_service_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: file_reservation_service_reservation_service_proto_rawDesc,
 			NumEnums:      1,
-			NumMessages:   8,
+			NumMessages:   11,
 			NumExtensions: 0,
 			NumServices:   1,
 		},
