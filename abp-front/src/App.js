@@ -4,12 +4,12 @@ import {BrowserRouter, Routes, Route} from "react-router-dom";
 import { ToastContainer, toast } from 'react-toastify';
 
 import Sidebar from "./components/Sidebar/Sidebar";
-import Register from './pages/Register';
+import Register from './Pages/Register';
 import CreateAccommodation from './Pages/CreateAccommodation';
 import UpdateUser from './Pages/UpdateUser';
 import ShowAccommodation from './Pages/ShowAccommodation';
 
-import Login from './pages/Login';
+import Login from './Pages/Login';
 import CancelReservation from './Pages/CancelReservation';
 import { AuthProvider } from './context/AuthContext';
 

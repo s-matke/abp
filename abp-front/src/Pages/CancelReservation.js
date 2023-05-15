@@ -10,7 +10,7 @@ function CancelReservation() {
         axios.get(`http://localhost:8000/reservation/guest/${id}`)
         .then(res => {
             console.log(res.data)
-            setReservation(res.data)
+            setReservation(res.data.reservations)
         })
         .catch(error => {
             console.log(error)
