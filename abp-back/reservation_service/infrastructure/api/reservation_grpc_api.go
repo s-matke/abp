@@ -118,7 +118,7 @@ func (handler *ReservationHandler) ConfirmReservation(ctx context.Context, reque
 	if err != nil {
 		return nil, err
 	}
-
+	fmt.Println("ID: ", id)
 	reservations, err := handler.service.ConfirmReservation(id)
 
 	if err != nil {

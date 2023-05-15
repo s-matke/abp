@@ -63,6 +63,8 @@ func (store *ReservationMongoDBStore) ConfirmReservation(id primitive.ObjectID) 
 		return nil, err
 	}
 
+	fmt.Println("UpdateOne done")
+
 	return store.filterOne(filter)
 
 }

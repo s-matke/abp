@@ -39,13 +39,13 @@ function ShowReservation() {
     const cancelReservation = (id) => 
     {
         console.log(id)
-        /*axios.post(`http://localhost:8000/reservation/confirm/${id}`)
+        axios.get(`http://localhost:8000/reservation/confirm/${id}`)
         .then (res => {
             console.log(res.data)
         })
         .then(error => {
             console.log(error)
-        })*/
+        })
     }
   return (
     <div>

@@ -3,6 +3,7 @@ package application
 import (
 	"context"
 	"errors"
+	"fmt"
 	"time"
 
 	accommodation "github.com/s-matke/abp/abp-back/common/proto/accommodation_service"
@@ -57,6 +58,8 @@ func (service *ReservationService) ConfirmReservation(id primitive.ObjectID) ([]
 		return nil, err
 	}
 
+	fmt.Println("Izmeni na BOOKED")
+
 	availabilityClient := persistence.NewAvailabilityService(service.availabilityAddr)
 
 	accommodation_id := reservation.AccommodationId
@@ -77,6 +80,8 @@ func (service *ReservationService) ConfirmReservation(id primitive.ObjectID) ([]
 
 	print(availabilityResponse)
 
+	fmt.Println("Prosao create availability")
+
 	pendingReservations, err := service.GetAllPendingByAccommodation(accommodation_id)
 
 	if err != nil {
@@ -94,10 +99,13 @@ func (service *ReservationService) ConfirmReservation(id primitive.ObjectID) ([]
 		}
 	}
 
-	err = service.store.DeleteByIds(reservationsToDelete)
+	fmt.Println("Broj za brisanje: ", len(reservationsToDelete))
 
-	if err != nil {
-		return nil, err
+	if len(reservationsToDelete) != 0 {
+		err = service.store.DeleteByIds(reservationsToDelete)
+		if err != nil {
+			return nil, err
+		}
 	}
 
 	return reservationsToSave, nil

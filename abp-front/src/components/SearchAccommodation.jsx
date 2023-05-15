@@ -112,6 +112,30 @@ const handleSubmit = (e) => {
     }
     search(destination, availableSeats);
 }
+
+const handleReservation = (id) => {
+ 
+  const data = {
+    accommodation_id: id,
+    guest_id: JSON.parse(localStorage.getItem('userID')),
+    startDate: startDate,
+    endDate: endDate,
+    numOfGuests: availableSeats
+
+  }
+
+  console.log(data)
+
+  axios.post("http://localhost:8000/reservation", data)
+    .then(res => {
+      alert("Uspesno odradjeno?")
+      console.log(res)
+    })
+    .catch(error => {
+      console.log(error)
+    })
+
+}
  
 const excludedDates = []//['2023-05-15', '2023-05-20', '2023-05-25'];
 
@@ -187,10 +211,10 @@ const filterExcludedDates = (date) => {
           >
               <div style={{backgroundColor:"#ccc", flex:"1", width:"100%", height:"100%"}}><img alt="slika"/></div>
               <div style={{backgroundColor:"#c0bebe", flex:"1",width:"100%", height:"100%"}}>
-                  <h3 style={{margin:"20px"}}>{item.location.city} ({item.location.address})</h3>
+                  <h3 style={{margin:"20px"}}>{item.name} - {item.location.city} ({item.location.address})</h3>
                   </div>
               <div style={{backgroundColor:"#e7e7e7", flex:"1",width:"100%", height:"100%"}}>
-                <button style={{margin:"20px"}}>Rezervisi</button>
+                <button style={{margin:"20px"}} onClick={() => handleReservation(item.id)}>Rezervisi</button>
               </div>
               
           </div>

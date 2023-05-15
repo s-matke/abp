@@ -25,6 +25,18 @@ export const SidebarData = [
         icon: <IoIcons.IoIosSearch />,
         role: ['guest', 'host', 'admin', 'unknown']
       },
+      {
+        title: "Set Price",
+        path: "/accommodation",
+        icon: <IoIcons.IoIosSearch />,
+        role: ['host']
+      },
+      {
+        title: "Pending Reservations",
+        path: "/reservation",
+        icon: <IoIcons.IoIosSearch />,
+        role: ['host']
+      },
     ],
   },
   {
