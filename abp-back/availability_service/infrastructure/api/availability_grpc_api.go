@@ -69,3 +69,26 @@ func (handler *AvailabilityHandler) CreateAvailability(ctx context.Context, requ
 
 	return response, nil
 }
+
+func (handler *AvailabilityHandler) GetAllUnavailable(ctx context.Context, request *pb.GetAllUnavailableRequest) (*pb.GetAllUnavailableResponse, error) {
+	date := mapDates(request)
+
+	unavailableAccommodations, err := handler.service.GetAllUnavailable(date)
+
+	if err != nil {
+		return nil, err
+	}
+
+	response := &pb.GetAllUnavailableResponse{
+		Availabilities: []*pb.Availability{},
+	}
+
+	for _, availability := range unavailableAccommodations {
+		// fmt.Println("ID: ", availability.AccommodationId.Hex())
+		current := mapAvailability(availability)
+		response.Availabilities = append(response.Availabilities, current)
+	}
+
+	return response, nil
+
+}

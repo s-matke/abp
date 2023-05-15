@@ -2,6 +2,7 @@ package persistence
 
 import (
 	"context"
+	"fmt"
 
 	"github.com/s-matke/abp/abp-back/accommodation_service/domain"
 	"go.mongodb.org/mongo-driver/bson"
@@ -84,15 +85,28 @@ func (store *AccommodationMongoDBStore) GetByHost(id string) ([]*domain.Accommod
 	print(store.filter(filter))
 	return store.filter(filter)
 }
-func (store *AccommodationMongoDBStore) SearchAccommodation(availableSeats int32, destination string) ([]*domain.Accommodation, error) {
+func (store *AccommodationMongoDBStore) SearchAccommodation(availableSeats int32, destination string, ids []primitive.ObjectID) ([]*domain.Accommodation, error) {
 
-	filter := bson.M{
+	baseFilter := bson.M{
+		"minPeople": bson.M{"$lte": availableSeats},
 		"maxPeople": bson.M{"$gte": availableSeats},
 	}
-	if destination != "" {
-		filter["location.city"] = bson.M{"$regex": destination, "$options": "i"}
+
+	additionalConditions := bson.M{}
+
+	if len(ids) != 0 {
+		fmt.Println("NIJE == 0")
+		additionalConditions["_id"] = bson.M{"$nin": ids}
 	}
-	
+
+	cityFilter := bson.M{}
+	if destination != "" {
+		cityFilter["location.city"] = destination
+	}
+
+	filter := bson.M{
+		"$and": []bson.M{baseFilter, additionalConditions, cityFilter},
+	}
 
 	cursor, err := store.accommodations.Find(context.TODO(), filter)
 	if err != nil {

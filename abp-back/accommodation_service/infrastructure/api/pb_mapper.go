@@ -8,12 +8,13 @@ import (
 
 func mapAccommodation(accommodation *domain.Accommodation) *pb.Accommodation {
 	accommodationPb := &pb.Accommodation{
-		Id:        accommodation.Id.Hex(),
-		HostId:    accommodation.HostId,
-		Name:      accommodation.Name,
-		Images:    accommodation.Images,
-		MinPeople: int32(accommodation.MinPeople),
-		MaxPeople: int32(accommodation.MaxPeople),
+		Id:                   accommodation.Id.Hex(),
+		HostId:               accommodation.HostId,
+		Name:                 accommodation.Name,
+		Images:               accommodation.Images,
+		MinPeople:            int32(accommodation.MinPeople),
+		MaxPeople:            int32(accommodation.MaxPeople),
+		AutomaticReservation: accommodation.AutomaticReservation,
 	}
 
 	accommodationPb.Location = &pb.Location{

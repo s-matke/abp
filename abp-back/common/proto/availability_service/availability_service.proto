@@ -50,7 +50,7 @@ message GetAllUnavailableRequest {
 }
 
 message GetAllUnavailableResponse {
-    repeated string ids = 1;
+    repeated Availability availabilities = 1;
 }
 
 

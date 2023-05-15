@@ -1,6 +1,8 @@
 package api
 
 import (
+	"time"
+
 	"github.com/s-matke/abp/abp-back/availability_service/domain"
 	pb "github.com/s-matke/abp/abp-back/common/proto/availability_service"
 	"go.mongodb.org/mongo-driver/bson/primitive"
@@ -33,4 +35,25 @@ func mapNewAvailability(request *pb.CreateAvailabilityRequest) *domain.Availabil
 	}
 
 	return availability
+}
+
+func mapDates(request *pb.GetAllUnavailableRequest) *domain.Availability {
+
+	reservation := &domain.Availability{
+		StartDate: time.Date(
+			request.StartDate.AsTime().Year(),
+			request.StartDate.AsTime().Month(),
+			request.StartDate.AsTime().Day(),
+			0, 0, 0, 0,
+			request.StartDate.AsTime().Location(),
+		),
+		EndDate: time.Date(
+			request.EndDate.AsTime().Year(),
+			request.EndDate.AsTime().Month(),
+			request.EndDate.AsTime().Day(),
+			0, 0, 0, 0,
+			request.EndDate.AsTime().Location(),
+		),
+	}
+	return reservation
 }

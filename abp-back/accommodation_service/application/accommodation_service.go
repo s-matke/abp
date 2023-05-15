@@ -8,6 +8,7 @@ import (
 	"github.com/s-matke/abp/abp-back/accommodation_service/infrastructure/persistence"
 	availability "github.com/s-matke/abp/abp-back/common/proto/availability_service"
 	pricing "github.com/s-matke/abp/abp-back/common/proto/pricing_service"
+	"google.golang.org/protobuf/types/known/timestamppb"
 
 	"go.mongodb.org/mongo-driver/bson/primitive"
 )
@@ -69,8 +70,32 @@ func (service *AccommodationService) CreateAccommodation(accommodation *domain.A
 func (service *AccommodationService) GetByHost(id string) ([]*domain.Accommodation, error) {
 	return service.store.GetByHost(id)
 }
-func (service *AccommodationService) GetAccommodationsBySearchCriteria(availableSeats int32,destination string) ([]*domain.Accommodation, error) {
-	accommodations, err := service.store.SearchAccommodation(availableSeats,destination)
+func (service *AccommodationService) GetAccommodationsBySearchCriteria(availableSeats int32, destination string, startDate, endDate timestamppb.Timestamp) ([]*domain.Accommodation, error) {
+
+	availabilityClient := persistence.NewAvailabilityClient(service.availabilityServiceAddr)
+
+	unavailableAccommodations, err := availabilityClient.GetAllUnavailable(context.TODO(), &availability.GetAllUnavailableRequest{
+		StartDate: &startDate,
+		EndDate:   &endDate,
+	})
+
+	if err != nil {
+		return nil, err
+	}
+
+	var unavailabeIds []primitive.ObjectID
+
+	for _, unavailable := range unavailableAccommodations.Availabilities {
+		id, err := primitive.ObjectIDFromHex(unavailable.AccommodationId)
+		if err != nil {
+			return nil, err
+		}
+		unavailabeIds = append(unavailabeIds, id)
+	}
+
+	fmt.Println("UNAVAILABLE IDS: ", unavailabeIds)
+
+	accommodations, err := service.store.SearchAccommodation(availableSeats, destination, unavailabeIds)
 	if err != nil {
 		return nil, err
 	}

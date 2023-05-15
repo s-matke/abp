@@ -5,4 +5,5 @@ type AvailabilityStore interface {
 	Insert(availability *Availability) error
 	DeleteAll()
 	GetByAccommodation(id string) ([]*Availability, error)
+	GetAllUnavailable(availability *Availability) ([]*Availability, error)
 }

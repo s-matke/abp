@@ -54,6 +54,19 @@ func (store *AvailabilityMongoDBStore) DeleteAll() {
 	store.availabilities.DeleteMany(context.TODO(), bson.D{{}})
 }
 
+func (store *AvailabilityMongoDBStore) GetAllUnavailable(availability *domain.Availability) ([]*domain.Availability, error) {
+	filter := bson.M{
+		"$or": bson.A{
+			bson.M{
+				"startTime": bson.M{"$lt": availability.EndDate},
+				"endTime":   bson.M{"$gt": availability.StartDate},
+			},
+		},
+	}
+	return store.filter(filter)
+
+}
+
 func (store *AvailabilityMongoDBStore) filter(filter interface{}) ([]*domain.Availability, error) {
 	cursor, err := store.availabilities.Find(context.TODO(), filter)
 
