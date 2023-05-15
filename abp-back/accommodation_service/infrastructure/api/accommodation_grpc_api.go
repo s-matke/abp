@@ -41,6 +41,30 @@ func (handler *AccommodationHandler) Get(ctx context.Context, request *pb.GetReq
 	return response, nil
 }
 
+// GetReservationStatus
+
+func (handler *AccommodationHandler) GetReservationStatus(ctx context.Context, request *pb.GetReservationStatusRequest) (*pb.GetReservationStatusResponse, error) {
+	id := request.Id
+	objectId, err := primitive.ObjectIDFromHex(id)
+
+	if err != nil {
+		return nil, err
+	}
+
+	accommodation, err := handler.service.Get(objectId)
+
+	if err != nil {
+		return nil, err
+	}
+
+	accommodationPb := mapAccommodation(accommodation)
+	response := &pb.GetReservationStatusResponse{
+		Accommodation: accommodationPb,
+	}
+
+	return response, nil
+}
+
 func (handler *AccommodationHandler) GetByHost(ctx context.Context, request *pb.GetByHostRequest) (*pb.GetByHostResponse, error) {
 	id := request.Id
 

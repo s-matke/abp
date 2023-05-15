@@ -2,6 +2,7 @@ package application
 
 import (
 	"errors"
+	"math"
 	"time"
 
 	"github.com/s-matke/abp/abp-back/pricing_service/domain"
@@ -86,6 +87,8 @@ func (service *PricingService) CalculatePrice(id string, numPeople int, startDat
 	if pricing.PricingType == domain.PER_PERSON {
 		totalPrice *= float32(numPeople)
 	}
+
+	totalPrice = float32(math.Round(float64(totalPrice)*100) / 100)
 
 	return totalPrice, nil
 }

@@ -65,5 +65,27 @@ func (handler *ReservationHandler) GetByAccommodation(ctx context.Context, reque
 
 func (handler *ReservationHandler) CreateReservation(ctx context.Context, request *pb.CreateReservationRequest) (*pb.CreateReservationResponse, error) {
 	// TODO
-	return nil, nil
+	reservation := mapNewReservation(request)
+
+	reservation, err := handler.service.CreateReservation(reservation)
+
+	if err != nil {
+		return nil, err
+	}
+
+	response := &pb.CreateReservationResponse{
+		Reservation: mapReservation(reservation),
+	}
+
+	return response, nil
 }
+
+/*
+message NewReservation {
+    string accommodation_id = 1;
+    string guest_id = 2;
+    google.protobuf.Timestamp startDate = 3;
+    google.protobuf.Timestamp endDate = 4;
+    int32 num_of_guests = 5;
+}
+*/
