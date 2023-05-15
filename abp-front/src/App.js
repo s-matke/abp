@@ -6,7 +6,9 @@ import { ToastContainer, toast } from 'react-toastify';
 import Sidebar from "./components/Sidebar/Sidebar";
 import Register from './Pages/Register';
 import CreateAccommodation from './Pages/CreateAccommodation';
-
+import Login from './Pages/Login';
+import { AuthProvider } from './context/AuthContext';
+import UpdateUser from './Pages/UpdateUser';
 import ShowAccommodation from './Pages/ShowAccommodation';
 
 import Login from './Pages/Login';
@@ -22,6 +24,8 @@ function App() {
         <Routes>
           {/*<Route path="/signup" element={<Register />}></Route> */}
           <Route path="/signup" element={<Register />}></Route> 
+          <Route path="/signin" element={<Login />}></Route>
+          <Route path="/userupdate" element={<UpdateUser/>}></Route>        
           <Route path="/signin" element={<Login />}></Route> 
           <Route path="/accommodation" element={<Accommodation />}></Route> 
           {/* <Route path="/" element={<Signin />}></Route> */}

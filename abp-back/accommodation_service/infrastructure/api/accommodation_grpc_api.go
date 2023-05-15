@@ -114,3 +114,21 @@ func (handler *AccommodationHandler) CreateAccommodation(ctx context.Context, re
 	response := pb.CreateAccommodationResponse{Accommodation: mapAccommodation(accommodation)}
 	return &response, nil
 }
+func (handler *AccommodationHandler) Search(ctx context.Context, request *pb.SearchRequest) (*pb.SearchResponse, error) {
+	print("Hello world")
+	accommodations, err := handler.service.GetAccommodationsBySearchCriteria(request.NumOfPeople, request.Location.City)
+	//var err error
+	if err != nil {
+		return nil, err
+	}
+	response := &pb.SearchResponse{
+		Accommodations: []*pb.Accommodation{},
+	}
+
+	for _, accommodation := range accommodations {
+		current := mapAccommodation(accommodation)
+		response.Accommodations = append(response.Accommodations, current)
+	}
+
+	return response, nil
+}

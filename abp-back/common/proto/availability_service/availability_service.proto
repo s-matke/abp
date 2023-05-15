@@ -27,6 +27,13 @@ service AvailabilityService {
             get: "/availability/{id}"
         };
     }
+    
+    rpc GetAllUnavailable(GetAllUnavailableRequest) returns(GetAllUnavailableResponse) {
+        option (google.api.http) = {
+            post: "/availability/unavailable"
+            body: "*"
+        };
+    }
 }
 
 message GetByAccommodationRequest {
@@ -36,6 +43,16 @@ message GetByAccommodationRequest {
 message GetByAccommodationResponse {
     repeated Availability availabilities = 1;
 }
+
+message GetAllUnavailableRequest {
+    google.protobuf.Timestamp startDate = 1;
+    google.protobuf.Timestamp endDate = 2;
+}
+
+message GetAllUnavailableResponse {
+    repeated string ids = 1;
+}
+
 
 message GetAllRequest {}
 
