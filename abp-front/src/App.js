@@ -10,10 +10,8 @@ import Login from './Pages/Login';
 import { AuthProvider } from './context/AuthContext';
 import UpdateUser from './Pages/UpdateUser';
 import ShowAccommodation from './Pages/ShowAccommodation';
-
-import Login from './Pages/Login';
-import { AuthProvider } from './context/AuthContext';
-import Accommodation from './pages/Accommodation';
+import ShowReservation from './Pages/ShowReservation';
+import Accommodation from './Pages/Accommodation';
 
 function App() {
   return (
@@ -24,14 +22,13 @@ function App() {
         <Routes>
           {/*<Route path="/signup" element={<Register />}></Route> */}
           <Route path="/signup" element={<Register />}></Route> 
-          <Route path="/signin" element={<Login />}></Route>
           <Route path="/userupdate" element={<UpdateUser/>}></Route>        
           <Route path="/signin" element={<Login />}></Route> 
           <Route path="/accommodation" element={<Accommodation />}></Route> 
           {/* <Route path="/" element={<Signin />}></Route> */}
-          <Route path="/createAccommodation" element={<CreateAccommodation/>}></Route>
           <Route path="/accommodation" element={<ShowAccommodation/>}></Route>
           <Route path="/accommodation/create" element={<CreateAccommodation/>}></Route>
+          <Route path="/reservation" element={<ShowReservation/>}></Route>
         </Routes>
         </AuthProvider>
       </BrowserRouter>
