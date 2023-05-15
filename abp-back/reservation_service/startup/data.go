@@ -16,7 +16,7 @@ var reservations = []*domain.Reservation{
 		EndDate:         time.Now().AddDate(0, 0, 3),
 		NumOfGuests:     3,
 		Price:           150,
-		Status:          domain.BOOKED,
+		Status:          domain.PENDING,
 	},
 	{
 		Id:              getObjectId("2"),
