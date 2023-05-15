@@ -84,3 +84,32 @@ func (store *AccommodationMongoDBStore) GetByHost(id string) ([]*domain.Accommod
 	print(store.filter(filter))
 	return store.filter(filter)
 }
+func (store *AccommodationMongoDBStore) SearchAccommodation(availableSeats int32, destination string) ([]*domain.Accommodation, error) {
+
+	filter := bson.M{
+		"maxPeople": bson.M{"$gte": availableSeats},
+	}
+	if destination != "" {
+		filter["location.city"] = bson.M{"$regex": destination, "$options": "i"}
+	}
+	
+
+	cursor, err := store.accommodations.Find(context.TODO(), filter)
+	if err != nil {
+		return nil, err
+	}
+	defer cursor.Close(context.Background())
+
+	var accommodations []*domain.Accommodation
+	for cursor.Next(context.Background()) {
+		var accommodation *domain.Accommodation
+		err := cursor.Decode(&accommodation)
+		if err != nil {
+			return nil, err
+		}
+
+		accommodations = append(accommodations, accommodation)
+	}
+
+	return accommodations, nil
+}
