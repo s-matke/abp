@@ -102,11 +102,8 @@ func (handler *ReservationHandler) GetAllPendingByAccommodation(ctx context.Cont
 	}
 
 	for _, reservation := range reservations {
-		fmt.Println("Price: ", reservation.Price)
-		fmt.Println("Acc Id: ", reservation.AccommodationId)
-		// num_of_cancelled := handler.service.GetCancelledAmount(reservation.GuestId)
-		current := mapPendingReservation(reservation)
-		fmt.Println("Current: ", current.Id)
+		num_of_cancelled := handler.service.GetCancelledAmount(reservation.GuestId)
+		current := mapPendingReservation(reservation, num_of_cancelled)
 		response.Reservations = append(response.Reservations, current)
 	}
 

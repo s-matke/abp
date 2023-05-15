@@ -37,7 +37,7 @@ func (store *ReservationMongoDBStore) GetByAccommodation(id primitive.ObjectID) 
 }
 
 func (store *ReservationMongoDBStore) GetCancelledAmount(id string) int32 {
-	filter := bson.M{"guest_id": id}
+	filter := bson.M{"guest_id": id, "status": domain.CANCELLED}
 	count, err := store.reservations.CountDocuments(context.TODO(), filter)
 	if err != nil {
 		fmt.Println("Nije pronasao ni jednog user-a sa CANCELLED.")
@@ -47,7 +47,7 @@ func (store *ReservationMongoDBStore) GetCancelledAmount(id string) int32 {
 }
 
 func (store *ReservationMongoDBStore) GetAllPendingByAccommodation(id primitive.ObjectID) ([]*domain.Reservation, error) {
-	filter := bson.M{"accommodation_id:": id}
+	filter := bson.M{"accommodation_id": id, "status": domain.PENDING}
 	return store.filter(filter)
 }
 

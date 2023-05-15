@@ -64,7 +64,7 @@ func mapNewReservation(request *pb.CreateReservationRequest) *domain.Reservation
 	return reservation
 }
 
-func mapPendingReservation(reservation *domain.Reservation) *pb.PendingReservation {
+func mapPendingReservation(reservation *domain.Reservation, numOfCancelled int32) *pb.PendingReservation {
 
 	reservationPb := &pb.PendingReservation{
 		Id:             reservation.Id.Hex(),
@@ -73,6 +73,7 @@ func mapPendingReservation(reservation *domain.Reservation) *pb.PendingReservati
 		EndDate:        timestamppb.New(reservation.EndDate),
 		NumOfGuests:    int32(reservation.NumOfGuests),
 		Price:          reservation.Price,
+		NumOfCancelled: numOfCancelled,
 	}
 
 	return reservationPb

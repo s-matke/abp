@@ -29,7 +29,7 @@ service ReservationService {
 
     rpc GetAllPendingByAccommodation(GetAllPendingByAccommodationRequest) returns(GetAllPendingByAccommodationResponse) {
         option (google.api.http) = {
-            get: "/reservation/{id}/pending"
+            get: "/reservation/pending/{id}"
         };
     }
 }
@@ -71,6 +71,7 @@ message PendingReservation {
     google.protobuf.Timestamp endDate = 4;
     int32 num_of_guests = 5;
     float price = 6;
+    int32 num_of_cancelled = 7;
 }
 
 message Reservation {
