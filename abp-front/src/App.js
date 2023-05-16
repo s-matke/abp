@@ -4,18 +4,18 @@ import {BrowserRouter, Routes, Route} from "react-router-dom";
 import { ToastContainer, toast } from 'react-toastify';
 
 import Sidebar from "./components/Sidebar/Sidebar";
-import Register from './Pages/Register';
-import CreateAccommodation from './Pages/CreateAccommodation';
-import UpdateUser from './Pages/UpdateUser';
-import ShowAccommodation from './Pages/ShowAccommodation';
+import Register from './pages/Register';
+import CreateAccommodation from './pages/CreateAccommodation';
+import UpdateUser from './pages/UpdateUser';
+import ShowAccommodation from './pages/ShowAccommodation';
 
-import Login from './Pages/Login';
-import CancelReservation from './Pages/CancelReservation';
+import Login from './pages/Login';
+import CancelReservation from './pages/CancelReservation';
 import { AuthProvider } from './context/AuthContext';
 
 // import Accommodation from './pages/Accommodation';
-import ShowReservation from './Pages/ShowReservation';
-import Accommodation from './Pages/Accommodation';
+import ShowReservation from './pages/ShowReservation';
+import Accommodation from './pages/Accommodation';
 
 function App() {
   return (

@@ -46,6 +46,11 @@ export const SidebarData = [
     icon: <FaIcons.FaUserAlt />,
   },
   {
+    "title": "Reservation",
+    "path": "/reservation",
+    "role": ['guest']
+  },
+  {
     title: "Sign Up",
     path: "/signup",
     role: ['unknown'],

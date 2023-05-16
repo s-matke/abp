@@ -171,6 +171,8 @@ func (handler *ReservationHandler) CancelReservation(ctx context.Context, reques
 		return nil, err
 	}
 
-	return nil, nil
+	response := &pb.CancelReservationResponse{}
+
+	return response, nil
 
 }
