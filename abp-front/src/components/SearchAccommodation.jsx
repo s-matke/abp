@@ -159,6 +159,7 @@ const filterExcludedDates = (date) => {
             <LabelInputDiv>
         <Label htmlFor="departure">Od Kog Datuma:</Label>
         <DatePicker
+        dateFormat={'dd/MM/yyyy'}
       selected={startDate}
       onChange={(date) => setStartDate(date)}
       filterDate={filterExcludedDates}
@@ -167,6 +168,7 @@ const filterExcludedDates = (date) => {
 <LabelInputDiv>
 <Label htmlFor="departure">Do Kog Datuma:</Label>
 <DatePicker
+      dateFormat={'dd/MM/yyyy'}
       selected={endDate}
       onChange={(date) => setEndDate(date)}
       filterDate={filterExcludedDates}
